@@ -126,7 +126,7 @@
   const moduleModalTitle = document.querySelector('[data-module-modal-title]');
   const moduleModalDetails = document.querySelector('[data-module-modal-details]');
   const moduleModalClose = document.querySelector('[data-module-modal-close]');
-  const moduleModalContact = document.querySelector('[data-module-modal-contact]');
+  const moduleModalWishlist = document.querySelector('[data-module-modal-wishlist]');
   const moduleModalPrev = document.querySelector('[data-module-modal-prev]');
   const moduleModalNext = document.querySelector('[data-module-modal-next]');
   const moduleCards = Array.from(document.querySelectorAll('.module-card'));
@@ -144,8 +144,7 @@
     wishlist = [];
   }
 
-  function updateContactEmail(){
-    if(!contactEmail) return;
+  function buildContactEmail(){
     const selectedAnimations = wishlist.length
       ? wishlist.map(animation => '- ' + animation).join('\n')
       : '- Aucune animation sélectionnée pour le moment';
@@ -168,23 +167,55 @@
       '',
       'Cordialement'
     ].join('\n');
-    contactEmail.href = 'mailto:contact@epeechaudron.fr?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    const recipient = 'contact@epeechaudron.fr';
+    return {
+      body,
+      clipboardText: 'À : ' + recipient + '\nObjet : ' + subject + '\n\n' + body,
+      url: 'mailto:' + recipient + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body)
+    };
   }
 
-  function showWishlistNotification(animation, action){
+  function updateContactEmail(){
+    if(!contactEmail) return;
+    contactEmail.href = buildContactEmail().url;
+  }
+
+  function showNotification(message){
     if(!wishlistNotification) return;
-    if(action === 'removed'){
-      wishlistNotification.textContent = 'L’animation « ' + animation + ' » a été retirée de votre liste de souhaits.';
-    } else if(action === 'already-selected'){
-      wishlistNotification.textContent = 'L’animation « ' + animation + ' » figure déjà dans votre liste de souhaits.';
-    } else {
-      wishlistNotification.textContent = 'L’animation « ' + animation + ' » a été ajoutée à votre liste de souhaits pour prendre contact avec nous.';
-    }
+    wishlistNotification.textContent = message;
     wishlistNotification.classList.add('is-visible');
     window.clearTimeout(notificationTimer);
     notificationTimer = window.setTimeout(() => {
       wishlistNotification.classList.remove('is-visible');
-    }, 4200);
+    }, 5200);
+  }
+
+  function copyContactEmail(text){
+    if(navigator.clipboard && window.isSecureContext){
+      return navigator.clipboard.writeText(text);
+    }
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', '');
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand('copy');
+    textarea.remove();
+    return copied ? Promise.resolve() : Promise.reject(new Error('Clipboard unavailable'));
+  }
+
+  function showWishlistNotification(animation, action){
+    let message;
+    if(action === 'removed'){
+      message = 'L’animation « ' + animation + ' » a été retirée de votre liste de souhaits.';
+    } else if(action === 'already-selected'){
+      message = 'L’animation « ' + animation + ' » figure déjà dans votre liste de souhaits.';
+    } else {
+      message = 'L’animation « ' + animation + ' » a été ajoutée à votre liste de souhaits pour prendre contact avec nous.';
+    }
+    showNotification(message);
   }
 
   function updateWishlistButtons(){
@@ -199,6 +230,20 @@
         ? 'Retirer de votre liste : ' + title.textContent.trim()
         : 'Ajouter à votre liste : ' + title.textContent.trim());
     });
+    updateModalWishlistButton();
+  }
+
+  function updateModalWishlistButton(){
+    if(!moduleModalWishlist || !moduleTrigger) return;
+    const title = moduleTrigger.querySelector('h3');
+    if(!title) return;
+    const animation = title.textContent.trim();
+    const selected = wishlist.includes(animation);
+    moduleModalWishlist.setAttribute('aria-pressed', String(selected));
+    moduleModalWishlist.textContent = selected ? '♥' : '♡';
+    moduleModalWishlist.setAttribute('aria-label', selected
+      ? 'Retirer de votre liste : ' + animation
+      : 'Ajouter à votre liste : ' + animation);
   }
 
   function saveWishlist(){
@@ -209,19 +254,6 @@
     }
     updateContactEmail();
     updateWishlistButtons();
-  }
-
-  function addModuleToWishlist(card){
-    if(!card) return;
-    const title = card.querySelector('h3');
-    if(!title) return;
-    const animation = title.textContent.trim();
-    const alreadySelected = wishlist.includes(animation);
-    if(!alreadySelected){
-      wishlist.push(animation);
-      saveWishlist();
-    }
-    showWishlistNotification(animation, alreadySelected ? 'already-selected' : 'added');
   }
 
   function toggleModuleWishlist(card){
@@ -241,11 +273,25 @@
     }
   }
 
-  function addCurrentModuleToWishlist(){
-    addModuleToWishlist(moduleTrigger);
-  }
-
   updateContactEmail();
+  if(contactEmail){
+    contactEmail.addEventListener('click', event => {
+      event.preventDefault();
+      const email = buildContactEmail();
+      copyContactEmail(email.clipboardText)
+        .then(() => {
+          window.setTimeout(() => {
+            showNotification('Si votre messagerie ne s’est pas ouverte, vous n’avez plus qu’à coller le presse-papiers dans un mail.');
+          }, 700);
+        })
+        .catch(() => {
+          window.setTimeout(() => {
+            showNotification('Votre messagerie n’a peut-être pas pu s’ouvrir et la copie a échoué. Écrivez à contact@epeechaudron.fr.');
+          }, 700);
+        });
+      window.location.href = email.url;
+    });
+  }
 
   function openModuleModal(card){
     if(!moduleModal) return;
@@ -258,6 +304,7 @@
     moduleModalImage.alt = image.alt;
     moduleModalTitle.textContent = title.textContent;
     moduleModalDetails.innerHTML = details.innerHTML;
+    updateModalWishlistButton();
     moduleModal.hidden = false;
     document.body.style.overflow = 'hidden';
     moduleModalClose.focus();
@@ -309,7 +356,7 @@
   if(moduleModalClose) moduleModalClose.addEventListener('click', closeModuleModal);
   if(moduleModalPrev) moduleModalPrev.addEventListener('click', () => showRelativeModule(-1));
   if(moduleModalNext) moduleModalNext.addEventListener('click', () => showRelativeModule(1));
-  if(moduleModalContact) moduleModalContact.addEventListener('click', addCurrentModuleToWishlist);
+  if(moduleModalWishlist) moduleModalWishlist.addEventListener('click', () => toggleModuleWishlist(moduleTrigger));
   if(moduleModal) moduleModal.addEventListener('click', event => {
     if(event.target === moduleModal) closeModuleModal();
   });
