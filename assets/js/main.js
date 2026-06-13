@@ -14,6 +14,40 @@
     });
   }
 
+  if(nav){
+    const navLinks = Array.from(nav.querySelectorAll('a[href^="#"]'));
+    const navSections = navLinks
+      .map(link => ({link, section: document.querySelector(link.getAttribute('href'))}))
+      .filter(item => item.section);
+    let navTicking = false;
+
+    function updateActiveNav(){
+      const readingLine = window.scrollY + window.innerHeight * .42;
+      let activeItem = null;
+      navSections.forEach(item => {
+        if(item.section.offsetTop <= readingLine) activeItem = item;
+      });
+      navSections.forEach(item => {
+        if(item === activeItem){
+          item.link.setAttribute('aria-current', 'page');
+        } else {
+          item.link.removeAttribute('aria-current');
+        }
+      });
+      navTicking = false;
+    }
+
+    function requestActiveNavUpdate(){
+      if(navTicking) return;
+      navTicking = true;
+      window.requestAnimationFrame(updateActiveNav);
+    }
+
+    window.addEventListener('scroll', requestActiveNavUpdate, {passive: true});
+    window.addEventListener('resize', requestActiveNavUpdate);
+    updateActiveNav();
+  }
+
   document.querySelectorAll('[data-tabs]').forEach((tabsRoot) => {
     const tabs = tabsRoot.querySelectorAll('[data-tab]');
     const panels = tabsRoot.querySelectorAll('[data-panel]');
