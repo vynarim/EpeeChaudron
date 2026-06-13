@@ -1,0 +1,14 @@
+{
+  "name": "epee-chaudron-site",
+  "version": "0.3.0",
+  "private": true,
+  "description": "Site statique mobile-first pour L’Épée et le Chaudron.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "preview": "vite preview --host 0.0.0.0",
+    "check": "node scripts/check-project.mjs"
+  },
+  "devDependencies": {
+    "vite": "latest"
+  }
+}

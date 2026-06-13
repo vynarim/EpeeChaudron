@@ -1,0 +1,307 @@
+(function(){
+  const menuButton = document.querySelector('[data-menu-button]');
+  const nav = document.querySelector('[data-nav]');
+  if(menuButton && nav){
+    menuButton.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      menuButton.setAttribute('aria-expanded', String(open));
+    });
+    nav.addEventListener('click', (event) => {
+      if(event.target.matches('a')){
+        nav.classList.remove('is-open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  document.querySelectorAll('[data-tabs]').forEach((tabsRoot) => {
+    const tabs = tabsRoot.querySelectorAll('[data-tab]');
+    const panels = tabsRoot.querySelectorAll('[data-panel]');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const id = tab.dataset.tab;
+        tabs.forEach(t => { t.classList.toggle('is-active', t === tab); t.setAttribute('aria-selected', String(t === tab)); });
+        panels.forEach(panel => panel.classList.toggle('is-active', panel.dataset.panel === id));
+      });
+    });
+  });
+
+  const photos = window.EC_PHOTOS || [];
+  const filterHost = document.querySelector('[data-gallery-filters]');
+  const gallery = document.querySelector('[data-gallery-grid]');
+  const lightbox = document.querySelector('[data-lightbox]');
+  const lightboxImg = document.querySelector('[data-lightbox-image]');
+  const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+  const lightboxClose = document.querySelector('[data-lightbox-close]');
+  let active = 'Toutes';
+
+  function categories(){
+    return ['Toutes', ...Array.from(new Set(photos.map(p => p.category)))];
+  }
+  function renderFilters(){
+    if(!filterHost) return;
+    filterHost.innerHTML = '';
+    categories().forEach(cat => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'filter' + (cat === active ? ' is-active' : '');
+      button.textContent = cat;
+      button.addEventListener('click', () => { active = cat; renderFilters(); renderGallery(); });
+      filterHost.appendChild(button);
+    });
+  }
+  function renderGallery(){
+    if(!gallery) return;
+    gallery.innerHTML = '';
+    photos.filter(p => active === 'Toutes' || p.category === active).forEach(photo => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.setAttribute('aria-label', 'Voir la photo : ' + photo.title);
+      const img = document.createElement('img');
+      img.src = photo.thumb;
+      img.alt = photo.alt;
+      img.loading = 'lazy';
+      const caption = document.createElement('span');
+      caption.textContent = photo.title;
+      button.append(img, caption);
+      button.addEventListener('click', () => openLightbox(photo));
+      gallery.appendChild(button);
+    });
+  }
+  function openLightbox(photo){
+    if(!lightbox) return;
+    lightboxImg.src = photo.src;
+    lightboxImg.alt = photo.alt;
+    lightboxCaption.textContent = photo.title;
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    if(!lightbox) return;
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+  if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if(lightbox) lightbox.addEventListener('click', event => { if(event.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', event => { if(event.key === 'Escape') closeLightbox(); });
+  renderFilters(); renderGallery();
+
+  const moduleModal = document.querySelector('[data-module-modal]');
+  const moduleModalImage = document.querySelector('[data-module-modal-image]');
+  const moduleModalTitle = document.querySelector('[data-module-modal-title]');
+  const moduleModalDetails = document.querySelector('[data-module-modal-details]');
+  const moduleModalClose = document.querySelector('[data-module-modal-close]');
+  const moduleModalContact = document.querySelector('[data-module-modal-contact]');
+  const moduleModalPrev = document.querySelector('[data-module-modal-prev]');
+  const moduleModalNext = document.querySelector('[data-module-modal-next]');
+  const moduleCards = Array.from(document.querySelectorAll('.module-card'));
+  const contactEmail = document.querySelector('[data-contact-email]');
+  const wishlistNotification = document.querySelector('[data-wishlist-notification]');
+  const wishlistStorageKey = 'epee-chaudron-animation-wishlist';
+  let wishlist = [];
+  let notificationTimer = null;
+  let moduleTrigger = null;
+
+  try {
+    const savedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey) || '[]');
+    if(Array.isArray(savedWishlist)) wishlist = savedWishlist.filter(item => typeof item === 'string');
+  } catch(error) {
+    wishlist = [];
+  }
+
+  function updateContactEmail(){
+    if(!contactEmail) return;
+    const selectedAnimations = wishlist.length
+      ? wishlist.map(animation => '- ' + animation).join('\n')
+      : '- Aucune animation sélectionnée pour le moment';
+    const subject = 'Demande de contact - animations médiévales';
+    const body = [
+      'Bonjour,',
+      '',
+      'Je souhaite obtenir des renseignements sur vos animations.',
+      '',
+      'Animations qui m’intéressent :',
+      selectedAnimations,
+      '',
+      'Nom :',
+      'Commune / organisme :',
+      'Date envisagée :',
+      'Type de public :',
+      'Téléphone :',
+      '',
+      'Message :',
+      '',
+      'Cordialement'
+    ].join('\n');
+    contactEmail.href = 'mailto:contact@epeechaudron.fr?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  }
+
+  function showWishlistNotification(animation, alreadySelected){
+    if(!wishlistNotification) return;
+    wishlistNotification.textContent = alreadySelected
+      ? 'L’animation « ' + animation + ' » figure déjà dans votre liste de souhaits.'
+      : 'L’animation « ' + animation + ' » a été ajoutée à votre liste de souhaits pour prendre contact avec nous.';
+    wishlistNotification.classList.add('is-visible');
+    window.clearTimeout(notificationTimer);
+    notificationTimer = window.setTimeout(() => {
+      wishlistNotification.classList.remove('is-visible');
+    }, 4200);
+  }
+
+  function updateWishlistButtons(){
+    moduleCards.forEach(card => {
+      const title = card.querySelector('h3');
+      const button = card.querySelector('[data-module-wishlist]');
+      if(!title || !button) return;
+      const selected = wishlist.includes(title.textContent.trim());
+      button.setAttribute('aria-pressed', String(selected));
+      button.textContent = selected ? '♥' : '♡';
+      button.setAttribute('aria-label', selected
+        ? 'Animation déjà ajoutée à votre liste : ' + title.textContent.trim()
+        : 'Ajouter à votre liste : ' + title.textContent.trim());
+    });
+  }
+
+  function addModuleToWishlist(card){
+    if(!card) return;
+    const title = card.querySelector('h3');
+    if(!title) return;
+    const animation = title.textContent.trim();
+    const alreadySelected = wishlist.includes(animation);
+    if(!alreadySelected){
+      wishlist.push(animation);
+      try {
+        localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlist));
+      } catch(error) {
+        // The list remains available for the current page if storage is unavailable.
+      }
+      updateContactEmail();
+      updateWishlistButtons();
+    }
+    showWishlistNotification(animation, alreadySelected);
+  }
+
+  function addCurrentModuleToWishlist(){
+    addModuleToWishlist(moduleTrigger);
+  }
+
+  updateContactEmail();
+
+  function openModuleModal(card){
+    if(!moduleModal) return;
+    const image = card.querySelector('img');
+    const title = card.querySelector('h3');
+    const details = card.querySelector('.module-details');
+    if(!image || !title || !details) return;
+    moduleTrigger = card;
+    moduleModalImage.src = image.src;
+    moduleModalImage.alt = image.alt;
+    moduleModalTitle.textContent = title.textContent;
+    moduleModalDetails.innerHTML = details.innerHTML;
+    moduleModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    moduleModalClose.focus();
+  }
+
+  function showRelativeModule(offset){
+    if(!moduleTrigger || !moduleCards.length) return;
+    const currentIndex = moduleCards.indexOf(moduleTrigger);
+    const nextIndex = (currentIndex + offset + moduleCards.length) % moduleCards.length;
+    openModuleModal(moduleCards[nextIndex]);
+  }
+
+  function closeModuleModal(){
+    if(!moduleModal || moduleModal.hidden) return;
+    moduleModal.hidden = true;
+    moduleModalImage.src = '';
+    moduleModalDetails.innerHTML = '';
+    document.body.style.overflow = '';
+    if(moduleTrigger) moduleTrigger.focus();
+  }
+
+  moduleCards.forEach(card => {
+    const title = card.querySelector('h3');
+    const wishlistButton = document.createElement('button');
+    wishlistButton.type = 'button';
+    wishlistButton.className = 'module-wishlist';
+    wishlistButton.dataset.moduleWishlist = '';
+    wishlistButton.setAttribute('aria-pressed', 'false');
+    wishlistButton.setAttribute('aria-label', 'Ajouter à votre liste : ' + (title ? title.textContent.trim() : 'cette animation'));
+    wishlistButton.textContent = '♡';
+    wishlistButton.addEventListener('click', event => {
+      event.stopPropagation();
+      addModuleToWishlist(card);
+    });
+    wishlistButton.addEventListener('keydown', event => {
+      event.stopPropagation();
+    });
+    card.appendChild(wishlistButton);
+    card.addEventListener('click', () => openModuleModal(card));
+    card.addEventListener('keydown', event => {
+      if(event.target !== card) return;
+      if(event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        openModuleModal(card);
+      }
+    });
+  });
+  updateWishlistButtons();
+  if(moduleModalClose) moduleModalClose.addEventListener('click', closeModuleModal);
+  if(moduleModalPrev) moduleModalPrev.addEventListener('click', () => showRelativeModule(-1));
+  if(moduleModalNext) moduleModalNext.addEventListener('click', () => showRelativeModule(1));
+  if(moduleModalContact) moduleModalContact.addEventListener('click', addCurrentModuleToWishlist);
+  if(moduleModal) moduleModal.addEventListener('click', event => {
+    if(event.target === moduleModal) closeModuleModal();
+  });
+  document.addEventListener('keydown', event => {
+    if(!moduleModal || moduleModal.hidden) return;
+    if(event.key === 'Escape'){
+      closeModuleModal();
+      return;
+    }
+    if(event.key === 'ArrowLeft'){
+      showRelativeModule(-1);
+      return;
+    }
+    if(event.key === 'ArrowRight'){
+      showRelativeModule(1);
+      return;
+    }
+    if(event.key !== 'Tab') return;
+    const focusable = moduleModal.querySelectorAll('button:not([disabled]),a[href]');
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if(event.shiftKey && document.activeElement === first){
+      event.preventDefault();
+      last.focus();
+    } else if(!event.shiftKey && document.activeElement === last){
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  const backToTop = document.querySelector('[data-back-to-top]');
+  if(backToTop){
+    const updateBackToTop = () => {
+      backToTop.classList.toggle('is-visible', window.scrollY > window.innerHeight);
+    };
+    window.addEventListener('scroll', updateBackToTop, {passive: true});
+    window.addEventListener('resize', updateBackToTop);
+    backToTop.addEventListener('click', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({top: 0, behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+    updateBackToTop();
+  }
+
+  const reveals = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    reveals.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+    }, {threshold: .08});
+    reveals.forEach(el => observer.observe(el));
+  }
+})();
