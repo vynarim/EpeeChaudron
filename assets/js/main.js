@@ -171,11 +171,15 @@
     contactEmail.href = 'mailto:contact@epeechaudron.fr?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }
 
-  function showWishlistNotification(animation, alreadySelected){
+  function showWishlistNotification(animation, action){
     if(!wishlistNotification) return;
-    wishlistNotification.textContent = alreadySelected
-      ? 'L’animation « ' + animation + ' » figure déjà dans votre liste de souhaits.'
-      : 'L’animation « ' + animation + ' » a été ajoutée à votre liste de souhaits pour prendre contact avec nous.';
+    if(action === 'removed'){
+      wishlistNotification.textContent = 'L’animation « ' + animation + ' » a été retirée de votre liste de souhaits.';
+    } else if(action === 'already-selected'){
+      wishlistNotification.textContent = 'L’animation « ' + animation + ' » figure déjà dans votre liste de souhaits.';
+    } else {
+      wishlistNotification.textContent = 'L’animation « ' + animation + ' » a été ajoutée à votre liste de souhaits pour prendre contact avec nous.';
+    }
     wishlistNotification.classList.add('is-visible');
     window.clearTimeout(notificationTimer);
     notificationTimer = window.setTimeout(() => {
@@ -192,9 +196,19 @@
       button.setAttribute('aria-pressed', String(selected));
       button.textContent = selected ? '♥' : '♡';
       button.setAttribute('aria-label', selected
-        ? 'Animation déjà ajoutée à votre liste : ' + title.textContent.trim()
+        ? 'Retirer de votre liste : ' + title.textContent.trim()
         : 'Ajouter à votre liste : ' + title.textContent.trim());
     });
+  }
+
+  function saveWishlist(){
+    try {
+      localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlist));
+    } catch(error) {
+      // The list remains available for the current page if storage is unavailable.
+    }
+    updateContactEmail();
+    updateWishlistButtons();
   }
 
   function addModuleToWishlist(card){
@@ -205,15 +219,26 @@
     const alreadySelected = wishlist.includes(animation);
     if(!alreadySelected){
       wishlist.push(animation);
-      try {
-        localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlist));
-      } catch(error) {
-        // The list remains available for the current page if storage is unavailable.
-      }
-      updateContactEmail();
-      updateWishlistButtons();
+      saveWishlist();
     }
-    showWishlistNotification(animation, alreadySelected);
+    showWishlistNotification(animation, alreadySelected ? 'already-selected' : 'added');
+  }
+
+  function toggleModuleWishlist(card){
+    if(!card) return;
+    const title = card.querySelector('h3');
+    if(!title) return;
+    const animation = title.textContent.trim();
+    const animationIndex = wishlist.indexOf(animation);
+    if(animationIndex === -1){
+      wishlist.push(animation);
+      saveWishlist();
+      showWishlistNotification(animation, 'added');
+    } else {
+      wishlist.splice(animationIndex, 1);
+      saveWishlist();
+      showWishlistNotification(animation, 'removed');
+    }
   }
 
   function addCurrentModuleToWishlist(){
@@ -265,7 +290,7 @@
     wishlistButton.textContent = '♡';
     wishlistButton.addEventListener('click', event => {
       event.stopPropagation();
-      addModuleToWishlist(card);
+      toggleModuleWishlist(card);
     });
     wishlistButton.addEventListener('keydown', event => {
       event.stopPropagation();
