@@ -57,7 +57,7 @@
       <div class="hero-image">
         <picture>
           <source media="(max-width: 720px)" srcset="assets/img/full/accueil-troupe-camp.webp">
-          <img src="assets/img/full/accueil-troupe-camp.webp" alt="La troupe costumée devant son camp médiéval">
+          <img src="assets/img/full/accueil-troupe-camp.webp" alt="La troupe costumée devant son camp médiéval" width="1600" height="900" fetchpriority="high">
         </picture>
         <div class="hero-badge">Alpes-Maritimes · association loi 1901</div>
       </div>
@@ -78,10 +78,9 @@
     <section class="section intro" aria-labelledby="intro-title">
       <div class="container intro-grid">
         <div class="intro-banner reveal">
-          <img src="assets/img/full/intro-banniere-association.webp" alt="Bannière bleue et jaune de L’Épée et le Chaudron">
+          <img src="assets/img/full/intro-banniere-association.webp" alt="Bannière bleue et jaune de L’Épée et le Chaudron" width="960" height="956" loading="lazy" decoding="async">
         </div>
         <div class="intro-text reveal">
-          <p class="eyebrow">Notre proposition</p>
           <h2 id="intro-title">Voir, toucher, comprendre</h2>
           <p>Le camp n’est pas un simple décor. Il est habité : on y cuisine, on y travaille, on y explique les objets, les gestes et les usages. Le public observe, questionne et participe.</p>
         </div>
@@ -96,13 +95,18 @@
     <section id="animations" class="section paper" aria-labelledby="animations-title">
       <div class="container">
         <div class="section-title reveal">
-          <p class="eyebrow">Animations</p>
           <h2 id="animations-title">Des modules courts, lisibles, interconnectés</h2>
           <p>Chaque animation peut être proposée seule ou intégrée à un campement complet.</p>
         </div>
+        <div class="module-filters" role="group" aria-label="Filtrer les animations par thème">
+          <button type="button" class="module-filter is-active" data-module-filter="toutes">Toutes</button>
+          <button type="button" class="module-filter" data-module-filter="camp">Vie de camp</button>
+          <button type="button" class="module-filter" data-module-filter="ateliers">Ateliers &amp; savoir-faire</button>
+          <button type="button" class="module-filter" data-module-filter="armes">Armes &amp; justice</button>
+        </div>
         <div class="cards compact-cards">
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-cuisine-feu.webp" alt="Cuisine au feu médiévale">
+          <article class="card module-card reveal" data-category="ateliers" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-cuisine-feu.webp" alt="Cuisine au feu médiévale" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Cuisine au feu</h3><p>Feu, ustensiles, recettes, gestes quotidiens et arts de la table.</p></div>
             <div class="module-details" hidden>
               <p>Autour du foyer, le public découvre comment on préparait et partageait les repas au Moyen Âge. Les explications portent sur l’allumage et l’entretien du feu, les ustensiles, les modes de cuisson, les ingrédients disponibles et l’organisation quotidienne du camp.</p>
@@ -111,8 +115,8 @@
               <ul><li>Foyer, chaudrons et ustensiles</li><li>Recettes et ingrédients historiques</li><li>Gestes quotidiens et service de table</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-heraldique.webp" alt="Atelier d’héraldique">
+          <article class="card module-card reveal" data-category="ateliers" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-heraldique.webp" alt="Atelier d’héraldique" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Héraldique</h3><p>Couleurs, meubles, blasons et atelier très visuel pour le public.</p></div>
             <div class="module-details" hidden>
               <p>L’héraldique est présentée comme un langage visuel construit pour identifier une personne, une famille ou une communauté. Le public apprend à reconnaître les couleurs, les partitions et les figures qui composent un blason.</p>
@@ -121,8 +125,8 @@
               <ul><li>Vocabulaire et règles de composition</li><li>Lecture de blasons et de bannières</li><li>Création guidée d’armoiries</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-armes-armures.webp" alt="Présentation d’armes médiévales au public">
+          <article class="card module-card reveal" data-category="armes" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-armes-armures.webp" alt="Présentation d’armes médiévales au public" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Armes et armures</h3><p>Présentation encadrée du matériel, de son usage et de son évolution.</p></div>
             <div class="module-details" hidden>
               <p>Cette présentation replace les armes et les protections dans leur contexte historique. Formes, matériaux, poids, entretien et évolution sont expliqués à partir de reproductions manipulées par les membres de l’association.</p>
@@ -131,8 +135,8 @@
               <ul><li>Équipement du combattant</li><li>Fabrication, entretien et évolution</li><li>Démonstrations commentées et sécurisées</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-textile-tissage.webp" alt="Démonstration de tissage médiéval">
+          <article class="card module-card reveal" data-category="ateliers" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-textile-tissage.webp" alt="Démonstration de tissage médiéval" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Textile et tissage</h3><p>Une animation calme, pédagogique et très adaptée aux familles.</p></div>
             <div class="module-details" hidden>
               <p>De la fibre au vêtement, cette animation montre les nombreuses étapes nécessaires avant de pouvoir se vêtir. Le public observe les matières, les outils et les gestes liés au filage, au tissage et aux finitions.</p>
@@ -141,8 +145,8 @@
               <ul><li>Fibres, fils et teintures</li><li>Outils et techniques de tissage</li><li>Vêtements et usages selon les époques</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-ecriture-scribe.webp" alt="Scribe médiéval dans une tente">
+          <article class="card module-card reveal" data-category="ateliers" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-ecriture-scribe.webp" alt="Scribe médiéval dans une tente" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Écriture et pigments</h3><p>Calligraphie, supports, couleurs et petits objets de camp.</p></div>
             <div class="module-details" hidden>
               <p>Le public découvre les supports de l’écrit, les outils du scribe et la préparation des couleurs. La démonstration permet de comprendre la lenteur du geste, le coût des matériaux et la valeur accordée aux documents.</p>
@@ -151,8 +155,8 @@
               <ul><li>Plumes, encres et supports</li><li>Fabrication et usage des pigments</li><li>Calligraphie et décor des manuscrits</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-vie-camp.webp" alt="Tente médiévale rose et grise">
+          <article class="card module-card reveal" data-category="camp" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-vie-camp.webp" alt="Tente médiévale rose et grise" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Vie de camp</h3><p>Tentes, mobilier, tables, costumes et interactions continues.</p></div>
             <div class="module-details" hidden>
               <p>La vie de camp relie tous les autres modules. Tentes, mobilier, vêtements, repas et activités composent un espace habité dans lequel le public peut circuler et échanger avec les membres de la mesnie.</p>
@@ -161,8 +165,8 @@
               <ul><li>Installation et organisation du camp</li><li>Mobilier, costumes et objets quotidiens</li><li>Échanges continus avec les visiteurs</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/full/animations-bourreau-desktop.webp" alt="Personnage du bourreau devant le camp médiéval">
+          <article class="card module-card reveal" data-category="armes" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/full/animations-bourreau-desktop.webp" alt="Personnage du bourreau devant le camp médiéval" width="1600" height="1000" loading="lazy" decoding="async">
             <div><h3>Bourreau</h3><p>Justice médiévale, métier du bourreau, croyances et idées reçues.</p></div>
             <div class="module-details" hidden>
               <p>À travers le personnage du bourreau, cette animation aborde la justice au Moyen Âge, ses acteurs et les peines prononcées. Le public découvre un métier à part, entouré de nombreuses croyances et souvent très différent de l’image transmise par les films.</p>
@@ -171,8 +175,8 @@
               <ul><li>Justice et peines au Moyen Âge</li><li>Statut et quotidien du bourreau</li><li>Mythes, croyances et réalité historique</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-lessive-cendre.webp" alt="Objets de la vie quotidienne sur le camp médiéval">
+          <article class="card module-card reveal" data-category="camp" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-lessive-cendre.webp" alt="Objets de la vie quotidienne sur le camp médiéval" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Lessive à la cendre</h3><p>Une démonstration concrète des techniques d’entretien du linge.</p></div>
             <div class="module-details" hidden>
               <p>Cette animation explique comment les propriétés de la cendre étaient utilisées pour laver le linge. Les différentes étapes sont présentées depuis la préparation de la lessive jusqu’au rinçage, avec les récipients et les gestes associés.</p>
@@ -181,8 +185,8 @@
               <ul><li>Préparation de la lessive de cendre</li><li>Lavage, rinçage et séchage du linge</li><li>Hygiène et tâches domestiques</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-jeux-societe.webp" alt="Jeux et supports pédagogiques disposés sur une table">
+          <article class="card module-card reveal" data-category="camp" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-jeux-societe.webp" alt="Jeux et supports pédagogiques disposés sur une table" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Jeux de société</h3><p>Découverte de jeux historiques simples, rapides et participatifs.</p></div>
             <div class="module-details" hidden>
               <p>Des jeux de plateau, de stratégie ou d’adresse permettent aux visiteurs de s’installer quelques minutes et de partager une activité accessible. Les règles sont expliquées par un membre de l’association avant de laisser place à la partie.</p>
@@ -191,8 +195,8 @@
               <ul><li>Présentation des jeux et de leurs règles</li><li>Parties guidées pour petits et grands</li><li>Stratégie, hasard et sociabilité</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-combats-enfants.webp" alt="Initiation encadrée autour des armes médiévales">
+          <article class="card module-card reveal" data-category="armes" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-combats-enfants.webp" alt="Initiation encadrée autour des armes médiévales" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Combats enfants</h3><p>Une initiation ludique, encadrée et adaptée aux jeunes participants.</p></div>
             <div class="module-details" hidden>
               <p>Les enfants découvrent quelques principes simples du combat médiéval à travers une activité ludique entièrement encadrée. Les consignes, l’espace et le matériel sont adaptés à leur âge pour privilégier l’écoute, la maîtrise du geste et le plaisir de participer.</p>
@@ -201,8 +205,8 @@
               <ul><li>Consignes et gestes de base</li><li>Matériel adapté aux enfants</li><li>Activité encadrée en petits groupes</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-duel-judiciaire.webp" alt="Armes et armure utilisées pour une démonstration historique">
+          <article class="card module-card reveal" data-category="armes" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-duel-judiciaire.webp" alt="Armes et armure utilisées pour une démonstration historique" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Duel judiciaire</h3><p>Une démonstration commentée autour du jugement par le combat.</p></div>
             <div class="module-details" hidden>
               <p>Le duel judiciaire est replacé dans son contexte juridique et social avant une démonstration scénarisée. Le public découvre pourquoi un combat pouvait être autorisé, quelles règles l’encadraient et quelle place il occupait dans la résolution de certains conflits.</p>
@@ -211,8 +215,8 @@
               <ul><li>Contexte juridique et déroulement</li><li>Équipement et règles du duel</li><li>Démonstration scénarisée et commentée</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-forge.webp" alt="Objets métalliques et outils évoquant le travail de forge">
+          <article class="card module-card reveal" data-category="ateliers" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-forge.webp" alt="Objets métalliques et outils évoquant le travail de forge" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Forge</h3><p>Le travail du métal, les outils du forgeron et la fabrication des objets.</p></div>
             <div class="module-details" hidden>
               <p>Cette animation présente le métier du forgeron et les principales étapes nécessaires pour transformer le métal. Le public découvre le rôle du foyer, de l’enclume, du marteau et des différents outils utilisés pour chauffer, façonner et finir une pièce.</p>
@@ -221,8 +225,8 @@
               <ul><li>Foyer, soufflet, enclume et marteaux</li><li>Chauffe et mise en forme du métal</li><li>Objets produits et rôle du forgeron</li></ul>
             </div>
           </article>
-          <article class="card module-card reveal" tabindex="0" role="button" aria-haspopup="dialog">
-            <img src="assets/img/thumbs/animations-fruits-legumes.webp" alt="Fruits, légumes et aliments présentés sur le camp médiéval">
+          <article class="card module-card reveal" data-category="camp" tabindex="0" role="button" aria-haspopup="dialog">
+            <img src="assets/img/thumbs/animations-fruits-legumes.webp" alt="Fruits, légumes et aliments présentés sur le camp médiéval" width="720" height="520" loading="lazy" decoding="async">
             <div><h3>Fruits et légumes</h3><p>Produits disponibles, saisonnalité et alimentation au Moyen Âge.</p></div>
             <div class="module-details" hidden>
               <p>Cette animation invite le public à découvrir les fruits et légumes connus et consommés au Moyen Âge. Elle permet de distinguer les produits locaux, les aliments réservés à certaines régions ou catégories sociales, et ceux qui n’arriveront en Europe que plus tard.</p>
@@ -271,7 +275,7 @@
     </section>
 
     <section class="photo-band" aria-label="Ambiance du camp">
-      <img src="assets/img/full/ambiance-duo-banniere.webp" alt="Deux membres costumés devant la tente et la bannière">
+      <img src="assets/img/full/ambiance-duo-banniere.webp" alt="Deux membres costumés devant la tente et la bannière" width="1600" height="900" loading="lazy" decoding="async">
       <div>
         <span>Bleu royal · jaune or · feu</span>
         <strong>Une identité directement issue de la bannière.</strong>
@@ -281,7 +285,6 @@
     <section id="galerie" class="section blue" aria-labelledby="gallery-title">
       <div class="container">
         <div class="section-title light reveal">
-          <p class="eyebrow">Photos récentes</p>
           <h2 id="gallery-title">Notre galerie de photos</h2>
           <p>Photos locales, filtrables, avec ouverture plein écran.</p>
         </div>
@@ -293,14 +296,13 @@
     <section id="association" class="section paper association" aria-labelledby="asso-title">
       <div class="container association-grid">
         <div class="reveal">
-          <p class="eyebrow">L’association</p>
           <h2 id="asso-title">Une mesnie de passionnés, pas un décor figé</h2>
           <p>L’Épée et le Chaudron réunit des passionnés de reconstitution et de médiation historique. La force de l’association tient à la variété des objets, des personnages et des savoir-faire présentés au public.</p>
           <p>On parle autant de vie quotidienne que d’armes, autant des couleurs d’un blason que de cuisine, de textile ou d’écriture.</p>
         </div>
         <div class="image-pair reveal">
-          <img src="assets/img/thumbs/association-portrait-camp.webp" alt="Personnage costumé devant une tente médiévale">
-          <img src="assets/img/thumbs/association-atelier-blason.webp" alt="Membres de l’association devant le camp médiéval">
+          <img src="assets/img/thumbs/association-portrait-camp.webp" alt="Personnage costumé devant une tente médiévale" width="720" height="520" loading="lazy" decoding="async">
+          <img src="assets/img/thumbs/association-atelier-blason.webp" alt="Membres de l’association devant le camp médiéval" width="720" height="520" loading="lazy" decoding="async">
         </div>
       </div>
     </section>
@@ -308,7 +310,6 @@
     <section id="contact" class="section contact" aria-labelledby="contact-title">
       <div class="container contact-card reveal">
         <div>
-          <p class="eyebrow">Contact</p>
           <h2 id="contact-title">Parlez nous de votre projet, lieu et contraintes.</h2>
           <p>Indiquez la date, la commune, le type de public attendu, la surface disponible et le format souhaité. L’association pourra proposer une intervention adaptée.</p>
         </div>
@@ -327,8 +328,10 @@
     </div>
   </footer>
 
-  <div class="lightbox" data-lightbox hidden>
+  <div class="lightbox" data-lightbox role="dialog" aria-modal="true" aria-label="Photo en plein écran" hidden>
     <button class="lightbox-close" type="button" data-lightbox-close aria-label="Fermer">×</button>
+    <button class="lightbox-nav lightbox-prev" type="button" data-lightbox-prev aria-label="Photo précédente">‹</button>
+    <button class="lightbox-nav lightbox-next" type="button" data-lightbox-next aria-label="Photo suivante">›</button>
     <img src="" alt="" data-lightbox-image>
     <p data-lightbox-caption></p>
   </div>
@@ -341,7 +344,6 @@
       <img src="" alt="" data-module-modal-image>
       <div class="module-modal-content">
         <div class="module-modal-heading">
-          <p class="eyebrow">Animations</p>
           <button class="module-modal-wishlist" type="button" data-module-modal-wishlist aria-pressed="false" aria-label="Ajouter cette animation à votre liste">♡</button>
         </div>
         <h2 id="module-modal-title" data-module-modal-title></h2>

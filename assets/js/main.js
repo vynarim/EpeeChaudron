@@ -67,7 +67,11 @@
   const lightboxImg = document.querySelector('[data-lightbox-image]');
   const lightboxCaption = document.querySelector('[data-lightbox-caption]');
   const lightboxClose = document.querySelector('[data-lightbox-close]');
+  const lightboxPrev = document.querySelector('[data-lightbox-prev]');
+  const lightboxNext = document.querySelector('[data-lightbox-next]');
   let active = 'Toutes';
+  let currentPhotos = [];
+  let lightboxPhoto = null;
 
   function categories(){
     return ['Toutes', ...Array.from(new Set(photos.map(p => p.category)))];
@@ -87,7 +91,8 @@
   function renderGallery(){
     if(!gallery) return;
     gallery.innerHTML = '';
-    photos.filter(p => active === 'Toutes' || p.category === active).forEach(photo => {
+    currentPhotos = photos.filter(p => active === 'Toutes' || p.category === active);
+    currentPhotos.forEach(photo => {
       const button = document.createElement('button');
       button.type = 'button';
       button.setAttribute('aria-label', 'Voir la photo : ' + photo.title);
@@ -95,30 +100,75 @@
       img.src = photo.thumb;
       img.alt = photo.alt;
       img.loading = 'lazy';
+      img.decoding = 'async';
+      img.width = 720;
+      img.height = 520;
       const caption = document.createElement('span');
       caption.textContent = photo.title;
       button.append(img, caption);
-      button.addEventListener('click', () => openLightbox(photo));
+      button.addEventListener('click', () => openLightbox(photo, button));
       gallery.appendChild(button);
     });
   }
-  function openLightbox(photo){
+  let lightboxTrigger = null;
+  function openLightbox(photo, trigger){
     if(!lightbox) return;
+    lightboxTrigger = trigger || null;
+    lightboxPhoto = photo;
     lightboxImg.src = photo.src;
     lightboxImg.alt = photo.alt;
     lightboxCaption.textContent = photo.title;
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
+    if(lightboxClose) lightboxClose.focus();
+  }
+  function showRelativePhoto(offset){
+    if(!lightboxPhoto || !currentPhotos.length) return;
+    const currentIndex = currentPhotos.indexOf(lightboxPhoto);
+    if(currentIndex === -1) return;
+    const nextIndex = (currentIndex + offset + currentPhotos.length) % currentPhotos.length;
+    openLightbox(currentPhotos[nextIndex], lightboxTrigger);
   }
   function closeLightbox(){
-    if(!lightbox) return;
+    if(!lightbox || lightbox.hidden) return;
     lightbox.hidden = true;
     lightboxImg.src = '';
     document.body.style.overflow = '';
+    if(lightboxTrigger) lightboxTrigger.focus();
+    lightboxTrigger = null;
+    lightboxPhoto = null;
   }
   if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if(lightboxPrev) lightboxPrev.addEventListener('click', () => showRelativePhoto(-1));
+  if(lightboxNext) lightboxNext.addEventListener('click', () => showRelativePhoto(1));
   if(lightbox) lightbox.addEventListener('click', event => { if(event.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', event => { if(event.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', event => {
+    if(!lightbox || lightbox.hidden) return;
+    if(event.key === 'Escape'){
+      closeLightbox();
+      return;
+    }
+    if(event.key === 'ArrowLeft'){
+      showRelativePhoto(-1);
+      return;
+    }
+    if(event.key === 'ArrowRight'){
+      showRelativePhoto(1);
+      return;
+    }
+    if(event.key !== 'Tab') return;
+    const focusable = lightbox.querySelectorAll('button:not([disabled]),a[href]');
+    if(!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if(event.shiftKey && document.activeElement === first){
+      event.preventDefault();
+      last.focus();
+    } else if(!event.shiftKey && document.activeElement === last){
+      event.preventDefault();
+      first.focus();
+    }
+  });
   renderFilters(); renderGallery();
 
   const moduleModal = document.querySelector('[data-module-modal]');
@@ -130,6 +180,19 @@
   const moduleModalPrev = document.querySelector('[data-module-modal-prev]');
   const moduleModalNext = document.querySelector('[data-module-modal-next]');
   const moduleCards = Array.from(document.querySelectorAll('.module-card'));
+  const moduleFilterHost = document.querySelector('.module-filters');
+  if(moduleFilterHost){
+    const moduleFilterButtons = Array.from(moduleFilterHost.querySelectorAll('[data-module-filter]'));
+    moduleFilterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const value = button.dataset.moduleFilter;
+        moduleFilterButtons.forEach(b => b.classList.toggle('is-active', b === button));
+        moduleCards.forEach(card => {
+          card.hidden = value !== 'toutes' && card.dataset.category !== value;
+        });
+      });
+    });
+  }
   const contactEmail = document.querySelector('[data-contact-email]');
   const wishlistNotification = document.querySelector('[data-wishlist-notification]');
   const wishlistStorageKey = 'epee-chaudron-animation-wishlist';
