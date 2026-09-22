@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>L’Épée et le Chaudron — Camp médiéval vivant</title>
+  <title>L’Épée et le Chaudron — Mesnie de reconstitution médiévale</title>
   <meta name="description" content="Campement médiéval vivant pour fêtes médiévales, sites patrimoniaux et reconstitutions historiques. Association loi 1901 des Alpes-Maritimes, nous nous déplaçons dans la vallée du Rhône et le sud de la France.">
   <meta name="theme-color" content="#123d91">
   <link rel="icon" href="assets/img/favicon.png">
@@ -17,7 +17,7 @@
       <img src="assets/img/logo-square.webp" alt="" width="38" height="38">
       <span>
         <strong>L’Épée et le Chaudron</strong>
-        <small>Camp médiéval vivant</small>
+        <small>Mesnie de reconstitution médiévale</small>
       </span>
     </a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="menu" data-menu-button>
@@ -59,7 +59,6 @@
           <source media="(max-width: 720px)" srcset="assets/img/full/accueil-troupe-camp.webp">
           <img src="assets/img/full/accueil-troupe-camp.webp" alt="La troupe costumée devant son camp médiéval" width="1600" height="900" fetchpriority="high">
         </picture>
-        <div class="hero-badge">Alpes-Maritimes · association loi 1901</div>
       </div>
       <div class="hero-content">
         <div class="hero-card reveal">
@@ -313,7 +312,7 @@
       <img src="assets/img/full/ambiance-duo-banniere.webp" alt="Deux membres costumés devant la tente et la bannière" width="1600" height="900" loading="lazy" decoding="async">
       <div>
         <span>Alpes-Maritimes · association loi 1901</span>
-        <strong>Une mesnie de passionnés, pas un décor figé.</strong>
+        <strong>Une mesnie de passionnés, un décor vivant</strong>
       </div>
     </section>
 
@@ -419,10 +418,25 @@
       <img src="" alt="" data-module-modal-image>
       <div class="module-modal-content">
         <div class="module-modal-heading">
+          <h2 id="module-modal-title" data-module-modal-title></h2>
           <button class="module-modal-wishlist" type="button" data-module-modal-wishlist aria-pressed="false" aria-label="Ajouter cette animation à votre liste">♡</button>
         </div>
-        <h2 id="module-modal-title" data-module-modal-title></h2>
         <div class="module-modal-details" data-module-modal-details></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module-modal persona-modal" data-persona-modal role="dialog" aria-modal="true" aria-labelledby="persona-modal-title" hidden>
+    <div class="module-modal-panel persona-modal-panel">
+      <button class="module-modal-close" type="button" data-persona-modal-close aria-label="Fermer la fiche">×</button>
+      <button class="module-modal-nav module-modal-prev" type="button" data-persona-modal-prev aria-label="Personnage précédent"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="module-modal-nav module-modal-next" type="button" data-persona-modal-next aria-label="Personnage suivant"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <img alt="" data-persona-modal-image>
+      <div class="module-modal-content persona-modal-content">
+        <p class="persona-modal-role" data-persona-modal-role></p>
+        <h2 id="persona-modal-title" data-persona-modal-title></h2>
+        <div class="persona-modal-details" data-persona-modal-details></div>
+        <p class="persona-modal-counter" data-persona-modal-counter aria-live="polite"></p>
       </div>
     </div>
   </div>

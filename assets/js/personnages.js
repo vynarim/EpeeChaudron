@@ -6,6 +6,9 @@
 //   role : rôle affiché sous le nom
 //   hook : accroche d'une phrase, en italique sur la carte
 //   alt  : description de la photo pour les lecteurs d'écran
+//   texte : FACULTATIF — ce qui s'ajoute sous l'accroche dans la fiche
+//           plein écran. Une phrase, ou un tableau de paragraphes :
+//           texte: ['Premier paragraphe.', 'Second paragraphe.']
 window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-thibault.webp', name:'Thibault', role:'Bourreau', hook:'Ne vous fiez pas à son air avenant : coupable ou simple suspect, il ne versera pas une larme.', alt:'Thibault, le bourreau, bonnet rouge et plastron de cuir'},
   {img:'assets/img/personnages/personnages-margot.webp', name:'Dame Margot', role:'Cuisinière', hook:'À quand la prochaine ripaille ? Quand les chasseurs cesseront de rentrer bredouilles !', alt:'Dame Margot goûtant un plat à la cuillère'},

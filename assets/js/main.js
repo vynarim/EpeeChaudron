@@ -356,6 +356,34 @@
     });
   }
 
+  // Glissement du doigt sur une fiche ouverte : gauche pour la suivante,
+  // droite pour la précédente. Réservé au tactile — à la souris, les flèches
+  // et les touches du clavier font déjà le travail, et un cliquer-glisser
+  // servirait plutôt à sélectionner du texte.
+  function enableSwipe(element, onPrev, onNext){
+    if(!element) return;
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+    element.addEventListener('pointerdown', event => {
+      if(event.pointerType === 'mouse') return;
+      tracking = true;
+      startX = event.clientX;
+      startY = event.clientY;
+    });
+    element.addEventListener('pointercancel', () => { tracking = false; });
+    element.addEventListener('pointerup', event => {
+      if(!tracking) return;
+      tracking = false;
+      const dx = event.clientX - startX;
+      const dy = event.clientY - startY;
+      // Assez franc pour ne pas se déclencher sur un appui, et assez
+      // horizontal pour ne pas contrarier le défilement du texte.
+      if(Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if(dx < 0) onNext(); else onPrev();
+    });
+  }
+
   function openModuleModal(card){
     if(!moduleModal) return;
     const image = card.querySelector('img');
@@ -369,6 +397,7 @@
     moduleModalDetails.innerHTML = details.innerHTML;
     updateModalWishlistButton();
     moduleModal.hidden = false;
+    document.body.classList.add('is-modal-open');
     document.body.style.overflow = 'hidden';
     moduleModalClose.focus();
   }
@@ -385,6 +414,7 @@
     moduleModal.hidden = true;
     moduleModalImage.src = '';
     moduleModalDetails.innerHTML = '';
+    document.body.classList.remove('is-modal-open');
     document.body.style.overflow = '';
     if(moduleTrigger) moduleTrigger.focus();
   }
@@ -419,6 +449,8 @@
   if(moduleModalClose) moduleModalClose.addEventListener('click', closeModuleModal);
   if(moduleModalPrev) moduleModalPrev.addEventListener('click', () => showRelativeModule(-1));
   if(moduleModalNext) moduleModalNext.addEventListener('click', () => showRelativeModule(1));
+  if(moduleModal) enableSwipe(moduleModal.querySelector('.module-modal-panel'),
+    () => showRelativeModule(-1), () => showRelativeModule(1));
   if(moduleModalWishlist) moduleModalWishlist.addEventListener('click', () => toggleModuleWishlist(moduleTrigger));
   if(moduleModal) moduleModal.addEventListener('click', event => {
     if(event.target === moduleModal) closeModuleModal();
@@ -467,10 +499,17 @@
   // Personnages : cartes générées depuis assets/js/personnages.js, comme la
   // galerie l'est depuis photos.js — on ajoute un personnage sans toucher au HTML.
   const personaTrack = document.querySelector('[data-persona-track]');
+  const personas = window.EC_PERSONNAGES || [];
+  const personaCards = [];
   if(personaTrack){
-    (window.EC_PERSONNAGES || []).forEach(persona => {
+    personas.forEach((persona, index) => {
       const card = document.createElement('article');
       card.className = 'persona';
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-haspopup', 'dialog');
+      card.setAttribute('aria-label', 'Voir la fiche de ' + persona.name + ', ' + persona.role);
+      card.dataset.personaIndex = String(index);
       const figure = document.createElement('figure');
       figure.className = 'persona-figure';
       const img = document.createElement('img');
@@ -493,6 +532,126 @@
       body.append(name, role, hook);
       card.append(figure, body);
       personaTrack.appendChild(card);
+      personaCards.push(card);
+    });
+  }
+
+  // Fiche personnage en plein écran, sur le modèle de la fiche animation.
+  const personaModal = document.querySelector('[data-persona-modal]');
+  if(personaModal && personas.length){
+    const personaModalImage = personaModal.querySelector('[data-persona-modal-image]');
+    const personaModalRole = personaModal.querySelector('[data-persona-modal-role]');
+    const personaModalTitle = personaModal.querySelector('[data-persona-modal-title]');
+    const personaModalDetails = personaModal.querySelector('[data-persona-modal-details]');
+    const personaModalCounter = personaModal.querySelector('[data-persona-modal-counter]');
+    const personaModalClose = personaModal.querySelector('[data-persona-modal-close]');
+    const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
+    const personaModalNext = personaModal.querySelector('[data-persona-modal-next]');
+    let personaIndex = 0;
+
+    function showPersona(index){
+      const total = personas.length;
+      personaIndex = ((index % total) + total) % total;
+      const persona = personas[personaIndex];
+      personaModalImage.src = persona.img;
+      personaModalImage.alt = persona.alt || persona.name;
+      personaModalRole.textContent = persona.role;
+      personaModalTitle.textContent = persona.name;
+      personaModalDetails.innerHTML = '';
+      const hook = document.createElement('p');
+      hook.textContent = persona.hook;
+      personaModalDetails.appendChild(hook);
+      // « texte » est facultatif dans personnages.js : une phrase, ou un
+      // tableau de paragraphes, affichés sous l'accroche.
+      if(persona.texte){
+        const paragraphes = Array.isArray(persona.texte) ? persona.texte : [persona.texte];
+        paragraphes.forEach(contenu => {
+          const p = document.createElement('p');
+          p.textContent = contenu;
+          personaModalDetails.appendChild(p);
+        });
+      }
+      personaModalCounter.textContent = (personaIndex + 1) + ' / ' + total;
+    }
+
+    function openPersonaModal(index){
+      showPersona(index);
+      personaModal.hidden = false;
+      document.body.classList.add('is-modal-open');
+      document.body.style.overflow = 'hidden';
+      personaModalClose.focus();
+    }
+
+    function closePersonaModal(){
+      if(personaModal.hidden) return;
+      personaModal.hidden = true;
+      personaModalImage.removeAttribute('src');
+      personaModalDetails.innerHTML = '';
+      document.body.classList.remove('is-modal-open');
+      document.body.style.overflow = '';
+      // Rendre la main sur le personnage affiché en dernier : le carrousel
+      // se replace dessus, on ne repart pas d'où on était parti.
+      const back = personaCards[personaIndex];
+      if(back) back.focus();
+    }
+
+    // Les cartes vivent dans un carrousel : n'ouvrir la fiche que si le doigt
+    // n'a pas glissé, sinon chaque swipe ouvrirait une fiche.
+    personaCards.forEach((card, index) => {
+      let startX = 0;
+      let startY = 0;
+      let moved = false;
+      card.addEventListener('pointerdown', event => {
+        startX = event.clientX;
+        startY = event.clientY;
+        moved = false;
+      });
+      card.addEventListener('pointermove', event => {
+        if(Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
+      });
+      card.addEventListener('pointercancel', () => { moved = true; });
+      card.addEventListener('click', () => { if(!moved) openPersonaModal(index); });
+      card.addEventListener('keydown', event => {
+        if(event.key === 'Enter' || event.key === ' '){
+          event.preventDefault();
+          openPersonaModal(index);
+        }
+      });
+    });
+
+    personaModalClose.addEventListener('click', closePersonaModal);
+    personaModalPrev.addEventListener('click', () => showPersona(personaIndex - 1));
+    personaModalNext.addEventListener('click', () => showPersona(personaIndex + 1));
+    enableSwipe(personaModal.querySelector('.module-modal-panel'),
+      () => showPersona(personaIndex - 1), () => showPersona(personaIndex + 1));
+    personaModal.addEventListener('click', event => {
+      if(event.target === personaModal) closePersonaModal();
+    });
+    document.addEventListener('keydown', event => {
+      if(personaModal.hidden) return;
+      if(event.key === 'Escape'){
+        closePersonaModal();
+        return;
+      }
+      if(event.key === 'ArrowLeft'){
+        showPersona(personaIndex - 1);
+        return;
+      }
+      if(event.key === 'ArrowRight'){
+        showPersona(personaIndex + 1);
+        return;
+      }
+      if(event.key !== 'Tab') return;
+      const focusable = personaModal.querySelectorAll('button:not([disabled]),a[href]');
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if(event.shiftKey && document.activeElement === first){
+        event.preventDefault();
+        last.focus();
+      } else if(!event.shiftKey && document.activeElement === last){
+        event.preventDefault();
+        first.focus();
+      }
     });
   }
 
@@ -554,6 +713,7 @@
     const stop = () => { window.clearInterval(timer); timer = null; };
     const step = () => {
       if(paused || !inView || document.hidden || !items.length) return;
+      if(document.body.classList.contains('is-modal-open')) return;
       goTo(current >= lastStart() ? 0 : current + 1);
     };
     const start = () => {
