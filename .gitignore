@@ -3,3 +3,8 @@ dist/
 .DS_Store
 .vscode/.ropeproject
 .playwright-mcp/
+.claude/settings.local.json
+
+# Recette V2 : identifiants, jamais dans le dépôt
+deploy/v2.htpasswd
+*.pwd

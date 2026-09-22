@@ -1,0 +1,25 @@
+# Répertoire de recette V2 — L'Épée et le Chaudron
+# Ce fichier est déposé sur l'hébergement sous le nom .htaccess, dans www/v2/.
+# Il ne concerne QUE ce sous-répertoire : le site en production n'est pas touché.
+
+# 1. Interdire l'indexation, même si l'adresse fuite.
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+</IfModule>
+
+# 2. Demander un identifiant et un mot de passe à l'entrée.
+AuthType Basic
+AuthName "Recette du nouveau site - reserve aux membres"
+AuthUserFile /home/LOGIN_SFTP/www/v2/.htpasswd
+Require valid-user
+
+# 3. Ne pas servir les fichiers de configuration eux-mêmes.
+<FilesMatch "^\.(htaccess|htpasswd)$">
+  Require all denied
+</FilesMatch>
+
+# 4. Pas de cache agressif pendant la recette : les membres doivent voir
+#    la dernière version dès qu'elle est envoyée.
+<IfModule mod_headers.c>
+  Header set Cache-Control "no-cache, must-revalidate"
+</IfModule>
