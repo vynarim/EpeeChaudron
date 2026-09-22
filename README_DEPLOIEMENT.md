@@ -55,6 +55,66 @@ assets/img/favicon.png, logo-square.webp
    (pour ne pas voir l'ancienne version en cache) et refaire les trois
    vérifications de l'étape 1, sur téléphone puis sur ordinateur.
 
+## 3 bis. Le répertoire de recette `/v2/`
+
+Le nouveau site est en ligne dans `www/v2/` pendant que l'ancien continue de
+tourner à la racine. Il sert aux membres de l'association à relire et tester
+avant la bascule.
+
+| Élément | Valeur |
+| --- | --- |
+| Adresse | https://epee-chaudron.fr/v2/ |
+| Identifiant | `mesnie` |
+| Mot de passe | _(à conserver dans le gestionnaire de mots de passe — il n'est écrit nulle part dans le dépôt)_ |
+| Répertoire serveur | `/home/LOGIN_SFTP/www/v2/` |
+| Protection | `.htaccess` local au répertoire : mot de passe, `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`, `Cache-Control: no-cache` |
+
+Ce `.htaccess` ne concerne que `v2/`. **Rien à la racine n'est modifié** — ni
+`www/index.html`, ni `www/.htaccess`, ni `www/robots.txt`. Volontairement, le
+chemin `/v2/` n'est pas déclaré dans `robots.txt` : ce serait publier l'adresse
+dans un fichier que tout le monde peut lire. Le mot de passe suffit — un robot
+reçoit un 401 et ne voit jamais la page.
+
+### Renvoyer une nouvelle version dans `/v2/`
+
+1. Écrire le mot de passe SFTP du compte `LOGIN_SFTP` sur une seule ligne dans
+   `%USERPROFILE%\.epeechaudron-sftp` — **hors du dépôt**, donc impossible à
+   committer par accident. (Ou renseigner la variable `OVH_SFTP_PASSWORD`.)
+2. Lancer :
+
+```bash
+bash scripts/deploy-v2.sh --dry-run   # liste les fichiers, n'envoie rien
+bash scripts/deploy-v2.sh             # envoie index.html, assets/ et la protection
+```
+
+Le script n'envoie que `index.html`, `assets/` et les deux fichiers de
+protection : ni `*.md`, ni `scripts/`, ni `package*.json`. Le mot de passe est
+transmis à `curl` par son entrée standard : il n'apparaît dans aucune ligne de
+commande ni dans la liste des processus.
+
+Le fichier `deploy/v2.htpasswd` contient l'identifiant des membres et son mot de
+passe chiffré. Il est exclu du dépôt par `.gitignore`. S'il est perdu, le
+regénérer :
+
+```bash
+openssl passwd -apr1 "<nouveau mot de passe>"   # coller le résultat après "mesnie:"
+```
+
+### Empreintes du serveur SFTP
+
+À comparer en cas d'avertissement du client SFTP (relevées le 22/09/2026) :
+
+```text
+RSA      SHA256:nsRZDOCdKhAyoO2SBgB1OZkJiuk2ofnTIPdNSERXnYQ
+ED25519  SHA256:FqKUcYORjRzc15jHhIGKwTq+sTUo+6rkTINHcJA2mdg
+```
+
+### Le jour de la bascule
+
+Copier le contenu de `www/v2/` à la racine de `www/` — **sans** les fichiers
+`.htaccess` et `.htpasswd` de recette, qui y mettraient un mot de passe et un
+`noindex` sur le site public — puis supprimer le répertoire `v2/`.
+
 ## 4. Mettre à jour le contenu
 
 ### Ajouter une photo à la galerie

@@ -15,7 +15,7 @@ set -euo pipefail
 
 HOST="[hôte SFTP retiré]"
 USER="LOGIN_SFTP"
-REMOTE_DIR="www/v2"
+REMOTE_DIR="/home/LOGIN_SFTP/www/v2"
 DRY_RUN=0
 [ "${1:-}" = "--dry-run" ] && DRY_RUN=1
 
@@ -47,12 +47,16 @@ if [ -z "$PASS" ]; then
   PASS="$(head -1 "$PASS_FILE" | tr -d '\r\n')"
 fi
 
-# Échappement pour le fichier de configuration curl (chaîne entre guillemets).
-ESC_PASS="$(printf '%s' "$PASS" | sed -e 's/\/\\/g' -e 's/"/\\"/g')"
-
 curl_conf() {
-  printf 'user = "%s:%s"\n' "$USER" "$ESC_PASS"
-  printf 'silent\nshow-error\nfail\nftp-create-dirs\ninsecure\n'
+  # Valeur NON entre guillemets : curl la prend telle quelle jusqu'au saut de
+  # ligne, donc aucun caractère du mot de passe n'a besoin d'être échappé.
+  printf 'user = %s:%s
+' "$USER" "$PASS"
+  printf 'silent
+show-error
+fail
+ftp-create-dirs
+'
 }
 
 # --- Envoi -------------------------------------------------------------------
@@ -63,7 +67,12 @@ for f in "${FILES[@]}"; do
   ARGS+=( --upload-file "$f" "sftp://$HOST/$REMOTE_DIR/$f" )
 done
 ARGS+=( --upload-file "deploy/v2.htaccess" "sftp://$HOST/$REMOTE_DIR/.htaccess" )
-[ -f "deploy/v2.htpasswd" ] && ARGS+=( --upload-file "deploy/v2.htpasswd" "sftp://$HOST/$REMOTE_DIR/.htpasswd" )
+if [ -f "deploy/v2.htpasswd" ]; then
+  ARGS+=( --upload-file "deploy/v2.htpasswd" "sftp://$HOST/$REMOTE_DIR/.htpasswd" )
+else
+  echo "deploy/v2.htpasswd absent : le repertoire ne serait pas protege." >&2
+  exit 1
+fi
 
 curl_conf | curl -K - "${ARGS[@]}"
 
