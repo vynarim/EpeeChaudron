@@ -33,7 +33,7 @@ La charte vient de la bannière de l’association :
 - Pas d’appel externe obligatoire.
 - Garder le site déployable par simple copie FTP/SFTP.
 - Maintenir l’accessibilité : alt d’images, contraste suffisant, navigation clavier, tailles de cible tactiles correctes.
-- Ne pas supprimer `README_DEPLOIEMENT.txt`.
+- Ne pas supprimer `README_DEPLOIEMENT.md`.
 
 ## Fichiers à modifier en priorité
 
@@ -46,7 +46,7 @@ La charte vient de la bannière de l’association :
 
 - Écran 360–430 px : aucun titre ne doit occuper plus de 3 lignes dans le hero.
 - Les cartes doivent rester compactes.
-- La galerie mobile doit être utile rapidement : 2 colonnes ou alternance grande image + miniatures.
+- Les galeries (photos, personnages) défilent horizontalement : pas de grille qui allonge la page, pas de filtres, pas de légende sous les photos.
 - Le header doit rester discret.
 - Éviter les sections de plus d’un écran complet sans interaction ou image forte.
 

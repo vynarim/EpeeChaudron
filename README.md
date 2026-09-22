@@ -16,7 +16,11 @@ médiathèques et événements familiaux.
 - conservation de cette liste dans le navigateur avec `localStorage` ;
 - génération d'un courriel de contact prérempli avec les animations choisies ;
 - présentation des formats court, journée et week-end sous forme d'onglets ;
-- galerie photo filtrable par catégorie avec affichage en lightbox ;
+- galerie des personnages de la mesnie en carrousel horizontal (portrait,
+  rôle, accroche) ;
+- galerie photo en carrousel horizontal : glissement au doigt, flèches,
+  défilement automatique qui s'arrête dès qu'on interagit, ouverture en
+  lightbox ;
 - navigation mobile fixe avec indication de la section en cours de lecture ;
 - bouton flottant de retour en haut après une hauteur d'écran ;
 - animations d'apparition progressives respectant `prefers-reduced-motion`.
@@ -47,7 +51,8 @@ Le projet est un site statique sans base de données ni framework applicatif :
 - déploiement possible par simple copie FTP/SFTP.
 
 Les interactions sont regroupées dans `assets/js/main.js`. Les photos de la
-galerie sont déclarées dans `assets/js/photos.js` puis générées dynamiquement.
+galerie sont déclarées dans `assets/js/photos.js` et les personnages dans
+`assets/js/personnages.js` ; les cartes sont générées dynamiquement.
 
 ## Structure
 
@@ -55,11 +60,13 @@ galerie sont déclarées dans `assets/js/photos.js` puis générées dynamiqueme
 index.html                 Structure et contenu de la page
 assets/css/style.css       Charte graphique et responsive
 assets/js/main.js          Navigation et interactions
-assets/js/photos.js        Données de la galerie
+assets/js/photos.js        Données de la galerie photo
+assets/js/personnages.js   Données des personnages
 assets/img/full/           Images en grand format
 assets/img/thumbs/         Miniatures et images des cartes
+assets/img/personnages/    Portraits des personnages (300×400)
 scripts/check-project.mjs  Contrôle des fichiers et chemins
-README_DEPLOIEMENT.txt     Procédure de déploiement classique
+README_DEPLOIEMENT.md      Procédure de déploiement et de mise à jour du contenu
 AGENTS.md                  Instructions de contribution pour Codex
 ```
 
@@ -108,12 +115,37 @@ Cette commande contrôle notamment :
 }
 ```
 
-Catégories actuelles : `Camp`, `Cuisine`, `Armes` et `Ateliers`.
+La catégorie n'est plus affichée (la galerie n'a plus de filtres) mais reste
+renseignée pour mémoire. L'ordre du tableau est l'ordre du carrousel.
+
+## Modifier les personnages
+
+Même principe que la galerie : les personnages sont déclarés dans
+`assets/js/personnages.js` et les cartes sont générées au chargement. Aucune
+modification de `index.html` ni du CSS n'est nécessaire.
+
+1. Déposer le portrait (photo verticale, format 3/4, environ 900×1200) dans
+   `assets/img/personnages/`.
+2. Ajouter une entrée dans `assets/js/personnages.js`, à la place voulue dans
+   l'ordre du carrousel.
+
+```js
+{
+  img: 'assets/img/personnages/personnages-exemple.webp',
+  name: 'Nom affiché',
+  role: 'Rôle affiché sous le nom',
+  hook: 'Une phrase d’accroche, en italique sur la carte.',
+  alt: 'Description de la photo pour les lecteurs d’écran'
+}
+```
+
+Les portraits actuels sont des reprises de l'ancien site en basse définition :
+remplacer le fichier par une photo HD du même nom suffit.
 
 ## Déploiement
 
 Le site ne nécessite aucune compilation pour être publié. Envoyer les fichiers
 du projet sur le serveur web en excluant `node_modules/`.
 
-Consulter [`README_DEPLOIEMENT.txt`](README_DEPLOIEMENT.txt) pour la procédure
+Consulter [`README_DEPLOIEMENT.md`](README_DEPLOIEMENT.md) pour la procédure
 détaillée.

@@ -99,7 +99,7 @@ components:
 
 **Creative North Star: "La Bannière"**
 
-Toute la palette du site vient directement de la bannière de l'association : bleu royal, or et une pointe de feu. Le système visuel traite ces trois couleurs comme un emblème d'authenticité répété partout — badge du hero, cartes du format d'intervention, bande photo, galerie — plutôt que comme des couleurs de marque abstraites. L'objectif n'est pas de décorer un site associatif, c'est de faire reconnaître la mesnie au premier coup d'œil, exactement comme sa bannière la fait reconnaître sur un événement.
+Toute la palette du site vient directement de la bannière de l'association : bleu royal, or et une pointe de feu. Le système visuel traite ces trois couleurs comme un emblème d'authenticité répété partout — badge du hero, cartes du format d'intervention, bande photo, flèches des carrousels — plutôt que comme des couleurs de marque abstraites. L'objectif n'est pas de décorer un site associatif, c'est de faire reconnaître la mesnie au premier coup d'œil, exactement comme sa bannière la fait reconnaître sur un événement.
 
 Le système rejette explicitement le faux parchemin, les grosses polices médiévales peu lisibles, les effets fantasy lourds (écussons décoratifs, ornements gothiques) et les fonds trop sombres : la crédibilité vient des photos réelles du camp et d'une mise en page sobre, pas d'un habillage "fantasy template". La densité reste volontairement raisonnable — titres courts, sections qui respirent sans être vides — pour qu'un décideur municipal perçoive une structure professionnelle en quelques secondes.
 
@@ -114,11 +114,11 @@ Le système rejette explicitement le faux parchemin, les grosses polices médié
 La palette est **committed** : le bleu royal et l'or de bannière portent la majorité des surfaces d'accent (header, CTA, badges, fonds de section), le feu reste un accent rare réservé aux eyebrows et aux indicateurs d'action (liste de souhaits).
 
 ### Primary
-- **Bleu royal** (`#123d91`): couleur de marque dominante — dégradé du hero, CTA de navigation, titres de cartes, fond de la bande galerie.
+- **Bleu royal** (`#123d91`): couleur de marque dominante — dégradé du hero, CTA de navigation, titres de cartes, flèches et jauge des carrousels.
 - **Navy profond** (`#071a44`): variante sombre du bleu royal, utilisée en fin de dégradé et pour les fonds pleins (footer, panneau des formats d'intervention).
 
 ### Secondary
-- **Or de bannière** (`#f2cc28`): accent chaleureux réservé aux actions principales (bouton primaire, onglet actif, filtre actif) et aux liserés qui signalent "c'est officiel, c'est la bannière".
+- **Or de bannière** (`#f2cc28`): accent chaleureux réservé aux actions principales (bouton primaire, onglet actif) et aux liserés qui signalent "c'est officiel, c'est la bannière".
 
 ### Tertiary
 - **Rouge feu** (`#c23f16`): accent rare et fonctionnel — texte des eyebrows, icône de liste de souhaits activée. Jamais utilisé en fond de section. Assombri depuis `#d94a1e` pour passer 4.5:1 sur `canvas-lightest`.
@@ -145,7 +145,7 @@ La palette est **committed** : le bleu royal et l'or de bannière portent la maj
 - **Headline** (400, `clamp(1.45rem, 3vw, 2.55rem)`, line-height 1.1): titres de section (`h2`).
 - **Title** (700, 1.07rem, line-height 1.18): titres de carte (`h3`), en bleu marine.
 - **Body** (400, 1rem, line-height 1.55): texte courant ; les paragraphes de présentation restent sous 70ch grâce aux grilles contraintes.
-- **Label** (900, 0.75rem, letter-spacing 0.09em, uppercase, couleur feu): réservé à 2 usages délibérés (le hero, et la section « Pour les mairies et organisateurs »), jamais répété au-dessus de chaque section.
+- **Label** (900, 0.75rem, letter-spacing 0.09em, uppercase, couleur feu): réservé à 2 usages délibérés (le hero, et la section « Pour les mairies et organisateurs »), jamais répété au-dessus de chaque section. La bande photo porte un label équivalent en or sur navy.
 
 ### Named Rules
 **La Règle du Titre Sobre.** Le display ne dépasse jamais `3.45rem` et reste en serif classique — jamais de police "fantasy" épaisse ou décorative, même sur le hero.
@@ -182,13 +182,19 @@ Le ressenti général est **rassurant et structuré** : priorité à la clarté 
 - **Hover:** léger décollement (`translateY(-1px)`), sans changement de couleur.
 
 ### Tabs / Filtres (pilules segmentées)
-- **Style:** fond blanc translucide sur surface sombre (`rgba(255,255,255,.12)` / `.1`), texte blanc.
-- **État actif:** fond or de bannière, texte encre.
-- **Filtres sur fond clair** (galerie de cartes d'animation) : même forme pilule, fond blanc et bordure `--line` au repos ; actif = fond bleu royal, texte blanc.
+- **Onglets des formats** (sur le panneau navy) : fond blanc translucide (`rgba(255,255,255,.12)`), texte blanc ; actif = fond or de bannière, texte encre.
+- **Filtres des animations** (sur fond clair) : même forme pilule, fond blanc et bordure `--line` au repos ; actif = fond bleu royal, texte blanc. La galerie photo n'a pas de filtres.
 
 ### Lightbox / Modale (navigation précédent/suivant)
-- **Style:** boutons circulaires 48px (44px sur mobile), fond navy semi-opaque, bordure or fine, chevron blanc.
-- **Comportement:** identique entre la lightbox et la modale d'animation — flèches clavier ArrowLeft/ArrowRight, cycle en boucle sur la liste filtrée courante.
+- **Style:** boutons circulaires 48px (44px sur mobile), fond navy semi-opaque, bordure or fine, chevron blanc dessiné en SVG (jamais un caractère `‹ ›`, dont le centrage dépend de la police).
+- **Comportement:** identique entre la lightbox et la modale d'animation — flèches clavier ArrowLeft/ArrowRight, cycle en boucle.
+
+### Carrousels (galerie photo, personnages)
+- **Mécanique:** défilement horizontal natif (`scroll-snap`), une carte accrochée à la fois ; le nombre de cartes visibles est une variable `--per` par palier (photos 3 / 2 / 1, personnages 4 / 3 / 2,4 / 1,35 — la fraction laisse dépasser la carte suivante sur téléphone pour suggérer le geste).
+- **Contrôles:** deux flèches rondes 40px (navy, liseré or, chevron SVG) de part et d'autre ; entre elles, des points pour une série courte (personnages) ou une jauge fine + compteur « 3 / 17 » pour une série longue (photos).
+- **Défilement automatique:** 4,5–5,2 s, uniquement quand le carrousel est à l'écran ; en pause au toucher, au survol, au focus, et désactivé sous `prefers-reduced-motion`.
+- **Légende photo:** un mot posé sur la photo en bas à gauche, fond navy à 55 % flouté, sans liseré — jamais de légende sous la photo.
+- **Carte personnage:** portrait 3/4 (4/5 sur téléphone), nom en navy, rôle en bleu royal, accroche en italique argile. Pas d'étiquette de famille ni de fiche au clic.
 
 ### Boutons icône flottants (cœur, fermeture, retour-en-haut)
 - **Shape:** cercle plein (`border-radius: 50%`), 44×44px minimum partout — cible tactile avant tout.
