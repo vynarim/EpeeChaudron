@@ -64,7 +64,7 @@ avant la bascule.
 | Élément | Valeur |
 | --- | --- |
 | Adresse | https://epee-chaudron.fr/v2/ |
-| Identifiant | `mesnie` |
+| Identifiant | `gras` |
 | Mot de passe | _(à conserver dans le gestionnaire de mots de passe — il n'est écrit nulle part dans le dépôt)_ |
 | Répertoire serveur | `/home/LOGIN_SFTP/www/v2/` |
 | Protection | `.htaccess` local au répertoire : mot de passe, `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`, `Cache-Control: no-cache` |
@@ -97,7 +97,7 @@ passe chiffré. Il est exclu du dépôt par `.gitignore`. S'il est perdu, le
 regénérer :
 
 ```bash
-openssl passwd -apr1 "<nouveau mot de passe>"   # coller le résultat après "mesnie:"
+openssl passwd -apr1 "<nouveau mot de passe>"   # coller le résultat après "gras:"
 ```
 
 ### Empreintes du serveur SFTP
