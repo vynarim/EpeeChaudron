@@ -230,7 +230,7 @@
       '',
       'Cordialement'
     ].join('\n');
-    const recipient = 'contact@epeechaudron.fr';
+    const recipient = 'contact@epee-chaudron.fr';
     return {
       body,
       clipboardText: 'À : ' + recipient + '\nObjet : ' + subject + '\n\n' + body,
@@ -349,7 +349,7 @@
         })
         .catch(() => {
           window.setTimeout(() => {
-            showNotification('Votre messagerie n’a peut-être pas pu s’ouvrir et la copie a échoué. Écrivez à contact@epeechaudron.fr.');
+            showNotification('Votre messagerie n’a peut-être pas pu s’ouvrir et la copie a échoué. Écrivez à contact@epee-chaudron.fr.');
           }, 700);
         });
       window.location.href = email.url;
@@ -463,6 +463,155 @@
     });
     updateBackToTop();
   }
+
+  // Personnages : cartes générées depuis assets/js/personnages.js, comme la
+  // galerie l'est depuis photos.js — on ajoute un personnage sans toucher au HTML.
+  const personaTrack = document.querySelector('[data-persona-track]');
+  if(personaTrack){
+    (window.EC_PERSONNAGES || []).forEach(persona => {
+      const card = document.createElement('article');
+      card.className = 'persona';
+      const figure = document.createElement('figure');
+      figure.className = 'persona-figure';
+      const img = document.createElement('img');
+      img.src = persona.img;
+      img.alt = persona.alt || persona.name;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.width = 300;
+      img.height = 400;
+      figure.appendChild(img);
+      const body = document.createElement('div');
+      body.className = 'persona-body';
+      const name = document.createElement('h3');
+      name.textContent = persona.name;
+      const role = document.createElement('p');
+      role.className = 'persona-role';
+      role.textContent = persona.role;
+      const hook = document.createElement('p');
+      hook.textContent = persona.hook;
+      body.append(name, role, hook);
+      card.append(figure, body);
+      personaTrack.appendChild(card);
+    });
+  }
+
+  // Carrousels horizontaux : le défilement et l'accroche sont natifs (CSS
+  // scroll-snap) ; ici seulement les flèches, les points et le défilement
+  // automatique, qui se met en pause dès que le visiteur touche, survole ou
+  // met le focus dans le carrousel, et ne tourne que s'il est à l'écran.
+  document.querySelectorAll('[data-carousel]').forEach(root => {
+    const track = root.querySelector('[data-carousel-track]');
+    if(!track) return;
+    const prev = root.querySelector('[data-carousel-prev]');
+    const next = root.querySelector('[data-carousel-next]');
+    const dotsHost = root.querySelector('[data-carousel-dots]');
+    const progress = root.querySelector('[data-carousel-progress]');
+    const counter = root.querySelector('[data-carousel-counter]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const delay = Number(root.dataset.autoplay) || 0;
+    let items = [];
+    let dots = [];
+    let current = 0;
+    let timer = null;
+    let paused = false;
+    let inView = false;
+    let settleTimer = null;
+
+    const offsetOf = item => item.offsetLeft - items[0].offsetLeft;
+    const nearestIndex = () => {
+      const x = track.scrollLeft;
+      let best = 0;
+      let dist = Infinity;
+      items.forEach((item, i) => {
+        const d = Math.abs(offsetOf(item) - x);
+        if(d < dist){ dist = d; best = i; }
+      });
+      return best;
+    };
+    const lastStart = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      let i = items.length - 1;
+      while(i > 0 && offsetOf(items[i]) > maxScroll + 1) i -= 1;
+      return i;
+    };
+    const goTo = (index, smooth = true) => {
+      if(!items.length) return;
+      const n = items.length;
+      const i = ((index % n) + n) % n;
+      current = i; // pris en compte tout de suite : deux clics rapides avancent bien de deux
+      track.scrollTo({left: offsetOf(items[i]), behavior: smooth && !reduceMotion ? 'smooth' : 'auto'});
+    };
+    const update = () => {
+      current = nearestIndex();
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === current);
+        if(i === current) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
+      });
+      if(progress && items.length) progress.style.setProperty('--progress', String((current + 1) / items.length));
+      if(counter && items.length) counter.textContent = (current + 1) + ' / ' + items.length;
+    };
+    const stop = () => { window.clearInterval(timer); timer = null; };
+    const step = () => {
+      if(paused || !inView || document.hidden || !items.length) return;
+      goTo(current >= lastStart() ? 0 : current + 1);
+    };
+    const start = () => {
+      if(!delay || reduceMotion || timer) return;
+      timer = window.setInterval(step, delay);
+    };
+    const restart = () => { stop(); start(); };
+    const buildDots = () => {
+      if(!dotsHost) return;
+      dotsHost.innerHTML = '';
+      dots = items.map((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'carousel-dot';
+        dot.setAttribute('aria-label', 'Aller à l’élément ' + (i + 1) + ' sur ' + items.length);
+        dot.addEventListener('click', () => { goTo(i); restart(); });
+        dotsHost.appendChild(dot);
+        return dot;
+      });
+    };
+    const refresh = () => {
+      items = Array.from(track.children);
+      buildDots();
+      update();
+    };
+
+    track.addEventListener('scroll', () => {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(update, 80);
+    }, {passive: true});
+    const pause = () => { paused = true; };
+    const resume = () => { paused = false; restart(); };
+    track.addEventListener('pointerdown', pause);
+    track.addEventListener('pointerup', resume);
+    track.addEventListener('pointercancel', resume);
+    root.addEventListener('mouseenter', pause);
+    root.addEventListener('mouseleave', resume);
+    root.addEventListener('focusin', pause);
+    root.addEventListener('focusout', resume);
+    root.addEventListener('keydown', event => {
+      if(event.key === 'ArrowLeft'){ event.preventDefault(); goTo(current - 1); restart(); }
+      if(event.key === 'ArrowRight'){ event.preventDefault(); goTo(current + 1); restart(); }
+    });
+    if(prev) prev.addEventListener('click', () => { goTo(current - 1); restart(); });
+    if(next) next.addEventListener('click', () => { goTo(current + 1); restart(); });
+    window.addEventListener('resize', update);
+
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(entries => {
+        inView = entries.some(entry => entry.isIntersecting);
+      }, {threshold: .35}).observe(root);
+    } else {
+      inView = true;
+    }
+
+    refresh();
+    start();
+  });
 
   const reveals = document.querySelectorAll('.reveal');
   if(!('IntersectionObserver' in window)){
