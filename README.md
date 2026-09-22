@@ -71,7 +71,10 @@ AGENTS.md                  Instructions de contribution pour Codex
 ```
 
 Les photos suivent la convention `section-sujet.webp`, par exemple
-`animations-cuisine-feu.webp` ou `galerie-camp-troupe.webp`.
+`animations-cuisine-feu.webp` ou `galerie-camp-troupe.webp`. Une animation qui
+n'a pas encore de photo utilise `assets/img/thumbs/photo-a-venir.webp` : il
+suffit de remplacer le `src` de sa carte dans `index.html` le jour où la photo
+existe (720×520).
 
 ## Développement local
 

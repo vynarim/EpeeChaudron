@@ -14,13 +14,13 @@ colors:
 typography:
   display:
     fontFamily: "Georgia, 'Times New Roman', serif"
-    fontSize: "clamp(1.75rem, 3.5vw, 3.45rem)"
+    fontSize: "clamp(1.6rem, 3vw, 2.5rem)"
     fontWeight: 400
     lineHeight: 1.06
     letterSpacing: "-0.025em"
   headline:
     fontFamily: "Georgia, 'Times New Roman', serif"
-    fontSize: "clamp(1.45rem, 3vw, 2.55rem)"
+    fontSize: "clamp(1.6rem, 2.6vw, 2.25rem)"
     fontWeight: 400
     lineHeight: 1.1
     letterSpacing: "-0.02em"
@@ -77,15 +77,20 @@ components:
     backgroundColor: "{colors.royal-blue}"
     textColor: "#ffffff"
     rounded: "{rounded.pill}"
-  filter-pill:
+  module-filter:
     backgroundColor: "#ffffff"
     textColor: "{colors.text}"
     rounded: "{rounded.pill}"
     padding: "0.5rem 0.72rem"
-  filter-pill-active:
+  module-filter-active:
     backgroundColor: "{colors.royal-blue}"
     textColor: "#ffffff"
     rounded: "{rounded.pill}"
+  carousel-arrow:
+    backgroundColor: "{colors.navy-deep}"
+    textColor: "#ffffff"
+    rounded: "{rounded.full}"
+    size: "44px"
   icon-button:
     backgroundColor: "#ffffff"
     textColor: "{colors.ember-fire}"
@@ -141,14 +146,14 @@ La palette est **committed** : le bleu royal et l'or de bannière portent la maj
 **Character:** Un serif classique et sobre pour les titres (autorité historique sans "fantasy"), posé sur un sans-serif système neutre pour tout le reste — le contraste fait la hiérarchie, pas la taille.
 
 ### Hierarchy
-- **Display** (400, `clamp(1.75rem, 3.5vw, 3.45rem)`, line-height 1.06): titre du hero uniquement.
-- **Headline** (400, `clamp(1.45rem, 3vw, 2.55rem)`, line-height 1.1): titres de section (`h2`).
+- **Display** (400, `clamp(1.6rem, 3vw, 2.5rem)`, line-height 1.06): titre du hero uniquement.
+- **Headline** (400, `clamp(1.6rem, 2.6vw, 2.25rem)`, line-height 1.1): titres de section (`h2`).
 - **Title** (700, 1.07rem, line-height 1.18): titres de carte (`h3`), en bleu marine.
 - **Body** (400, 1rem, line-height 1.55): texte courant ; les paragraphes de présentation restent sous 70ch grâce aux grilles contraintes.
-- **Label** (900, 0.75rem, letter-spacing 0.09em, uppercase, couleur feu): réservé à 2 usages délibérés (le hero, et la section « Pour les mairies et organisateurs »), jamais répété au-dessus de chaque section. La bande photo porte un label équivalent en or sur navy.
+- **Label** (900, 0.75rem, letter-spacing 0.09em, uppercase, couleur feu): réservé à 2 usages délibérés (le hero, et la section « Pour les organisateurs »), jamais répété au-dessus de chaque section. La bande photo porte un label équivalent en or sur navy.
 
 ### Named Rules
-**La Règle du Titre Sobre.** Le display ne dépasse jamais `3.45rem` et reste en serif classique — jamais de police "fantasy" épaisse ou décorative, même sur le hero.
+**La Règle du Titre Sobre.** Le display ne dépasse jamais `2.5rem` et reste en serif classique — jamais de police "fantasy" épaisse ou décorative, même sur le hero.
 
 **La Règle de l'Eyebrow Rare.** Le label eyebrow est réservé à des usages ponctuels et délibérés (2 sur la page entière), jamais répété au-dessus de chaque section — un eyebrow sur toutes les sections est un réflexe IA, pas un système de marque.
 
@@ -218,7 +223,7 @@ Le badge du hero (« Alpes-Maritimes · association loi 1901 ») et la légende 
 ## 6. Do's and Don'ts
 
 ### Do:
-- **Do** garder la priorité absolue au rendu téléphone ; le desktop doit rester propre et lisible pour les mairies.
+- **Do** garder la priorité absolue au rendu téléphone ; le desktop doit rester propre et lisible pour les organisateurs.
 - **Do** laisser les photos porter l'expérience — ne jamais les remplacer par des placeholders ou des illustrations génériques.
 - **Do** garder les boutons de contact visibles mais discrets (pilule or ou blanc, jamais criard).
 - **Do** suivre la Règle de la Double Ombre : teinte encre/marine pour les surfaces ancrées dans la page, noir neutre pour les contrôles qui flottent au-dessus de contenu variable.

@@ -10,11 +10,13 @@ web
 
 ## Users
 
-Le public prioritaire est celui qui réserve l'association : mairies, organisateurs d'événements communaux, responsables de sites patrimoniaux, écoles et médiathèques. Ils arrivent sur le site pour évaluer rapidement si l'animation est crédible, adaptée à leur événement et simple à intégrer à leur programme, souvent sur un premier passage court entre deux tâches administratives. Le public secondaire est la famille ou le visiteur qui découvrira le camp le jour de l'événement ; le site doit rester accueillant pour lui, mais ne doit pas sacrifier la lisibilité pour les décideurs afin de lui plaire.
+Le public prioritaire est celui qui programme l'association : organisateurs de fêtes médiévales et de reconstitutions, communes qui montent une fête dans un village ancien, responsables de sites patrimoniaux (châteaux, remparts, journées du patrimoine). Ils arrivent sur le site pour évaluer rapidement si la troupe est crédible, si le camp tient dans leur espace et s'il s'intègre à leur programme, souvent sur un premier passage court. Le public secondaire est la famille ou le visiteur qui découvrira le camp le jour de l'événement ; le site doit rester accueillant pour lui, mais ne doit pas sacrifier la lisibilité pour les décideurs afin de lui plaire.
+
+L'association ne cherche pas à animer des salles des fêtes, des mariages ni des espaces bétonnés en ville moderne : le camp s'installe en herbe ou en terre, dans un cadre historique ou champêtre. Les interventions en école ou en médiathèque restent exceptionnelles et ne doivent pas être mises en avant.
 
 ## Product Purpose
 
-Le site présente L'Épée et le Chaudron, association de reconstitution historique médiévale des Alpes-Maritimes, pour obtenir des réservations d'intervention (campement animé, ateliers, démonstrations) auprès de mairies, organisateurs et établissements scolaires. Le succès se mesure à la prise de contact : un décideur qui comprend en un passage rapide ce que propose l'association, à qui ça s'adresse, et qui envoie un email avec les détails de son événement.
+Le site présente L'Épée et le Chaudron, association de reconstitution historique médiévale des Alpes-Maritimes qui se déplace dans la vallée du Rhône et le sud de la France, pour obtenir des invitations à des fêtes médiévales et des reconstitutions (campement animé, ateliers, duels judiciaires). Le succès se mesure à la prise de contact : un organisateur qui comprend en un passage rapide ce que propose la troupe, ce qu'elle demande comme espace, et qui envoie un email avec les détails de son événement.
 
 ## Positioning
 
@@ -24,8 +26,9 @@ Le camp n'est pas un décor figé mais un espace habité : on y cuisine, on y tr
 
 - CTA principal : écrire à l'association par email (mailto préformaté selon la fiche animation choisie)
 - CTA secondaire : consulter la page Facebook pour voir l'actualité et davantage de photos
-- La ligne que le visiteur doit retenir après 10 secondes : « Un camp médiéval vivant et modulable, prêt à s'intégrer à mon événement. »
-- Enchaînement de convictions : (1) c'est une association sérieuse et professionnelle, pas de l'amateurisme costumé approximatif ; (2) l'animation s'adapte à mon lieu, mon public et mon format (court, journée, week-end) ; (3) c'est simple à organiser et à contacter.
+- La ligne que le visiteur doit retenir après 10 secondes : « Un camp médiéval vivant, à sa place dans mon événement. »
+- Enchaînement de convictions : (1) c'est une troupe sérieuse, pas de l'amateurisme costumé approximatif — duel à la touche selon les règles d'époque, cuisine aux techniques historiques ; (2) le camp s'adapte à mon lieu et à mon programme (journée, week-end) ; (3) je sais exactement ce qu'on me demande (surface, eau, bois, paille) et c'est simple à organiser.
+- Membres tous bénévoles, chacun avec sa spécialité : les animations présentées dépendent des personnes présentes — à dire une fois, sans s'en excuser.
 - Preuves disponibles : uniquement les photos du camp et des animations (galerie, bannière, hero). Pas de témoignages, presse ou logos de partenaires à ce jour.
 
 ## Brand Personality

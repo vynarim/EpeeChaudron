@@ -5,19 +5,24 @@ compilation. Mettre en ligne = copier les fichiers sur l'hébergement.
 
 ## 1. Hébergement
 
-> À compléter par l'association. Ne jamais écrire de mot de passe ici : ce
-> fichier est dans le dépôt git.
+> Ne jamais écrire de mot de passe ici : ce fichier est dans le dépôt git
+> (privé aujourd'hui — retirer les identifiants s'il devient public).
 
 | Élément | Valeur |
-|---|---|
-| Hébergeur | *(ex. OVH, o2switch, Ionos…)* |
-| Nom de domaine | `epee-chaudron.fr` — géré chez *(registrar)* |
-| Accès aux fichiers | *(FTP ou SFTP)* — hôte `…`, port `…`, utilisateur `…` |
-| Dossier racine du site sur le serveur | *(ex. `/www/` ou `/public_html/`)* |
-| Où sont conservés les identifiants | *(ex. gestionnaire de mots de passe du bureau)* |
-| Certificat HTTPS | *(ex. Let's Encrypt automatique chez l'hébergeur)* |
-| Adresse mail de contact | `contact@epee-chaudron.fr` — boîte gérée chez *(…)* |
-| Personne référente | *(nom, rôle)* |
+| --- | --- |
+| Hébergeur | OVH — hébergement web mutualisé, offre **Free hosting** (100 Mo d'espace disque, le site en occupe ~7 Mo), datacentre `eu-west-gra`, cluster `[cluster retiré]` |
+| Compte client OVH | identifiant `[identifiant OVH retiré]` (titulaire : [titulaire]) — https://www.ovh.com/manager/ |
+| Nom de domaine | `epee-chaudron.fr`, enregistré chez OVH le 4 nov. 2013, expire le 4 nov. 2027 |
+| Renouvellement | hébergement : automatique (prévu nov. 2027). Domaine : la fiche du domaine affiche **« Fréquence de renouvellement : aucune »** — à activer, ou renouveler à la main avant le 4 nov. 2027 |
+| Serveurs DNS | `ns106.ovh.net` / `dns106.ovh.net` — zone gérée chez OVH |
+| Adresse du serveur web | IPv4 `[IP retirée]`, IPv6 `[IP retirée]` |
+| Accès aux fichiers | hôte `[hôte SFTP retiré]` — SFTP port 22 (activé) ou FTP port 21 — login `LOGIN_SFTP`, répertoire home `/home/LOGIN_SFTP` |
+| Dossier racine du site | `www/` (site « Website-www », domaines associés : `epee-chaudron.fr`, `www.epee-chaudron.fr`, `[adresse technique retirée]`) |
+| Où sont conservés les mots de passe | _(à compléter : gestionnaire de mots de passe de …)_ |
+| Certificat HTTPS | Let's Encrypt actif sur `epee-chaudron.fr` et `www.epee-chaudron.fr` (émis le 15/11/2025, renouvelé automatiquement par OVH) |
+| Adresse mail de contact | `contact@epee-chaudron.fr` — adresses e-mail OVH incluses dans l'offre (actives) |
+| Dépôt de code | https://github.com/vynarim/EpeeChaudron (privé) — branche `main` |
+| Personne référente | [titulaire], titulaire du domaine et de l'hébergement |
 
 ## 2. Contenu du dossier à envoyer
 
@@ -42,8 +47,9 @@ assets/img/favicon.png, logo-square.webp
 1. En local, ouvrir `index.html` (ou `npm run dev`) et vérifier que tout
    s'affiche : la page, une photo en plein écran, une fiche animation.
 2. Lancer `npm run check` : il doit répondre « Vérification OK ».
-3. Se connecter à l'hébergement (FTP/SFTP) et envoyer `index.html` et le dossier
-   `assets/` dans le dossier racine, en **écrasant** les fichiers existants.
+3. Se connecter en SFTP à `[hôte SFTP retiré]` (port 22, login `LOGIN_SFTP`,
+   par exemple avec FileZilla ou WinSCP) et envoyer `index.html` et le dossier
+   `assets/` dans `www/`, en **écrasant** les fichiers existants.
    Les images retirées du dépôt peuvent rester sur le serveur sans gêner.
 4. Ouvrir https://epee-chaudron.fr/ dans une fenêtre de navigation privée
    (pour ne pas voir l'ancienne version en cache) et refaire les trois
