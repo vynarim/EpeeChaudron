@@ -4,8 +4,9 @@ Site vitrine mobile-first de l'association de reconstitution historique
 **L'Épée et le Chaudron**, basée dans les Alpes-Maritimes.
 
 Le site présente le camp médiéval, les animations proposées et les formats
-d'intervention destinés aux communes, sites patrimoniaux, écoles,
-médiathèques et événements familiaux.
+d'intervention, à destination des organisateurs de fêtes médiévales, de
+reconstitutions et de sites patrimoniaux. La troupe s'installe en herbe ou en
+terre, dans un cadre historique ou champêtre. Voir [`PRODUCT.md`](PRODUCT.md).
 
 ## Fonctionnalités
 
@@ -17,13 +18,17 @@ médiathèques et événements familiaux.
 - génération d'un courriel de contact prérempli avec les animations choisies ;
 - présentation des formats court, journée et week-end sous forme d'onglets ;
 - galerie des personnages de la mesnie en carrousel horizontal (portrait,
-  rôle, accroche) ;
+  rôle, accroche), chaque portrait ouvrant sa fiche en plein écran ;
+- passage d'une fiche à la suivante aux flèches, au clavier ou d'un
+  glissement du doigt, sur les animations comme sur les personnages ;
 - galerie photo en carrousel horizontal : glissement au doigt, flèches,
   défilement automatique qui s'arrête dès qu'on interagit, ouverture en
   lightbox ;
 - navigation mobile fixe avec indication de la section en cours de lecture ;
 - bouton flottant de retour en haut après une hauteur d'écran ;
-- animations d'apparition progressives respectant `prefers-reduced-motion`.
+- animations d'apparition progressives respectant `prefers-reduced-motion` ;
+- application web installable : le site s'ajoute à l'écran d'accueil d'un
+  téléphone et s'ouvre ensuite sans barre d'adresse, y compris sans réseau.
 
 ## Accessibilité
 
@@ -46,6 +51,8 @@ Le projet est un site statique sans base de données ni framework applicatif :
 - JavaScript vanilla ;
 - images locales optimisées en WebP ;
 - SVG intégrés pour les icônes de navigation ;
+- manifeste d'application (`manifest.webmanifest`) et service worker
+  (`sw.js`) : voir « Application installable » plus bas ;
 - Vite utilisé uniquement comme serveur de développement local ;
 - aucune API ni ressource externe obligatoire ;
 - déploiement possible par simple copie FTP/SFTP.
@@ -58,6 +65,8 @@ galerie sont déclarées dans `assets/js/photos.js` et les personnages dans
 
 ```text
 index.html                 Structure et contenu de la page
+manifest.webmanifest       Description de l'application installable
+sw.js                      Service worker : consultation hors ligne
 assets/css/style.css       Charte graphique et responsive
 assets/js/main.js          Navigation et interactions
 assets/js/photos.js        Données de la galerie photo
@@ -65,9 +74,14 @@ assets/js/personnages.js   Données des personnages
 assets/img/full/           Images en grand format
 assets/img/thumbs/         Miniatures et images des cartes
 assets/img/personnages/    Portraits des personnages (300×400)
-scripts/check-project.mjs  Contrôle des fichiers et chemins
+assets/img/icons/          Icônes d'application et captures d'installation
+deploy/v2.htaccess         Configuration du répertoire de recette
+scripts/check-project.mjs  Contrôle des fichiers, du manifeste et des chemins
+scripts/deploy-v2.sh       Envoi du site dans le répertoire de recette
 README_DEPLOIEMENT.md      Procédure de déploiement et de mise à jour du contenu
-AGENTS.md                  Instructions de contribution pour Codex
+AGENTS.md                  Règles à respecter avant de modifier le site
+PRODUCT.md                 Cible, positionnement et intentions
+DESIGN.md                  Charte graphique et ses règles
 ```
 
 Les photos suivent la convention `section-sujet.webp`, par exemple
@@ -100,7 +114,39 @@ Cette commande contrôle notamment :
 
 - la présence des fichiers indispensables ;
 - les chemins des images et ressources ;
-- plusieurs éléments critiques de la structure HTML/CSS.
+- plusieurs éléments critiques de la structure HTML/CSS ;
+- la validité du manifeste, ses champs obligatoires, ses icônes 192 et 512,
+  la présence d'une icône « maskable » et l'existence de chaque image
+  qu'il déclare.
+
+## Application installable
+
+Le site se comporte comme une application : sur téléphone, le navigateur
+propose de l'ajouter à l'écran d'accueil ; il s'ouvre ensuite sans barre
+d'adresse, et reste consultable sans réseau — utile sur une fête médiévale où
+la 4G ne passe pas toujours.
+
+Trois pièces, solidaires :
+
+| Fichier | Rôle |
+| --- | --- |
+| `manifest.webmanifest` | nom, description, couleurs, icônes, captures d'écran et raccourcis |
+| `sw.js` | service worker : garde une copie du site pour la consultation hors ligne |
+| `assets/img/icons/` | icônes 192 et 512 (normales et « maskable »), icône iOS, favicon, captures |
+
+Le service worker travaille en **réseau d'abord** : la version en ligne gagne
+toujours, le cache ne sert que de filet quand la connexion manque. C'est ce qui
+permet de remplacer une photo par un fichier du même nom sans que personne ne
+reste bloqué sur l'ancienne. Ne pas le passer en « cache d'abord » sans mettre
+en place, en échange, un numéro de version sur chaque fichier.
+
+Le premier chargement met en cache la coquille du site (page, styles, scripts,
+les deux photos du haut de page) ; les autres photos s'y ajoutent au fil de la
+visite. Hors ligne, le site s'affiche donc complet dès la première visite, et
+les photos déjà vues restent disponibles.
+
+Pour refabriquer les icônes à partir d'une nouvelle photo de bannière, voir
+[`README_DEPLOIEMENT.md`](README_DEPLOIEMENT.md).
 
 ## Modifier la galerie
 

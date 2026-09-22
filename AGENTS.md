@@ -49,6 +49,10 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `assets/js/personnages.js` — données des personnages.
 - `assets/js/main.js` — interactions ; à ne toucher que si le comportement doit
   changer.
+- `manifest.webmanifest` — description de l'application installable.
+- `sw.js` — service worker, stratégie « réseau d'abord ». Lire l'en-tête du
+  fichier avant d'y toucher.
+- `assets/img/icons/` — icônes d'application et captures d'installation.
 
 Ajouter une photo ou un personnage se fait dans les fichiers de données, sans
 modifier `index.html` ni le CSS.
@@ -73,11 +77,22 @@ modifier `index.html` ni le CSS.
   `assets/js/main.js`.
 - Remplacer les photos du camp par des placeholders génériques. Une animation
   sans photo utilise `assets/img/thumbs/photo-a-venir.webp`.
+- Passer le service worker en « cache d'abord » : les photos et les textes sont
+  remplacés par des fichiers du même nom, les visiteurs resteraient bloqués sur
+  d'anciennes versions.
+- Ajouter un fichier servi à la racine sans l'ajouter à `scripts/deploy-v2.sh` :
+  il n'arriverait jamais sur le serveur.
 
 ## Commandes utiles
 
 ```bash
 npm install
-npm run dev      # serveur local Vite
-npm run check    # présence des fichiers, chemins d'images, éléments critiques
+npm run dev                          # serveur local Vite
+npm run check                        # fichiers, chemins d'images, manifeste
+bash scripts/deploy-v2.sh --dry-run  # ce qui partirait en recette
 ```
+
+Attention en développement local : Vite sert la feuille de style en
+`text/javascript` pour son rechargement à chaud. Un test hors ligne fait sur
+`npm run dev` montre donc une page sans styles — ce n'est pas un défaut du
+service worker. Tester hors ligne sur le site déployé.

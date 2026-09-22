@@ -782,4 +782,15 @@
     }, {threshold: .08});
     reveals.forEach(el => observer.observe(el));
   }
+
+  // Service worker : le site s'ouvre sans réseau une fois visité, et devient
+  // installable comme une application. La stratégie est décrite dans sw.js.
+  // Un échec n'a aucune conséquence visible — page ouverte en fichier local,
+  // navigation privée, hébergement sans HTTPS : le site fonctionne pareil,
+  // simplement sans copie hors ligne.
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
 })();

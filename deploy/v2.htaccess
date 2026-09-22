@@ -23,3 +23,13 @@ Require valid-user
 <IfModule mod_headers.c>
   Header set Cache-Control "no-cache, must-revalidate"
 </IfModule>
+
+# 5. Type MIME du manifeste : Apache ne connaît pas .webmanifest par défaut,
+#    et un manifeste servi en text/plain n'est pas toujours accepté.
+AddType application/manifest+json .webmanifest
+
+# 6. Le service worker ne doit jamais être servi depuis un cache ancien,
+#    sinon une correction peut mettre des jours à atteindre les visiteurs.
+<Files "sw.js">
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+</Files>

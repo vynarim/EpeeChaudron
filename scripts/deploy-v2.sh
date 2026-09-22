@@ -22,9 +22,9 @@ DRY_RUN=0
 cd "$(dirname "$0")/.."
 
 # --- Fichiers à envoyer ------------------------------------------------------
-# index.html + tout assets/. Rien d'autre : ni *.md, ni scripts/, ni package*.
+# index.html, le manifeste, le service worker et tout assets/. Rien d'autre : ni *.md, ni scripts/, ni package*.
 mapfile -t FILES < <(
-  printf 'index.html\n'
+  printf 'index.html\nmanifest.webmanifest\nsw.js\n'
   find assets -type f ! -name '.*' | sort
 )
 

@@ -28,6 +28,8 @@ compilation. Mettre en ligne = copier les fichiers sur l'hébergement.
 
 ```text
 index.html                 page unique du site
+manifest.webmanifest       description de l'application installable
+sw.js                      service worker (consultation hors ligne)
 assets/css/style.css       styles (charte, responsive, carrousels)
 assets/js/main.js          menu, fiches animations, liste de souhaits, carrousels, lightbox, onglets
 assets/js/photos.js        liste des photos de la galerie
@@ -35,7 +37,8 @@ assets/js/personnages.js   liste des personnages (portrait, nom, rôle, accroche
 assets/img/full/           photos grand format (hero, bande, lightbox)
 assets/img/thumbs/         miniatures 720×520 (cartes animations, galerie)
 assets/img/personnages/    portraits des personnages (format 3/4)
-assets/img/favicon.png, logo-square.webp
+assets/img/icons/          icônes d'application, icône iOS, favicon, captures
+assets/img/logo-square.webp
 ```
 
 **Ne pas envoyer** : `node_modules/`, `.playwright-mcp/`, `.git/`, `.vscode/`,
@@ -112,8 +115,68 @@ ED25519  SHA256:FqKUcYORjRzc15jHhIGKwTq+sTUo+6rkTINHcJA2mdg
 ### Le jour de la bascule
 
 Copier le contenu de `www/v2/` à la racine de `www/` — **sans** les fichiers
-`.htaccess` et `.htpasswd` de recette, qui y mettraient un mot de passe et un
+`.htaccess` et `.htpasswd` de recette, qui mettraient un mot de passe et un
 `noindex` sur le site public — puis supprimer le répertoire `v2/`.
+
+Une ligne du `.htaccess` de recette doit malgré tout être reportée dans le
+`.htaccess` de la racine, sans quoi le manifeste peut être refusé par certains
+navigateurs :
+
+```apache
+AddType application/manifest+json .webmanifest
+```
+
+Et, tant qu'à faire, celle qui empêche le service worker de rester figé :
+
+```apache
+<Files "sw.js">
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+</Files>
+```
+
+Penser aussi à **désinscrire le service worker de `/v2/`** chez les membres qui
+avaient installé la recette : ouvrir `https://epee-chaudron.fr/v2/` une
+dernière fois n'y suffit pas. Le plus simple est de leur faire supprimer
+l'application installée puis de réinstaller depuis la nouvelle adresse.
+
+## 3 ter. L'application installable
+
+Le site se déclare comme une application : un téléphone propose de l'ajouter à
+l'écran d'accueil, et il reste consultable sans réseau. Trois fichiers en sont
+responsables — `manifest.webmanifest`, `sw.js` et le dossier
+`assets/img/icons/` — et ils doivent partir ensemble. `scripts/deploy-v2.sh`
+s'en charge ; un envoi manuel ne doit pas les oublier.
+
+Le service worker travaille en **réseau d'abord** : la version en ligne gagne
+toujours. Remplacer une photo par un fichier du même nom fonctionne donc sans
+précaution particulière. Un visiteur qui a l'application ouverte verra la
+nouvelle version au rechargement suivant.
+
+### Refabriquer les icônes
+
+Les icônes sont découpées dans la photo de bannière `assets/img/favicon.png`
+(512 × 512), sur le carré de tissu seul : x 22 → 478, y 4 → 460. Il en faut
+six, toutes dans `assets/img/icons/` :
+
+| Fichier | Taille | Contenu |
+| --- | --- | --- |
+| `icon-192.png` | 192 | bannière plein cadre |
+| `icon-512.png` | 512 | bannière plein cadre |
+| `icon-maskable-192.png` | 192 | bannière à 72 % sur fond bleu `#123d91` |
+| `icon-maskable-512.png` | 512 | idem |
+| `apple-touch-icon.png` | 180 | bannière plein cadre (iOS) |
+| `favicon-96.png` | 96 | bannière plein cadre (onglet du navigateur) |
+
+Les deux icônes « maskable » gardent une marge : Android découpe l'icône en
+rond ou en carré arrondi selon le téléphone, et mange les bords.
+
+Les deux captures `capture-mobile.jpg` (390 × 844) et `capture-desktop.jpg`
+(1280 × 800) s'affichent dans la fenêtre d'installation de Chrome. Les refaire
+après une refonte visuelle, sinon elles montreront l'ancien site.
+
+`npm run check` vérifie que le manifeste est lisible, qu'il a ses champs
+obligatoires, ses icônes 192 et 512, au moins une icône « maskable », et que
+chaque image qu'il déclare existe vraiment.
 
 ## 4. Mettre à jour le contenu
 

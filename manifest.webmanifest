@@ -1,0 +1,77 @@
+{
+  "name": "L’Épée et le Chaudron — Mesnie de reconstitution médiévale",
+  "short_name": "Épée & Chaudron",
+  "description": "Le campement médiéval vivant de L’Épée et le Chaudron : les animations proposées, les personnages de la mesnie, les photos du camp et ce qu’il faut prévoir pour nous accueillir. Association loi 1901 des Alpes-Maritimes, présente sur les fêtes médiévales et les sites historiques de la vallée du Rhône et du sud de la France.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#fffaf0",
+  "theme_color": "#123d91",
+  "categories": ["education", "entertainment", "lifestyle"],
+  "icons": [
+    {
+      "src": "assets/img/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/img/icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/img/icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "assets/img/icons/capture-mobile.jpg",
+      "sizes": "390x844",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Le campement et les animations, sur téléphone"
+    },
+    {
+      "src": "assets/img/icons/capture-desktop.jpg",
+      "sizes": "1280x800",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Le campement et les animations, sur ordinateur"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Les animations",
+      "short_name": "Animations",
+      "description": "Les animations que la mesnie installe sur un événement",
+      "url": "./#animations"
+    },
+    {
+      "name": "Les personnages",
+      "short_name": "Personnages",
+      "description": "Qui tient quel rôle dans la mesnie",
+      "url": "./#personnages"
+    },
+    {
+      "name": "Nous écrire",
+      "short_name": "Contact",
+      "description": "Contacter l’association pour un événement",
+      "url": "./#contact"
+    }
+  ]
+}
