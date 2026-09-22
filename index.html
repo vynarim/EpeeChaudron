@@ -7,8 +7,16 @@
   <meta name="description" content="Campement médiéval vivant pour fêtes médiévales, sites patrimoniaux et reconstitutions historiques. Association loi 1901 des Alpes-Maritimes, nous nous déplaçons dans la vallée du Rhône et le sud de la France.">
   <meta name="theme-color" content="#123d91">
 
-  <!-- Application web installable : voir manifest.webmanifest et sw.js -->
-  <link rel="manifest" href="manifest.webmanifest">
+  <!-- Application web installable : voir manifest.webmanifest et sw.js.
+       crossorigin="use-credentials" est indispensable : sans lui le navigateur
+       demande le manifeste SANS identifiants, et le répertoire de recette
+       protégé par mot de passe lui répond 401 — l'installation devient alors
+       « impossible ». Sans effet une fois le site à la racine, sans mot de
+       passe : à conserver. -->
+  <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
+  <link rel="icon" href="assets/img/icons/favicon-16.png" sizes="16x16" type="image/png">
+  <link rel="icon" href="assets/img/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="assets/img/icons/favicon-48.png" sizes="48x48" type="image/png">
   <link rel="icon" href="assets/img/icons/favicon-96.png" sizes="96x96" type="image/png">
   <link rel="apple-touch-icon" href="assets/img/icons/apple-touch-icon.png">
   <meta name="application-name" content="Épée &amp; Chaudron">

@@ -44,6 +44,9 @@ if (!personnages.includes('window.EC_PERSONNAGES')) errors.push('Définition win
 
 // Application installable : les trois pièces doivent rester solidaires.
 if (!html.includes('rel="manifest"')) errors.push('index.html ne déclare pas le manifeste');
+if (!/rel="manifest"[^>]*crossorigin="use-credentials"/.test(html)) {
+  errors.push('Le manifeste doit être déclaré avec crossorigin="use-credentials", sinon le répertoire protégé par mot de passe le refuse et l’installation échoue');
+}
 if (!html.includes('rel="apple-touch-icon"')) errors.push('index.html ne déclare pas l’icône iOS');
 if (!html.includes('name="theme-color"')) errors.push('Couleur de thème manquante dans index.html');
 if (!main.includes("serviceWorker")) errors.push('main.js n’enregistre pas le service worker');

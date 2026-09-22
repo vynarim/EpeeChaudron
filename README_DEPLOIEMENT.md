@@ -152,23 +152,45 @@ toujours. Remplacer une photo par un fichier du même nom fonctionne donc sans
 précaution particulière. Un visiteur qui a l'application ouverte verra la
 nouvelle version au rechargement suivant.
 
+### Le manifeste et le mot de passe de la recette
+
+Le manifeste est déclaré dans `index.html` avec `crossorigin="use-credentials"`.
+Sans cet attribut, le navigateur demande le manifeste **sans identifiants** :
+le répertoire de recette lui répond 401, et Chrome affiche « Impossible
+d'installer cette appli ». L'attribut est sans effet une fois le site à la
+racine, sans mot de passe — le laisser. `npm run check` refuse de passer s'il
+disparaît.
+
 ### Refabriquer les icônes
 
-Les icônes sont découpées dans la photo de bannière `assets/img/favicon.png`
-(512 × 512), sur le carré de tissu seul : x 22 → 478, y 4 → 460. Il en faut
-six, toutes dans `assets/img/icons/` :
+Toutes les icônes sont découpées dans la photo de bannière
+`assets/img/favicon.png` (512 × 512), avec **deux découpes différentes** :
 
-| Fichier | Taille | Contenu |
+- **la bannière entière**, sur le carré de tissu seul (x 22 → 478, y 4 → 460),
+  pour les icônes d'application. À 180 px et au-delà, le nom brodé en haut de
+  la bannière est lisible : il a sa place.
+- **l'emblème seul**, resserré sous le bandeau de texte (x 60 → 430,
+  y 90 → 460), pour le favicon. À 16 px le bandeau ne fait qu'une bavure grise
+  et vole un sixième de la surface ; sans lui, l'épée, le chaudron et la
+  diagonale bleu-or restent identifiables.
+
+| Fichier | Taille | Découpe |
 | --- | --- | --- |
-| `icon-192.png` | 192 | bannière plein cadre |
-| `icon-512.png` | 512 | bannière plein cadre |
-| `icon-maskable-192.png` | 192 | bannière à 72 % sur fond bleu `#123d91` |
+| `icon-192.png` | 192 | bannière entière |
+| `icon-512.png` | 512 | bannière entière |
+| `icon-maskable-192.png` | 192 | bannière entière à 72 % sur fond bleu `#123d91` |
 | `icon-maskable-512.png` | 512 | idem |
-| `apple-touch-icon.png` | 180 | bannière plein cadre (iOS) |
-| `favicon-96.png` | 96 | bannière plein cadre (onglet du navigateur) |
+| `apple-touch-icon.png` | 180 | bannière entière (écran d'accueil iOS) |
+| `favicon-16.png` | 16 | emblème seul (onglet du navigateur) |
+| `favicon-32.png` | 32 | emblème seul |
+| `favicon-48.png` | 48 | emblème seul |
+| `favicon-96.png` | 96 | emblème seul (favoris, écrans haute densité) |
 
 Les deux icônes « maskable » gardent une marge : Android découpe l'icône en
 rond ou en carré arrondi selon le téléphone, et mange les bords.
+
+L'onglet du navigateur ne charge plus que **805 octets** (`favicon-16.png`), au
+lieu des 359 Ko de la photo de bannière servie telle quelle auparavant.
 
 Les deux captures `capture-mobile.jpg` (390 × 844) et `capture-desktop.jpg`
 (1280 × 800) s'affichent dans la fenêtre d'installation de Chrome. Les refaire
