@@ -293,6 +293,12 @@ h2{
 /* L'accroche est en italique ; l'atelier et le texte qui la suivent restent droits. */
 .persona-modal-details p ~ p{font-style:normal;font-size:1rem}
 .persona-modal-atelier strong{color:var(--ink);font-weight:800}
+.persona-modal-atelier-link{
+  min-height:44px;padding:0;border:0;background:none;cursor:pointer;
+  color:var(--blue);font:inherit;text-decoration:underline;text-underline-offset:3px;text-align:left
+}
+.persona-modal-atelier-link:hover{color:var(--blue-dark)}
+.persona-modal-atelier-link:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .persona-modal-counter{margin:1.5rem 0 0;color:var(--muted);font-size:.82rem;font-variant-numeric:tabular-nums}
 
 /* --- Contrôles flottants ------------------------------------------------ */

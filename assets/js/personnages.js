@@ -8,7 +8,8 @@
 //   alt  : description de la photo pour les lecteurs d'écran
 //   atelier : FACULTATIF — l'atelier qu'anime le personnage. Affiché dans la
 //             fiche plein écran, précédé de « Atelier : » en gras ; ne pas
-//             réécrire ce mot ici.
+//             réécrire ce mot ici. Écrit exactement comme le titre d'une
+//             animation de ateliers.js, il devient un lien vers sa fiche.
 //   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
 //           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']

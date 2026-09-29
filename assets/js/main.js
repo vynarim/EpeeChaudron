@@ -1,4 +1,38 @@
 (function(){
+  // Bouton retour du téléphone : une fiche ou une photo ouverte occupe tout
+  // l'écran, le visiteur la prend pour une page. Chaque ouverture ajoute donc
+  // une entrée d'historique, et « retour » referme la fiche au lieu de
+  // quitter le site. Fermer par la croix retire l'entrée ajoutée.
+  // Les fiches s'empilent : l'atelier ouvert depuis un personnage se referme
+  // sur la fiche du personnage.
+  const overlayHistory = (() => {
+    const closers = [];
+    let ownBacks = 0;      // retours déclenchés par la croix, pas par le visiteur
+    let fromHistory = false;
+    window.addEventListener('popstate', () => {
+      if(ownBacks){ ownBacks--; return; }
+      const close = closers.pop();
+      if(!close) return;
+      fromHistory = true;
+      try { close(); } finally { fromHistory = false; }
+    });
+    return {
+      opened(close){
+        if(closers.includes(close)) return; // fiche suivante : même entrée
+        closers.push(close);
+        history.pushState({ecOverlay: true}, '');
+      },
+      closed(close){
+        if(fromHistory) return; // déjà retirée par le bouton retour
+        const i = closers.lastIndexOf(close);
+        if(i === -1) return;
+        closers.splice(i, 1);
+        ownBacks++;
+        history.back();
+      }
+    };
+  })();
+
   const menuButton = document.querySelector('[data-menu-button]');
   const nav = document.querySelector('[data-nav]');
   if(menuButton && nav){
@@ -120,6 +154,7 @@
     lightboxCaption.textContent = photo.title;
     lightbox.hidden = false;
     document.body.style.overflow = 'hidden';
+    overlayHistory.opened(closeLightbox);
     if(lightboxClose) lightboxClose.focus();
   }
   function showRelativePhoto(offset){
@@ -132,6 +167,7 @@
   function closeLightbox(){
     if(!lightbox || lightbox.hidden) return;
     lightbox.hidden = true;
+    overlayHistory.closed(closeLightbox);
     lightboxImg.src = '';
     document.body.style.overflow = '';
     if(lightboxTrigger) lightboxTrigger.focus();
@@ -253,6 +289,7 @@
   let wishlist = [];
   let notificationTimer = null;
   let moduleTrigger = null;
+  let moduleReturn = null;
 
   try {
     const savedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey) || '[]');
@@ -470,6 +507,7 @@
     moduleModal.hidden = false;
     document.body.classList.add('is-modal-open');
     document.body.style.overflow = 'hidden';
+    overlayHistory.opened(closeModuleModal);
     moduleModalClose.focus();
   }
 
@@ -483,11 +521,17 @@
   function closeModuleModal(){
     if(!moduleModal || moduleModal.hidden) return;
     moduleModal.hidden = true;
+    overlayHistory.closed(closeModuleModal);
     moduleModalImage.src = '';
     moduleModalDetails.innerHTML = '';
     document.body.classList.remove('is-modal-open');
     document.body.style.overflow = '';
-    if(moduleTrigger) moduleTrigger.focus();
+    // Ouvert depuis la fiche d'un personnage : on y revient.
+    if(moduleReturn){
+      const back = moduleReturn;
+      moduleReturn = null;
+      back();
+    } else if(moduleTrigger) moduleTrigger.focus();
   }
 
   moduleCards.forEach(card => {
@@ -647,7 +691,18 @@
         atelier.className = 'persona-modal-atelier';
         const libelle = document.createElement('strong');
         libelle.textContent = 'Atelier :';
-        atelier.append(libelle, ' ' + persona.atelier);
+        // Un atelier qui porte le titre d'une animation ouvre sa fiche.
+        const card = atelierCard(persona.atelier);
+        if(card){
+          const lien = document.createElement('button');
+          lien.type = 'button';
+          lien.className = 'persona-modal-atelier-link';
+          lien.textContent = persona.atelier;
+          lien.addEventListener('click', () => showAtelier(card));
+          atelier.append(libelle, ' ', lien);
+        } else {
+          atelier.append(libelle, ' ' + persona.atelier);
+        }
         personaModalDetails.appendChild(atelier);
       }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
@@ -663,7 +718,15 @@
       personaModalCounter.textContent = (personaIndex + 1) + ' / ' + total;
     }
 
-    function openPersonaModal(index){
+    function atelierCard(nom){
+      const cle = nom.trim().toLowerCase();
+      return moduleCards.find(card => {
+        const titre = card.querySelector('h3');
+        return titre && titre.textContent.trim().toLowerCase() === cle;
+      });
+    }
+
+    function displayPersonaModal(index){
       showPersona(index);
       personaModal.hidden = false;
       document.body.classList.add('is-modal-open');
@@ -671,9 +734,24 @@
       personaModalClose.focus();
     }
 
+    function openPersonaModal(index){
+      displayPersonaModal(index);
+      overlayHistory.opened(closePersonaModal);
+    }
+
+    // La fiche du personnage reste dans l'historique, masquée : fermer
+    // l'atelier, par la croix ou par « retour », la fait réapparaître.
+    function showAtelier(card){
+      const from = personaIndex;
+      personaModal.hidden = true;
+      moduleReturn = () => displayPersonaModal(from);
+      openModuleModal(card);
+    }
+
     function closePersonaModal(){
       if(personaModal.hidden) return;
       personaModal.hidden = true;
+      overlayHistory.closed(closePersonaModal);
       personaModalImage.removeAttribute('src');
       personaModalDetails.innerHTML = '';
       document.body.classList.remove('is-modal-open');
