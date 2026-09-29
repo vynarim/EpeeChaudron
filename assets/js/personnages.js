@@ -18,5 +18,6 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-perrette.webp', name:'Perrette', role:'Bugadière et tisserande', hook:'La lessive à la cendre avec un seau percé… quel travail pour un petit bout de galon !', alt:'Perrette, bugadière, à la lessive'},
   {img:'assets/img/personnages/personnages-thibault-le-jeune.webp', name:'Thibault le jeune', role:'Apprenti arbalétrier', hook:'Il s’adonne à l’arbalestrie. Mieux vaut, pour l’instant, protéger vos têtes.', alt:'Thibault le jeune, apprenti arbalétrier'},
   {img:'assets/img/personnages/personnages-ecarlate.webp', name:'Sire l’Écarlate', role:'Archer et cracheur de feu', hook:'Toujours prêt à échanger quelques coups d’épée. La nuit venue, il s’embrase de mille feux.', alt:'Sire l’Écarlate, archer'},
-  {img:'assets/img/personnages/personnages-bougonne.webp', name:'La Bougonne', role:'Tisserande', hook:'Rieuse ou grognon ? Envoyez donc quelqu’un d’autre tâter son humeur.', alt:'La Bougonne, tisserande'}
+  {img:'assets/img/personnages/personnages-bougonne.webp', name:'La Bougonne', role:'Tisserande', hook:'Rieuse ou grognon ? Envoyez donc quelqu’un d’autre tâter son humeur.', alt:'La Bougonne, tisserande'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Joshua', role:'Peintre de cour', hook:'Laissez le tracé de son pinceau immortaliser vos plus grands succès… ou vos plus grands embarras. Au choix.', alt:'Portrait de Joshua à venir', texte:'Atelier : illustration et fabrication de peintures médiévales.'}
 ];
