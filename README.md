@@ -58,8 +58,9 @@ Le projet est un site statique sans base de données ni framework applicatif :
 - déploiement possible par simple copie FTP/SFTP.
 
 Les interactions sont regroupées dans `assets/js/main.js`. Les photos de la
-galerie sont déclarées dans `assets/js/photos.js` et les personnages dans
-`assets/js/personnages.js` ; les cartes sont générées dynamiquement.
+galerie sont déclarées dans `assets/js/photos.js`, les ateliers dans
+`assets/js/ateliers.js` et les personnages dans `assets/js/personnages.js` ;
+les cartes sont générées au chargement de la page.
 
 ## Structure
 
@@ -70,9 +71,11 @@ sw.js                      Service worker : consultation hors ligne
 assets/css/style.css       Charte graphique et responsive
 assets/js/main.js          Navigation et interactions
 assets/js/photos.js        Données de la galerie photo
+assets/js/ateliers.js      Données des ateliers et animations
 assets/js/personnages.js   Données des personnages
 assets/img/full/           Images en grand format
-assets/img/thumbs/         Miniatures et images des cartes
+assets/img/thumbs/         Miniatures de la galerie photo
+assets/img/ateliers/       Photos des ateliers (720×520)
 assets/img/personnages/    Portraits des personnages (300×400)
 assets/img/icons/          Icônes d'application et captures d'installation
 deploy/v2.htaccess         Configuration du répertoire de recette
@@ -85,10 +88,10 @@ DESIGN.md                  Charte graphique et ses règles
 ```
 
 Les photos suivent la convention `section-sujet.webp`, par exemple
-`animations-cuisine-feu.webp` ou `galerie-camp-troupe.webp`. Une animation qui
-n'a pas encore de photo utilise `assets/img/thumbs/photo-a-venir.webp` : il
-suffit de remplacer le `src` de sa carte dans `index.html` le jour où la photo
-existe (720×520).
+`ateliers-cuisine.webp` ou `galerie-camp-troupe.webp`. Un atelier qui n'a pas
+encore de photo utilise `assets/img/ateliers/photo-a-venir.webp` : le jour où
+la photo existe (720×520), il suffit de changer son champ `img` dans
+`assets/js/ateliers.js`.
 
 ## Développement local
 
@@ -166,6 +169,40 @@ Pour refabriquer les icônes à partir d'une nouvelle photo de bannière, voir
 
 La catégorie n'est plus affichée (la galerie n'a plus de filtres) mais reste
 renseignée pour mémoire. L'ordre du tableau est l'ordre du carrousel.
+
+## Modifier les ateliers
+
+Même principe : les ateliers sont déclarés dans `assets/js/ateliers.js`, dans
+l'ordre de la grille, et les cartes comme les fiches plein écran sont générées
+au chargement. Aucune modification de `index.html` ni du CSS n'est nécessaire.
+
+1. Déposer la photo (720×520, WebP) dans `assets/img/ateliers/`, sous le nom
+   `ateliers-<id>.webp`.
+2. Ajouter une entrée dans `assets/js/ateliers.js` :
+
+```js
+{
+  id: 'exemple',
+  categorie: 'ateliers',          // 'camp', 'ateliers' ou 'armes'
+  img: 'assets/img/ateliers/ateliers-exemple.webp',
+  alt: 'Description de la photo',
+  titre: 'Titre de l’animation',
+  resume: 'Une phrase, affichée sur la carte.',
+  texte: [
+    'Premier paragraphe de la fiche plein écran.',
+    'Second paragraphe.'
+  ],
+  points: ['Premier point abordé', 'Deuxième', 'Troisième']
+}
+```
+
+**Le titre sert aussi d'identifiant** à la liste de souhaits que les visiteurs
+gardent dans leur navigateur : le changer retire l'animation des listes déjà
+faites. Corriger une faute, oui ; renommer, en connaissance de cause.
+
+`npm run check` exécute le fichier et refuse un champ manquant, une catégorie
+qui ne correspond à aucun filtre, un titre ou un identifiant en double, et une
+photo absente.
 
 ## Modifier les personnages
 

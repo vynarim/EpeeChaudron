@@ -179,6 +179,60 @@
   const moduleModalWishlist = document.querySelector('[data-module-modal-wishlist]');
   const moduleModalPrev = document.querySelector('[data-module-modal-prev]');
   const moduleModalNext = document.querySelector('[data-module-modal-next]');
+  // Ateliers : cartes générées depuis assets/js/ateliers.js, comme les
+  // personnages le sont depuis personnages.js. Elles doivent exister avant la
+  // ligne suivante, qui les recense pour les filtres, la liste de souhaits et
+  // la fiche plein écran — le balisage produit est celui qu'écrivait le HTML.
+  const atelierGrid = document.querySelector('[data-atelier-grid]');
+  if(atelierGrid){
+    (window.EC_ATELIERS || []).forEach(atelier => {
+      const card = document.createElement('article');
+      card.className = 'card module-card reveal';
+      card.dataset.category = atelier.categorie;
+      card.dataset.atelier = atelier.id;
+      card.tabIndex = 0;
+      card.setAttribute('role', 'button');
+      card.setAttribute('aria-haspopup', 'dialog');
+
+      const img = document.createElement('img');
+      img.src = atelier.img;
+      img.alt = atelier.alt || atelier.titre;
+      img.width = 720;
+      img.height = 520;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+
+      const corps = document.createElement('div');
+      const titre = document.createElement('h3');
+      titre.textContent = atelier.titre;
+      const resume = document.createElement('p');
+      resume.textContent = atelier.resume;
+      corps.append(titre, resume);
+
+      const details = document.createElement('div');
+      details.className = 'module-details';
+      details.hidden = true;
+      (atelier.texte || []).forEach(contenu => {
+        const p = document.createElement('p');
+        p.textContent = contenu;
+        details.appendChild(p);
+      });
+      if(atelier.points && atelier.points.length){
+        const rubrique = document.createElement('h4');
+        rubrique.textContent = 'Points abordés';
+        const liste = document.createElement('ul');
+        atelier.points.forEach(point => {
+          const li = document.createElement('li');
+          li.textContent = point;
+          liste.appendChild(li);
+        });
+        details.append(rubrique, liste);
+      }
+
+      card.append(img, corps, details);
+      atelierGrid.appendChild(card);
+    });
+  }
   const moduleCards = Array.from(document.querySelectorAll('.module-card'));
   const moduleFilterHost = document.querySelector('.module-filters');
   if(moduleFilterHost){

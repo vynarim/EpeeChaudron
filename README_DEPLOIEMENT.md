@@ -33,9 +33,11 @@ sw.js                      service worker (consultation hors ligne)
 assets/css/style.css       styles (charte, responsive, carrousels)
 assets/js/main.js          menu, fiches animations, liste de souhaits, carrousels, lightbox, onglets
 assets/js/photos.js        liste des photos de la galerie
-assets/js/personnages.js   liste des personnages (portrait, nom, rôle, accroche)
+assets/js/ateliers.js      liste des ateliers (photo, titre, résumé, fiche complète)
+assets/js/personnages.js   liste des personnages (portrait, nom, rôle, accroche, atelier)
 assets/img/full/           photos grand format (hero, bande, lightbox)
-assets/img/thumbs/         miniatures 720×520 (cartes animations, galerie)
+assets/img/thumbs/         miniatures 720×520 de la galerie photo
+assets/img/ateliers/       photos 720×520 des ateliers
 assets/img/personnages/    portraits des personnages (format 3/4)
 assets/img/icons/          icônes d'application, icône iOS, favicon, captures
 assets/img/logo-square.webp
@@ -244,11 +246,22 @@ Pour remplacer seulement la photo d'un personnage existant : écraser le fichier
 du même nom, rien d'autre à changer. Les portraits actuels sont des reprises de
 l'ancien site en basse définition, à remplacer dès que possible.
 
-### Modifier une animation
+### Ajouter ou modifier un atelier
 
-Les animations sont dans `index.html`, section `#animations` : une carte
-`article.module-card` par animation avec sa miniature, son titre, son résumé et,
-dans `div.module-details`, le texte complet de la fiche.
+Les ateliers sont dans `assets/js/ateliers.js`, un par entrée, dans l'ordre de
+la grille : photo, titre, résumé affiché sur la carte, paragraphes et points
+abordés de la fiche plein écran. Voir la section « Modifier les ateliers » du
+`README.md` pour le détail des champs.
+
+1. Déposer la photo (720×520, WebP) dans `assets/img/ateliers/`, nommée
+   `ateliers-<id>.webp`. Sans photo pour l'instant :
+   `assets/img/ateliers/photo-a-venir.webp`.
+2. Ajouter ou modifier l'entrée dans `assets/js/ateliers.js`.
+3. `npm run check`, puis envoyer.
+
+Attention au **titre** : il identifie l'animation dans la liste de souhaits que
+les visiteurs gardent dans leur navigateur. Le renommer la retire des listes
+déjà faites.
 
 ### Modifier les textes
 

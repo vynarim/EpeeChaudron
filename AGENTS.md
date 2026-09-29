@@ -42,10 +42,13 @@ exceptionnelles. Voir `PRODUCT.md`.
 
 ## Où se trouve quoi
 
-- `index.html` — structure, textes, fiches des animations.
+- `index.html` — structure et textes de la page.
 - `assets/css/style.css` — charte, responsive, carrousels. Organisé en
   sections ; ne pas réintroduire de CSS minifié ni de règles dupliquées.
 - `assets/js/photos.js` — données de la galerie photo.
+- `assets/js/ateliers.js` — données des ateliers : cartes et fiches plein
+  écran. Le `titre` identifie l'animation dans la liste de souhaits des
+  visiteurs : ne pas le renommer à la légère.
 - `assets/js/personnages.js` — données des personnages.
 - `assets/js/main.js` — interactions ; à ne toucher que si le comportement doit
   changer.
@@ -54,8 +57,8 @@ exceptionnelles. Voir `PRODUCT.md`.
   fichier avant d'y toucher.
 - `assets/img/icons/` — icônes d'application et captures d'installation.
 
-Ajouter une photo ou un personnage se fait dans les fichiers de données, sans
-modifier `index.html` ni le CSS.
+Ajouter une photo, un atelier ou un personnage se fait dans les fichiers de
+données, sans modifier `index.html` ni le CSS.
 
 ## Règles de style mobile
 
@@ -76,7 +79,7 @@ modifier `index.html` ni le CSS.
 - Écrire l'adresse de contact ailleurs que dans le bouton `mailto:` et
   `assets/js/main.js`.
 - Remplacer les photos du camp par des placeholders génériques. Une animation
-  sans photo utilise `assets/img/thumbs/photo-a-venir.webp`.
+  sans photo utilise `assets/img/ateliers/photo-a-venir.webp`.
 - Passer le service worker en « cache d'abord » : les photos et les textes sont
   remplacés par des fichiers du même nom, les visiteurs resteraient bloqués sur
   d'anciennes versions.
