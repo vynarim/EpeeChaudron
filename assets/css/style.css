@@ -118,8 +118,11 @@ h2{
 /* --- Sections ---------------------------------------------------------- */
 .section{padding:62px 0}
 .paper{background:var(--paper)}
-.section-title{max-width:760px;margin-bottom:24px}
-.intro-text p,.section-title p,.organisers p{color:var(--muted);max-width:620px}
+/* Titres et chapeaux de section sur toute la largeur du corps de page,
+   alignés sur les cartes qu'ils annoncent. */
+.section-title{margin-bottom:24px}
+.intro-text p,.section-title p{color:var(--muted)}
+.organisers p{color:var(--muted);max-width:620px}
 
 /* Intro « Voir, toucher, comprendre » */
 /* Bannière + texte sur une ligne, les trois points forts en rangée dessous :
