@@ -34,7 +34,7 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Doriane', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Christelle', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
 
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoït', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoît', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
   {img:'assets/img/personnages/personnages-nathalie.webp', name:'Nathalie', role:'Blasonnière', hook:'Donnez-lui votre nom, elle vous rendra un blason. Pour la devise, il faudra la mériter.', alt:'Nathalie, blasonnière, en robe bleue devant un vieil olivier', atelier:'Héraldique'},
   {img:'assets/img/personnages/personnages-kilian.webp', name:'Kilian', role:'Chevalier', hook:'Chevalier de son état, il relève tous les défis — surtout ceux lancés par des adversaires d’un mètre vingt.', alt:'Kilian, chevalier, en pourpoint mi-parti bleu et rouge', atelier:'Les enfants en lice'},
   {img:'assets/img/personnages/personnages-meline.webp', name:'Méline', role:'Écuyère', hook:'Écuyère des chevaliers en herbe : elle tend les épées, compte les touches, et ne laisse rien passer.', alt:'Méline, écuyère, en robe verte, des épées de mousse sur l’épaule', atelier:'Les enfants en lice'}
