@@ -230,8 +230,8 @@ window.EC_ATELIERS = [
   {
     id: 'taille-de-pierre',
     categorie: 'ateliers',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir',
+    img: 'assets/img/ateliers/ateliers-taille-de-pierre.webp',
+    alt: 'Trois pierres taillées en bas-relief — un écu à chevron, une croix, un écu — à côté de blocs bruts et de moellons, sur un établi de bois',
     titre: 'Taille de pierre',
     resume: 'Les outils et les gestes du tailleur de pierre, à voir de près.',
     texte: [

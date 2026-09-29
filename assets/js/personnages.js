@@ -13,6 +13,8 @@
 //             fiche plein écran, précédé de « Atelier : » en gras ; ne pas
 //             réécrire ce mot ici. Écrit exactement comme le titre d'une
 //             animation de ateliers.js, il devient un lien vers sa fiche.
+//             Plusieurs ateliers : une liste, affichée après « Ateliers : »
+//             atelier: ['Duel judiciaire', 'Archerie']
 //   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
 //           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
@@ -21,7 +23,7 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-morgane.webp', name:'Morgane', siecle:15, role:'Fille du bourreau', hook:'Son père coupe les têtes ; elle, elle les fait tourner. Et contre elle, on n’a même pas le droit de faire appel.', alt:'Morgane, fille du bourreau, chapeau de paille et chemise blanche, devant une tente rose et noire', atelier:'Bourreau'},
   {img:'assets/img/personnages/personnages-ambre.webp', name:'Ambre', siecle:13, role:'Acrobate', hook:'Virevoltante et espiègle, elle se plaît à faire des farces aux voyageurs de passage.', alt:'Ambre, la cadette, acrobate'},
 
-  {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', siecle:13, role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes, en tunique bleue à côté d’une armure et d’un écu vert et blanc'},
+  {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', siecle:13, role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes, en tunique bleue à côté d’une armure et d’un écu vert et blanc', atelier:['Duel judiciaire', 'Armes et armures', 'Initiation à l’escrime historique', 'Archerie']},
   {img:'assets/img/personnages/personnages-perrette.webp', name:'Perrette', siecle:15, role:'Bugadière et tisserande', hook:'La lessive à la cendre avec un seau percé… quel travail pour un petit bout de galon !', alt:'Perrette, tisserande, en chaperon rayé devant son petit métier à galon'},
   {img:'assets/img/personnages/personnages-thibault-le-jeune.webp', name:'Thibault le jeune', siecle:13, role:'Apprenti arbalétrier', hook:'Il s’adonne à l’arbalestrie. Mieux vaut, pour l’instant, protéger vos têtes.', alt:'Thibault le jeune, chaperon rouge et cale blanche, devant une tente'},
 

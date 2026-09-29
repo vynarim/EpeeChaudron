@@ -584,6 +584,9 @@
   document.addEventListener('keydown', event => {
     if(!moduleModal || moduleModal.hidden) return;
     if(event.key === 'Escape'){
+      // Ouverte depuis la fiche d'un personnage, la fermeture la fait
+      // réapparaître : la touche ne doit pas la refermer aussitôt.
+      event.stopImmediatePropagation();
       closeModuleModal();
       return;
     }
@@ -698,22 +701,28 @@
       hook.textContent = persona.hook;
       personaModalDetails.appendChild(hook);
       if(persona.atelier){
+        // Un nom, ou une liste de noms pour qui anime plusieurs ateliers.
+        const noms = Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier];
         const atelier = document.createElement('p');
         atelier.className = 'persona-modal-atelier';
         const libelle = document.createElement('strong');
-        libelle.textContent = 'Atelier :';
-        // Un atelier qui porte le titre d'une animation ouvre sa fiche.
-        const card = atelierCard(persona.atelier);
-        if(card){
-          const lien = document.createElement('button');
-          lien.type = 'button';
-          lien.className = 'persona-modal-atelier-link';
-          lien.textContent = persona.atelier;
-          lien.addEventListener('click', () => showAtelier(card));
-          atelier.append(libelle, ' ', lien);
-        } else {
-          atelier.append(libelle, ' ' + persona.atelier);
-        }
+        libelle.textContent = noms.length > 1 ? 'Ateliers :' : 'Atelier :';
+        atelier.append(libelle, ' ');
+        noms.forEach((nom, i) => {
+          if(i) atelier.append(', ');
+          // Un atelier qui porte le titre d'une animation ouvre sa fiche.
+          const card = atelierCard(nom);
+          if(card){
+            const lien = document.createElement('button');
+            lien.type = 'button';
+            lien.className = 'persona-modal-atelier-link';
+            lien.textContent = nom;
+            lien.addEventListener('click', () => showAtelier(card));
+            atelier.append(lien);
+          } else {
+            atelier.append(nom);
+          }
+        });
         personaModalDetails.appendChild(atelier);
       }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
