@@ -36,7 +36,7 @@ window.EC_ATELIERS = [
     id: 'heraldique',
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-heraldique.webp',
-    alt: 'Atelier d’héraldique',
+    alt: 'Écus peints aux couleurs de blasons et tableau des émaux et fourrures, sur la table de l’atelier',
     titre: 'Héraldique',
     resume: 'Couleurs, meubles, blasons et atelier très visuel pour le public.',
     texte: [
@@ -139,8 +139,8 @@ window.EC_ATELIERS = [
   {
     id: 'jeux',
     categorie: 'camp',
-    img: 'assets/img/ateliers/ateliers-jeux.webp',
-    alt: 'Jeux et supports pédagogiques disposés sur une table',
+    img: 'assets/img/ateliers/photo-a-venir.webp',
+    alt: 'Photo à venir',
     titre: 'Jeux de société',
     resume: 'Découverte de jeux historiques simples, rapides et participatifs.',
     texte: [
