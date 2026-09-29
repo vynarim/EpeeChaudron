@@ -192,7 +192,7 @@ window.EC_ATELIERS = [
     id: 'archerie',
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-archerie.webp',
-    alt: 'Archer bandant un arc long devant le camp',
+    alt: 'Deux archers en costume sur l’herbe, arc long à la main et carquois de flèches, devant d’autres participants de la fête',
     titre: 'Archerie',
     resume: 'L’arc, les flèches et la puissance d’une arme simple en apparence.',
     texte: [
