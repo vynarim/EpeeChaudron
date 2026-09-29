@@ -576,10 +576,19 @@
       personaModalTitle.textContent = persona.name;
       personaModalDetails.innerHTML = '';
       const hook = document.createElement('p');
+      hook.className = 'persona-modal-hook';
       hook.textContent = persona.hook;
       personaModalDetails.appendChild(hook);
+      if(persona.atelier){
+        const atelier = document.createElement('p');
+        atelier.className = 'persona-modal-atelier';
+        const libelle = document.createElement('strong');
+        libelle.textContent = 'Atelier :';
+        atelier.append(libelle, ' ' + persona.atelier);
+        personaModalDetails.appendChild(atelier);
+      }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
-      // tableau de paragraphes, affichés sous l'accroche.
+      // tableau de paragraphes, affichés sous l'atelier.
       if(persona.texte){
         const paragraphes = Array.isArray(persona.texte) ? persona.texte : [persona.texte];
         paragraphes.forEach(contenu => {

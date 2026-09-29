@@ -6,8 +6,11 @@
 //   role : rôle affiché sous le nom
 //   hook : accroche d'une phrase, en italique sur la carte
 //   alt  : description de la photo pour les lecteurs d'écran
-//   texte : FACULTATIF — ce qui s'ajoute sous l'accroche dans la fiche
-//           plein écran. Une phrase, ou un tableau de paragraphes :
+//   atelier : FACULTATIF — l'atelier qu'anime le personnage. Affiché dans la
+//             fiche plein écran, précédé de « Atelier : » en gras ; ne pas
+//             réécrire ce mot ici.
+//   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
+//           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
 window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-eric.webp', name:'Eric', role:'Bourreau', hook:'Ne vous fiez pas à son air avenant : coupable ou simple suspect, il ne versera pas une larme.', alt:'Eric, le bourreau, chaperon noir à l’insigne de corde, cape de laine et hache à la main'},
@@ -21,18 +24,18 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-ecarlate.webp', name:'Sire l’Écarlate', role:'Archer et cracheur de feu', hook:'Toujours prêt à échanger quelques coups d’épée. La nuit venue, il s’embrase de mille feux.', alt:'Sire l’Écarlate, archer'},
   {img:'assets/img/personnages/personnages-bougonne.webp', name:'La Bougonne', role:'Tisserande', hook:'Rieuse ou grognon ? Envoyez donc quelqu’un d’autre tâter son humeur.', alt:'La Bougonne, tisserande'},
 
-  {img:'assets/img/personnages/personnages-angelique.webp', name:'Angélique', role:'Cuisinière', hook:'Une faim de loup ou le nez qui coule, dans les deux cas, elle a ce qu’il vous faut !', alt:'Angélique, cuisinière, tournant une cuillère de bois au-dessus des chaudrons', texte:'Atelier : découverte des épices et des plantes médicinales.'},
-  {img:'assets/img/personnages/personnages-joshua.webp', name:'Joshua', role:'Peintre de cour', hook:'Laissez le tracé de son pinceau immortaliser vos plus grands succès… ou vos plus grands embarras. Au choix.', alt:'Joshua, peintre de cour, devant sa feuille de parchemin', texte:'Atelier : illustration et fabrication de peintures médiévales.'},
+  {img:'assets/img/personnages/personnages-angelique.webp', name:'Angélique', role:'Cuisinière', hook:'Une faim de loup ou le nez qui coule, dans les deux cas, elle a ce qu’il vous faut !', alt:'Angélique, cuisinière, tournant une cuillère de bois au-dessus des chaudrons', atelier:'découverte des épices et des plantes médicinales'},
+  {img:'assets/img/personnages/personnages-joshua.webp', name:'Joshua', role:'Peintre de cour', hook:'Laissez le tracé de son pinceau immortaliser vos plus grands succès… ou vos plus grands embarras. Au choix.', alt:'Joshua, peintre de cour, devant sa feuille de parchemin', atelier:'illustration et fabrication de peintures médiévales'},
 
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Frédéric', role:'Forgeron', hook:'A définir', alt:'A définir', texte:'Atelier : Forge.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Gaëtan', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Guillaume', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Denis', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Doriane', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Christelle', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Frédéric', role:'Forgeron', hook:'A définir', alt:'A définir', atelier:'Forge'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Gaëtan', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Guillaume', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Denis', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Doriane', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Christelle', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
 
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoït', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Nathalie', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Kilian', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Méline', role:'A définir', hook:'A définir', alt:'A définir', texte:'Atelier : à définir.'}
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoït', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Nathalie', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Kilian', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Méline', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'}
 ];
