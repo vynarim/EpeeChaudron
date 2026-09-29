@@ -8,3 +8,9 @@ dist/
 # Recette V2 : identifiants, jamais dans le dépôt
 deploy/v2.htpasswd
 *.pwd
+
+# Photos d'origine des personnages : converties en WebP, jamais versionnées
+assets/img/personnages/*.jpg
+assets/img/personnages/*.jpeg
+assets/img/personnages/*.JPG
+assets/img/personnages/*.JPEG
