@@ -114,7 +114,7 @@ window.EC_ATELIERS = [
     id: 'lessive',
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-lessive.webp',
-    alt: 'Objets de la vie quotidienne sur le camp médiéval',
+    alt: 'Baquet de bois garni de linge et de son battoir, chaudrons de cuivre pleins d’eau de cendre et bonbonne clissée, posés sur la paille',
     titre: 'Lessive à la cendre',
     resume: 'Une démonstration concrète des techniques d’entretien du linge.',
     texte: [
