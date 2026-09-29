@@ -23,7 +23,7 @@ window.EC_ATELIERS = [
     id: 'cuisine',
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-cuisine.webp',
-    alt: 'Cuisine au feu médiévale',
+    alt: 'Chaudron et poêle sur le feu de bois du foyer, entre les crémaillères de fer',
     titre: 'Cuisine au feu',
     resume: 'Feu, ustensiles, recettes, gestes quotidiens et arts de la table.',
     texte: [
@@ -88,7 +88,7 @@ window.EC_ATELIERS = [
     id: 'vie-de-camp',
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-vie-de-camp.webp',
-    alt: 'Tente médiévale rose et grise',
+    alt: 'Foyer du camp : chaudron et poêle sur le feu de bois, crémaillères de fer, et linge qui sèche sur une corde',
     titre: 'Vie de camp',
     resume: 'Tentes, mobilier, tables, costumes et interactions continues.',
     texte: [
