@@ -49,7 +49,7 @@ window.EC_ATELIERS = [
     id: 'armes-armures',
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-armes-armures.webp',
-    alt: 'Présentation d’armes médiévales au public',
+    alt: 'Cotte de mailles et camail sur un mannequin, râtelier de casques et d’armes d’hast, et un membre en tunique et chapeau de paille qui présente une arme',
     titre: 'Armes et armures',
     resume: 'L’équipement du combattant, à toucher et à essayer, du Moyen Âge à la Renaissance.',
     texte: [
