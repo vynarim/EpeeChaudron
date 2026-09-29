@@ -17,25 +17,25 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-morgane.webp', name:'Morgane', role:'Saltimbanque', hook:'Diabolo, bras de fer ou tir à la corde : gare à qui la prend pour une fillette.', alt:'Morgane, jeune saltimbanque au bandeau de cuir'},
   {img:'assets/img/personnages/personnages-ambre.webp', name:'Ambre', role:'Acrobate', hook:'Virevoltante et espiègle, elle se plaît à faire des farces aux voyageurs de passage.', alt:'Ambre, la cadette, acrobate'},
 
-  {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes'},
+  {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes, en tunique bleue à côté d’une armure et d’un écu vert et blanc'},
   {img:'assets/img/personnages/personnages-perrette.webp', name:'Perrette', role:'Bugadière et tisserande', hook:'La lessive à la cendre avec un seau percé… quel travail pour un petit bout de galon !', alt:'Perrette, tisserande, en chaperon rayé devant son petit métier à galon'},
-  {img:'assets/img/personnages/personnages-thibault-le-jeune.webp', name:'Thibault le jeune', role:'Apprenti arbalétrier', hook:'Il s’adonne à l’arbalestrie. Mieux vaut, pour l’instant, protéger vos têtes.', alt:'Thibault le jeune, apprenti arbalétrier'},
+  {img:'assets/img/personnages/personnages-thibault-le-jeune.webp', name:'Thibault le jeune', role:'Apprenti arbalétrier', hook:'Il s’adonne à l’arbalestrie. Mieux vaut, pour l’instant, protéger vos têtes.', alt:'Thibault le jeune, chaperon rouge et cale blanche, devant une tente'},
 
-  {img:'assets/img/personnages/personnages-ecarlate.webp', name:'Sire l’Écarlate', role:'Archer et cracheur de feu', hook:'Toujours prêt à échanger quelques coups d’épée. La nuit venue, il s’embrase de mille feux.', alt:'Sire l’Écarlate, archer'},
+  {img:'assets/img/personnages/personnages-ecarlate.webp', name:'Sire l’Écarlate', role:'Archer et cracheur de feu', hook:'Toujours prêt à échanger quelques coups d’épée. La nuit venue, il s’embrase de mille feux.', alt:'Sire l’Écarlate, chapeau à coquille et lunettes de corne, à son écritoire'},
   {img:'assets/img/personnages/personnages-bougonne.webp', name:'La Bougonne', role:'Tisserande', hook:'Rieuse ou grognon ? Envoyez donc quelqu’un d’autre tâter son humeur.', alt:'La Bougonne, tisserande'},
 
   {img:'assets/img/personnages/personnages-angelique.webp', name:'Angélique', role:'Cuisinière', hook:'Une faim de loup ou le nez qui coule, dans les deux cas, elle a ce qu’il vous faut !', alt:'Angélique, cuisinière, tournant une cuillère de bois au-dessus des chaudrons', atelier:'découverte des épices et des plantes médicinales'},
   {img:'assets/img/personnages/personnages-joshua.webp', name:'Joshua', role:'Peintre de cour', hook:'Laissez le tracé de son pinceau immortaliser vos plus grands succès… ou vos plus grands embarras. Au choix.', alt:'Joshua, peintre de cour, devant sa feuille de parchemin', atelier:'illustration et fabrication de peintures médiévales'},
 
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Frédéric', role:'Forgeron', hook:'A définir', alt:'A définir', atelier:'Forge'},
+  {img:'assets/img/personnages/personnages-frederic.webp', name:'Frédéric', role:'Forgeron', hook:'Il bat le fer tant qu’il est chaud. Approchez sans crainte : c’est l’enclume qui prend les coups.', alt:'Frédéric, forgeron, en pourpoint violet et bonnet noir, la main sur une hampe', atelier:'Forge'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Gaëtan', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Guillaume', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Denis', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-denis.webp', name:'Denis', role:'Haubergier', hook:'Des milliers d’anneaux, un par un : sa patience est à toute épreuve, et sa cotte de mailles aussi.', alt:'Denis, haubergier, assis en tunique blanche à croix rouge et bonnet noir', atelier:'Cotte de mailles'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Doriane', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Christelle', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
 
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoït', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Nathalie', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Kilian', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Méline', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'}
+  {img:'assets/img/personnages/personnages-nathalie.webp', name:'Nathalie', role:'Blasonnière', hook:'Donnez-lui votre nom, elle vous rendra un blason. Pour la devise, il faudra la mériter.', alt:'Nathalie, blasonnière, en robe bleue devant un vieil olivier', atelier:'Héraldique'},
+  {img:'assets/img/personnages/personnages-kilian.webp', name:'Kilian', role:'Chevalier', hook:'Chevalier de son état, il relève tous les défis — surtout ceux lancés par des adversaires d’un mètre vingt.', alt:'Kilian, chevalier, en pourpoint mi-parti bleu et rouge', atelier:'Les enfants en lice'},
+  {img:'assets/img/personnages/personnages-meline.webp', name:'Méline', role:'Écuyère', hook:'Écuyère des chevaliers en herbe : elle tend les épées, compte les touches, et ne laisse rien passer.', alt:'Méline, écuyère, en robe verte, des épées de mousse sur l’épaule', atelier:'Les enfants en lice'}
 ];
