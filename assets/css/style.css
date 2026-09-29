@@ -582,6 +582,26 @@ h2{
 .persona-role{margin:2px 0 .5rem;color:var(--blue);font-weight:700;font-size:.86rem}
 .persona p:last-child{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45;font-style:italic}
 
+/* Grand écran en paysage : deux rangées de quatre, qui défilent ensemble.
+   La hauteur des photos suit celle de l'écran pour que les deux rangées
+   tiennent d'un seul regard : au format portrait habituel, huit cartes
+   feraient deux fois la hauteur d'un écran d'ordinateur portable, et l'on ne
+   verrait jamais les deux rangées à la fois. */
+@media (min-width:1181px) and (min-height:640px){
+  .persona-carousel .carousel-track{
+    display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);
+    grid-auto-columns:calc((100% - (var(--per) - 1)*var(--gap))/var(--per));
+  }
+  .persona-carousel .persona-figure img{aspect-ratio:auto;height:clamp(170px,calc(50vh - 212px),320px)}
+  .persona-carousel .persona-body{padding:10px 12px 12px}
+  .persona-carousel .persona h3{font-size:1rem}
+  .persona-carousel .persona-role{margin-bottom:.3rem;font-size:.8rem}
+  .persona-carousel .persona p:last-child{
+    font-size:.84rem;line-height:1.4;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
+  }
+}
+
 /* --- Responsive --------------------------------------------------------- */
 @media (max-width:1180px){
   .persona-carousel{--per:3}

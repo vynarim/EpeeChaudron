@@ -696,6 +696,10 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const delay = Number(root.dataset.autoplay) || 0;
     let items = [];
+    // Positions d'arrêt : une par colonne. Sur une rangée, autant que
+    // d'éléments ; sur deux rangées, deux éléments partagent la même position,
+    // et avancer d'un élément ferait piétiner le carrousel une fois sur deux.
+    let stops = [];
     let dots = [];
     let current = 0;
     let timer = null;
@@ -704,28 +708,37 @@
     let settleTimer = null;
 
     const offsetOf = item => item.offsetLeft - items[0].offsetLeft;
+    const computeStops = () => {
+      const vus = new Set();
+      stops = [];
+      items.forEach(item => {
+        const x = Math.round(offsetOf(item));
+        if(!vus.has(x)){ vus.add(x); stops.push(x); }
+      });
+      stops.sort((a, b) => a - b);
+    };
     const nearestIndex = () => {
       const x = track.scrollLeft;
       let best = 0;
       let dist = Infinity;
-      items.forEach((item, i) => {
-        const d = Math.abs(offsetOf(item) - x);
+      stops.forEach((pos, i) => {
+        const d = Math.abs(pos - x);
         if(d < dist){ dist = d; best = i; }
       });
       return best;
     };
     const lastStart = () => {
       const maxScroll = track.scrollWidth - track.clientWidth;
-      let i = items.length - 1;
-      while(i > 0 && offsetOf(items[i]) > maxScroll + 1) i -= 1;
+      let i = stops.length - 1;
+      while(i > 0 && stops[i] > maxScroll + 1) i -= 1;
       return i;
     };
     const goTo = (index, smooth = true) => {
-      if(!items.length) return;
-      const n = items.length;
+      if(!stops.length) return;
+      const n = stops.length;
       const i = ((index % n) + n) % n;
       current = i; // pris en compte tout de suite : deux clics rapides avancent bien de deux
-      track.scrollTo({left: offsetOf(items[i]), behavior: smooth && !reduceMotion ? 'smooth' : 'auto'});
+      track.scrollTo({left: stops[i], behavior: smooth && !reduceMotion ? 'smooth' : 'auto'});
     };
     const update = () => {
       current = nearestIndex();
@@ -733,12 +746,12 @@
         dot.classList.toggle('is-active', i === current);
         if(i === current) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
       });
-      if(progress && items.length) progress.style.setProperty('--progress', String((current + 1) / items.length));
-      if(counter && items.length) counter.textContent = (current + 1) + ' / ' + items.length;
+      if(progress && stops.length) progress.style.setProperty('--progress', String((current + 1) / stops.length));
+      if(counter && stops.length) counter.textContent = (current + 1) + ' / ' + stops.length;
     };
     const stop = () => { window.clearInterval(timer); timer = null; };
     const step = () => {
-      if(paused || !inView || document.hidden || !items.length) return;
+      if(paused || !inView || document.hidden || !stops.length) return;
       if(document.body.classList.contains('is-modal-open')) return;
       goTo(current >= lastStart() ? 0 : current + 1);
     };
@@ -750,11 +763,11 @@
     const buildDots = () => {
       if(!dotsHost) return;
       dotsHost.innerHTML = '';
-      dots = items.map((_, i) => {
+      dots = stops.map((_, i) => {
         const dot = document.createElement('button');
         dot.type = 'button';
         dot.className = 'carousel-dot';
-        dot.setAttribute('aria-label', 'Aller à l’élément ' + (i + 1) + ' sur ' + items.length);
+        dot.setAttribute('aria-label', 'Aller à la position ' + (i + 1) + ' sur ' + stops.length);
         dot.addEventListener('click', () => { goTo(i); restart(); });
         dotsHost.appendChild(dot);
         return dot;
@@ -762,6 +775,7 @@
     };
     const refresh = () => {
       items = Array.from(track.children);
+      computeStops();
       buildDots();
       update();
     };
@@ -785,7 +799,11 @@
     });
     if(prev) prev.addEventListener('click', () => { goTo(current - 1); restart(); });
     if(next) next.addEventListener('click', () => { goTo(current + 1); restart(); });
-    window.addEventListener('resize', update);
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(refresh, 120);
+    });
 
     if('IntersectionObserver' in window){
       new IntersectionObserver(entries => {
