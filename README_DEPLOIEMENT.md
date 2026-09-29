@@ -164,33 +164,36 @@ disparaît.
 ### Refabriquer les icônes
 
 Toutes les icônes sont découpées dans la photo de bannière
-`assets/img/favicon.png` (512 × 512), avec **deux découpes différentes** :
+`assets/img/favicon.png` (512 × 512), sur **l'emblème seul** : le carré sous le
+bandeau de texte, x 60 → 430, y 90 → 460. Elles sont éclaircies au passage
+(`brightness(1.25) saturate(1.12) contrast(1.02)`) : la photo d'origine, prise à
+l'intérieur, rendait un bleu terne une fois réduite.
 
-- **la bannière entière**, sur le carré de tissu seul (x 22 → 478, y 4 → 460),
-  pour les icônes d'application. À 180 px et au-delà, le nom brodé en haut de
-  la bannière est lisible : il a sa place.
-- **l'emblème seul**, resserré sous le bandeau de texte (x 60 → 430,
-  y 90 → 460), pour le favicon. À 16 px le bandeau ne fait qu'une bavure grise
-  et vole un sixième de la surface ; sans lui, l'épée, le chaudron et la
-  diagonale bleu-or restent identifiables.
+Pourquoi l'emblème et pas la bannière entière, même en grand : **l'arrondi des
+coins d'une icône n'est pas décidé par le site mais par le téléphone** — iOS
+arrondit toujours, et sur Android c'est le lanceur qui impose sa forme, rond ou
+carré arrondi. Posée en petit carré au milieu d'un fond bleu, la bannière
+laissait voir ce fond comme un liseré qui soulignait l'arrondi ; pleine page,
+elle se faisait couper son titre par le masque. L'emblème remplit toute la
+forme et n'a rien d'important dans les coins. Le nom de l'association n'est pas
+perdu pour autant : le téléphone l'écrit sous l'icône.
 
-| Fichier | Taille | Découpe |
+| Fichier | Taille | Usage |
 | --- | --- | --- |
-| `icon-192.png` | 192 | bannière entière |
-| `icon-512.png` | 512 | bannière entière |
-| `icon-maskable-192.png` | 192 | bannière entière à 72 % sur fond bleu `#123d91` |
-| `icon-maskable-512.png` | 512 | idem |
-| `apple-touch-icon.png` | 180 | bannière entière (écran d'accueil iOS) |
-| `favicon-16.png` | 16 | emblème seul (onglet du navigateur) |
-| `favicon-32.png` | 32 | emblème seul |
-| `favicon-48.png` | 48 | emblème seul |
-| `favicon-96.png` | 96 | emblème seul (favoris, écrans haute densité) |
+| `icon-192.png` | 192 | icône d'application, déclarée deux fois dans le manifeste (`any` et `maskable`) |
+| `icon-512.png` | 512 | idem, et écran de démarrage Android |
+| `apple-touch-icon.png` | 180 | écran d'accueil iOS |
+| `favicon-16.png` | 16 | onglet du navigateur |
+| `favicon-32.png` | 32 | onglet sur écran haute densité |
+| `favicon-48.png` | 48 | raccourcis Windows |
+| `favicon-96.png` | 96 | favoris, écrans haute densité |
 
-Les deux icônes « maskable » gardent une marge : Android découpe l'icône en
-rond ou en carré arrondi selon le téléphone, et mange les bords.
+Une même image sert aux usages `any` et `maskable` : comme elle remplit tout le
+carré, rien ne la distingue plus d'une version « avec marge », et la dupliquer
+ferait télécharger deux fois 500 Ko à l'installation.
 
-L'onglet du navigateur ne charge plus que **805 octets** (`favicon-16.png`), au
-lieu des 359 Ko de la photo de bannière servie telle quelle auparavant.
+L'onglet du navigateur charge **1 Ko** (`favicon-16.png`), contre 359 Ko quand la
+photo de bannière servait telle quelle.
 
 Les deux captures `capture-mobile.jpg` (390 × 844) et `capture-desktop.jpg`
 (1280 × 800) s'affichent dans la fenêtre d'installation de Chrome. Les refaire

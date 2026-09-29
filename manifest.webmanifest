@@ -7,11 +7,18 @@
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "orientation": "any",
   "background_color": "#fffaf0",
   "theme_color": "#123d91",
-  "categories": ["education", "entertainment", "lifestyle"],
+  "categories": [
+    "education",
+    "entertainment",
+    "lifestyle"
+  ],
   "icons": [
     {
       "src": "assets/img/icons/icon-192.png",
@@ -26,13 +33,13 @@
       "purpose": "any"
     },
     {
-      "src": "assets/img/icons/icon-maskable-192.png",
+      "src": "assets/img/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "assets/img/icons/icon-maskable-512.png",
+      "src": "assets/img/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
