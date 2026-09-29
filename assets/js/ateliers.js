@@ -23,7 +23,7 @@ window.EC_ATELIERS = [
     id: 'cuisine',
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-cuisine.webp',
-    alt: 'Chaudron et poêle sur le feu de bois du foyer, entre les crémaillères de fer',
+    alt: 'Deux marmites de fonte fumantes sur les braises, et des volailles qui rôtissent sur un gril suspendu à des chaînes',
     titre: 'Cuisine au feu',
     resume: 'Feu, ustensiles, recettes, gestes quotidiens et arts de la table.',
     texte: [
