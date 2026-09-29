@@ -25,10 +25,19 @@ DRY_RUN=0
 cd "$(dirname "$0")/.."
 
 # --- Fichiers à envoyer ------------------------------------------------------
-# index.html, le manifeste, le service worker et tout assets/. Rien d'autre : ni *.md, ni scripts/, ni package*.
+# index.html, le manifeste, le service worker et tout assets/.
+# Rien d'autre : ni *.md, ni scripts/, ni package*.
+#
+# Exception : les JPEG de assets/img/personnages/ sont les photos d'origine
+# fournies par l'association, converties en WebP puis effacées. Elles n'ont
+# rien a faire en ligne — l'une d'elles pesait 12 Mo a elle seule. Les JPEG
+# des autres dossiers partent normalement : les captures d'ecran declarees
+# dans le manifeste en sont.
 mapfile -t FILES < <(
   printf 'index.html\nmanifest.webmanifest\nsw.js\n'
-  find assets -type f ! -name '.*' | sort
+  find assets -type f ! -name '.*' \
+    | grep -viE '^assets/img/personnages/.*\.(jpg|jpeg)$' \
+    | sort
 )
 
 echo "${#FILES[@]} fichiers, $(du -ch index.html assets 2>/dev/null | tail -1 | cut -f1) au total."
