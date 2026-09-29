@@ -1,5 +1,4 @@
 window.EC_PHOTOS = [
-  {src:'assets/img/full/galerie-camp-troupe.webp', thumb:'assets/img/thumbs/galerie-camp-troupe.webp', title:'La troupe en camp', category:'Camp', alt:'Troupe costumée devant le camp médiéval'},
   {src:'assets/img/full/galerie-camp-portrait.webp', thumb:'assets/img/thumbs/galerie-camp-portrait.webp', title:'Vie de camp', category:'Camp', alt:'Personnage costumé devant une tente médiévale'},
   {src:'assets/img/full/galerie-camp-duo-banniere.webp', thumb:'assets/img/thumbs/galerie-camp-duo-banniere.webp', title:'Devant la bannière', category:'Camp', alt:'Membres costumés devant la bannière et la tente'},
   {src:'assets/img/full/galerie-camp-porte-banniere.webp', thumb:'assets/img/thumbs/galerie-camp-porte-banniere.webp', title:'Bannière de la mesnie', category:'Camp', alt:'Deux membres tenant la bannière de l’association'},
