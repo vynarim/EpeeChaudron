@@ -166,7 +166,7 @@ window.EC_ATELIERS = [
     id: 'duel-judiciaire',
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-duel-judiciaire.webp',
-    alt: 'Deux combattants en brigandine et gantelets croisent l’épée au corps à corps sur la paille, sous le regard du public, face aux montagnes',
+    alt: 'Deux combattants, l’un en chapeau noir avec épée et bocle, l’autre en chaperon bleu et gantelets, s’affrontent au milieu du camp, sous les tentes et les arbres',
     titre: 'Duel judiciaire',
     resume: 'Un vrai duel à la touche, dans une lice fermée, avec les règles de l’époque.',
     texte: [
