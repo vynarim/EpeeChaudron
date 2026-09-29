@@ -205,7 +205,7 @@ window.EC_ATELIERS = [
     id: 'forge',
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-forge.webp',
-    alt: 'Deux forgerons en costume devant la forge : enclume sur son billot, braises dans le foyer, soufflet et tenailles',
+    alt: 'Le forgeron en cotte brune et bonnet noir actionne le soufflet de sa forge, braises rougeoyantes, enclume sur son billot au premier plan',
     titre: 'Forge',
     resume: 'Le travail du métal, les outils du forgeron et la fabrication des objets.',
     texte: [
