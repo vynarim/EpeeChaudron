@@ -9,11 +9,16 @@ dist/
 *.htpasswd
 *.pwd
 
-# Photos d'origine des personnages : converties en WebP, jamais versionnées
+# Photos d'origine des personnages et des ateliers : converties en WebP,
+# jamais versionnées
 assets/img/personnages/*.jpg
 assets/img/personnages/*.jpeg
 assets/img/personnages/*.JPG
 assets/img/personnages/*.JPEG
+assets/img/ateliers/*.jpg
+assets/img/ateliers/*.jpeg
+assets/img/ateliers/*.JPG
+assets/img/ateliers/*.JPEG
 
 # Aperçus fabriqués par scripts/portrait.mjs : jetables
 .apercus/

@@ -36,16 +36,16 @@ source scripts/sftp-commun.sh
 # Le fichier google*.html prouve à Google que le domaine nous appartient. Le
 # retirer du serveur ferait perdre l'accès à la Search Console.
 #
-# Exception : les JPEG de assets/img/personnages/ sont les photos d'origine
-# fournies par l'association, converties en WebP puis effacées. Elles n'ont
-# rien a faire en ligne — l'une d'elles pesait 12 Mo a elle seule. Les JPEG
-# des autres dossiers partent normalement : les captures d'ecran declarees
-# dans le manifeste en sont.
+# Exception : les JPEG de assets/img/personnages/ et assets/img/ateliers/
+# sont les photos d'origine fournies par l'association, converties en WebP
+# puis effacées. Elles n'ont rien à faire en ligne — elles pèsent souvent 5 à
+# 12 Mo. Les JPEG des autres dossiers partent normalement : les captures
+# d'écran déclarées dans le manifeste en sont.
 mapfile -t FILES < <(
   printf 'index.html\nmanifest.webmanifest\nsw.js\nrobots.txt\n'
   ls google*.html
   find assets -type f ! -name '.*' \
-    | grep -viE '^assets/img/personnages/.*\.(jpg|jpeg)$' \
+    | grep -viE '^assets/img/(personnages|ateliers)/.*\.(jpg|jpeg)$' \
     | sort
 )
 

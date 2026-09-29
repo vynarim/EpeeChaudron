@@ -126,8 +126,8 @@ window.EC_ATELIERS = [
   {
     id: 'medecine',
     categorie: 'camp',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir',
+    img: 'assets/img/ateliers/ateliers-medecine.webp',
+    alt: 'Une soigneuse en coiffe et cape noire présente ses instruments devant des herbiers ouverts, sous la tente',
     titre: 'Médecine',
     resume: 'Remèdes, plantes et idées reçues sur la médecine du Moyen Âge.',
     texte: [
@@ -244,7 +244,7 @@ window.EC_ATELIERS = [
     id: 'fruits-legumes',
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-fruits-legumes.webp',
-    alt: 'Une cuisinière en coiffe blanche montre une carotte aux enfants devant sa table de légumes, d’herbes et de pots',
+    alt: 'Une membre en robe rouge et coiffe blanche derrière sa table : cagette de légumes, cartes illustrées de plantes, fiole et cruche',
     titre: 'Fruits et légumes',
     resume: 'Produits disponibles, saisonnalité et alimentation au Moyen Âge.',
     texte: [
