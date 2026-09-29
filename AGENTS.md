@@ -83,7 +83,7 @@ données, sans modifier `index.html` ni le CSS.
 - Passer le service worker en « cache d'abord » : les photos et les textes sont
   remplacés par des fichiers du même nom, les visiteurs resteraient bloqués sur
   d'anciennes versions.
-- Ajouter un fichier servi à la racine sans l'ajouter à `scripts/deploy-v2.sh` :
+- Ajouter un fichier servi à la racine sans l'ajouter à `scripts/deploy.sh` :
   il n'arriverait jamais sur le serveur.
 
 ## Commandes utiles
@@ -92,7 +92,7 @@ données, sans modifier `index.html` ni le CSS.
 npm install
 npm run dev                          # serveur local Vite
 npm run check                        # fichiers, chemins d'images, manifeste
-bash scripts/deploy-v2.sh --dry-run  # ce qui partirait en recette
+bash scripts/deploy.sh --dry-run     # ce qui partirait en ligne (site public)
 ```
 
 Attention en développement local : Vite sert la feuille de style en

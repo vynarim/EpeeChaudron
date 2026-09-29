@@ -78,9 +78,10 @@ assets/img/thumbs/         Miniatures de la galerie photo
 assets/img/ateliers/       Photos des ateliers (720×520)
 assets/img/personnages/    Portraits des personnages (300×400)
 assets/img/icons/          Icônes d'application et captures d'installation
-deploy/v2.htaccess         Configuration du répertoire de recette
+deploy/prod.htaccess       Configuration Apache de la racine (HTTPS, redirections)
+deploy/v2-sw.js            Désinscrit le service worker de l'ancienne recette /v2/
 scripts/check-project.mjs  Contrôle des fichiers, du manifeste et des chemins
-scripts/deploy-v2.sh       Envoi du site dans le répertoire de recette
+scripts/deploy.sh          Mise en ligne du site sur https://epee-chaudron.fr/
 README_DEPLOIEMENT.md      Procédure de déploiement et de mise à jour du contenu
 AGENTS.md                  Règles à respecter avant de modifier le site
 PRODUCT.md                 Cible, positionnement et intentions

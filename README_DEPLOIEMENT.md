@@ -52,35 +52,21 @@ assets/img/logo-square.webp
 1. En local, ouvrir `index.html` (ou `npm run dev`) et vérifier que tout
    s'affiche : la page, une photo en plein écran, une fiche animation.
 2. Lancer `npm run check` : il doit répondre « Vérification OK ».
-3. Se connecter en SFTP à `[hôte SFTP retiré]` (port 22, login `LOGIN_SFTP`,
-   par exemple avec FileZilla ou WinSCP) et envoyer `index.html` et le dossier
-   `assets/` dans `www/`, en **écrasant** les fichiers existants.
-   Les images retirées du dépôt peuvent rester sur le serveur sans gêner.
+3. Lancer `bash scripts/deploy.sh` (voir 3 bis). À défaut de script, se
+   connecter en SFTP à `[hôte SFTP retiré]` (port 22, login
+   `LOGIN_SFTP`, par exemple avec FileZilla ou WinSCP) et envoyer dans `www/`
+   `index.html`, `manifest.webmanifest`, `sw.js`, `robots.txt`, le fichier
+   `google*.html` et le dossier `assets/`, plus `deploy/prod.htaccess` renommé
+   en `.htaccess`, en **écrasant** les fichiers existants.
 4. Ouvrir https://epee-chaudron.fr/ dans une fenêtre de navigation privée
    (pour ne pas voir l'ancienne version en cache) et refaire les trois
    vérifications de l'étape 1, sur téléphone puis sur ordinateur.
 
-## 3 bis. Le répertoire de recette `/v2/`
+## 3 bis. Mise en ligne par script
 
-Le nouveau site est en ligne dans `www/v2/` pendant que l'ancien continue de
-tourner à la racine. Il sert aux membres de l'association à relire et tester
-avant la bascule.
-
-| Élément | Valeur |
-| --- | --- |
-| Adresse | https://epee-chaudron.fr/v2/ |
-| Identifiant | `gras` |
-| Mot de passe | _(à conserver dans le gestionnaire de mots de passe — il n'est écrit nulle part dans le dépôt)_ |
-| Répertoire serveur | `/home/LOGIN_SFTP/www/v2/` |
-| Protection | `.htaccess` local au répertoire : mot de passe, `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet`, `Cache-Control: no-cache` |
-
-Ce `.htaccess` ne concerne que `v2/`. **Rien à la racine n'est modifié** — ni
-`www/index.html`, ni `www/.htaccess`, ni `www/robots.txt`. Volontairement, le
-chemin `/v2/` n'est pas déclaré dans `robots.txt` : ce serait publier l'adresse
-dans un fichier que tout le monde peut lire. Le mot de passe suffit — un robot
-reçoit un 401 et ne voit jamais la page.
-
-### Renvoyer une nouvelle version dans `/v2/`
+Depuis le 29/09/2026, le site est servi à la racine : https://epee-chaudron.fr/.
+Il n'y a plus de répertoire de recette ni de mot de passe — **chaque envoi part
+directement chez les visiteurs**.
 
 1. Écrire le mot de passe SFTP du compte `LOGIN_SFTP` sur une seule ligne dans
    `%USERPROFILE%\.epeechaudron-sftp` — **hors du dépôt**, donc impossible à
@@ -88,22 +74,25 @@ reçoit un 401 et ne voit jamais la page.
 2. Lancer :
 
 ```bash
-bash scripts/deploy-v2.sh --dry-run   # liste les fichiers, n'envoie rien
-bash scripts/deploy-v2.sh             # envoie index.html, assets/ et la protection
+npm run check                      # doit répondre « Vérification OK »
+bash scripts/deploy.sh --dry-run   # liste les fichiers, n'envoie rien
+bash scripts/deploy.sh             # envoie le site et le .htaccess
 ```
 
-Le script n'envoie que `index.html`, `assets/` et les deux fichiers de
-protection : ni `*.md`, ni `scripts/`, ni `package*.json`. Le mot de passe est
-transmis à `curl` par son entrée standard : il n'apparaît dans aucune ligne de
-commande ni dans la liste des processus.
+Le script envoie `index.html`, le manifeste, `sw.js`, `robots.txt`, le fichier
+`google*.html` (validation de la Search Console — ne pas le supprimer) et
+`assets/`, puis `deploy/prod.htaccess` sous le nom `www/.htaccess`. L'envoi est
+un **miroir** : un fichier présent sur le serveur et absent en local, dans un
+dossier du site, est retiré. Le mot de passe est transmis à `curl` par son
+entrée standard : il n'apparaît dans aucune ligne de commande.
 
-Le fichier `deploy/v2.htpasswd` contient l'identifiant des membres et son mot de
-passe chiffré. Il est exclu du dépôt par `.gitignore`. S'il est perdu, le
-regénérer :
+Le `.htaccess` de la racine :
 
-```bash
-openssl passwd -apr1 "<nouveau mot de passe>"   # coller le résultat après "gras:"
-```
+- redirige `http://` vers `https://` ;
+- renvoie les adresses de l'ancien site (`personnages.html`, `animations.html`,
+  `contact.html`, `galerie/…`) vers la section correspondante de la page ;
+- redirige `/v2/` vers la racine, sauf `v2/sw.js` (voir plus bas) ;
+- sert le manifeste avec le bon type et interdit la mise en cache de `sw.js`.
 
 ### Empreintes du serveur SFTP
 
@@ -114,39 +103,27 @@ RSA      SHA256:nsRZDOCdKhAyoO2SBgB1OZkJiuk2ofnTIPdNSERXnYQ
 ED25519  SHA256:FqKUcYORjRzc15jHhIGKwTq+sTUo+6rkTINHcJA2mdg
 ```
 
-### Le jour de la bascule
+### La bascule du 29/09/2026
 
-Copier le contenu de `www/v2/` à la racine de `www/` — **sans** les fichiers
-`.htaccess` et `.htpasswd` de recette, qui mettraient un mot de passe et un
-`noindex` sur le site public — puis supprimer le répertoire `v2/`.
+L'ancien site (Artisteer, 2013) a été retiré de la racine ce jour-là. Une copie
+complète a été téléchargée avant suppression, hors du dépôt, dans
+`EpeeChaudron-ancien-site-2026-09-29/` à côté du dossier du projet. Elle
+contenait une page piratée, `diff.html`, qui redirigeait vers un site de
+spam : ne rien republier de cette copie sans l'avoir relue.
 
-Une ligne du `.htaccess` de recette doit malgré tout être reportée dans le
-`.htaccess` de la racine, sans quoi le manifeste peut être refusé par certains
-navigateurs :
-
-```apache
-AddType application/manifest+json .webmanifest
-```
-
-Et, tant qu'à faire, celle qui empêche le service worker de rester figé :
-
-```apache
-<Files "sw.js">
-  Header set Cache-Control "no-cache, no-store, must-revalidate"
-</Files>
-```
-
-Penser aussi à **désinscrire le service worker de `/v2/`** chez les membres qui
-avaient installé la recette : ouvrir `https://epee-chaudron.fr/v2/` une
-dernière fois n'y suffit pas. Le plus simple est de leur faire supprimer
-l'application installée puis de réinstaller depuis la nouvelle adresse.
+L'ancienne recette `/v2/` est redirigée vers la racine. Seul `v2/sw.js` y est
+encore servi : c'est `deploy/v2-sw.js`, qui désinscrit le service worker de la
+recette chez les membres qui l'avaient ouverte. Il pourra être retiré du
+serveur, avec son exception dans le `.htaccess`, d'ici quelques mois. Les
+membres qui avaient **installé** la recette comme application doivent la
+supprimer et réinstaller depuis https://epee-chaudron.fr/.
 
 ## 3 ter. L'application installable
 
 Le site se déclare comme une application : un téléphone propose de l'ajouter à
 l'écran d'accueil, et il reste consultable sans réseau. Trois fichiers en sont
 responsables — `manifest.webmanifest`, `sw.js` et le dossier
-`assets/img/icons/` — et ils doivent partir ensemble. `scripts/deploy-v2.sh`
+`assets/img/icons/` — et ils doivent partir ensemble. `scripts/deploy.sh`
 s'en charge ; un envoi manuel ne doit pas les oublier.
 
 Le service worker travaille en **réseau d'abord** : la version en ligne gagne
@@ -154,14 +131,12 @@ toujours. Remplacer une photo par un fichier du même nom fonctionne donc sans
 précaution particulière. Un visiteur qui a l'application ouverte verra la
 nouvelle version au rechargement suivant.
 
-### Le manifeste et le mot de passe de la recette
+### Le manifeste et `crossorigin="use-credentials"`
 
 Le manifeste est déclaré dans `index.html` avec `crossorigin="use-credentials"`.
-Sans cet attribut, le navigateur demande le manifeste **sans identifiants** :
-le répertoire de recette lui répond 401, et Chrome affiche « Impossible
-d'installer cette appli ». L'attribut est sans effet une fois le site à la
-racine, sans mot de passe — le laisser. `npm run check` refuse de passer s'il
-disparaît.
+L'attribut servait du temps de la recette protégée par mot de passe : sans lui,
+le manifeste était refusé (401). Il est sans effet sur le site public — le
+laisser. `npm run check` refuse de passer s'il disparaît.
 
 ### Refabriquer les icônes
 

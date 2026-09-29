@@ -1,0 +1,44 @@
+# Site L'Épée et le Chaudron — déposé sur l'hébergement sous le nom .htaccess,
+# à la racine www/. Envoyé par scripts/deploy.sh : le modifier ici, jamais sur
+# le serveur, sinon le prochain envoi écrase la modification.
+
+RewriteEngine On
+
+# 1. Tout le site en HTTPS. Le service worker et l'installation comme
+#    application n'existent qu'en HTTPS. Sur l'hébergement mutualisé OVH, le
+#    port est le seul indicateur fiable.
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# 2. Les adresses de l'ancien site (jusqu'en septembre 2026) mènent à la
+#    section qui les remplace : liens des partenaires, favoris, résultats de
+#    recherche. NE : ne pas encoder le # de l'ancre. Cible écrite en entier :
+#    relative, Apache y ajoute « :443 » derrière le proxy d'OVH.
+RewriteRule ^personnages\.html$  https://%{HTTP_HOST}/#personnages   [R=301,NE,L]
+RewriteRule ^animations\.html$   https://%{HTTP_HOST}/#animations    [R=301,NE,L]
+RewriteRule ^vie-de-camp\.html$  https://%{HTTP_HOST}/#animations    [R=301,NE,L]
+RewriteRule ^materiel\.html$     https://%{HTTP_HOST}/#organisateurs [R=301,NE,L]
+RewriteRule ^contact\.html$      https://%{HTTP_HOST}/#contact       [R=301,NE,L]
+RewriteRule ^galerie/            https://%{HTTP_HOST}/#galerie       [R=301,NE,L]
+RewriteRule ^(association|agenda|liens)\.html$ https://%{HTTP_HOST}/ [R=301,L]
+
+# 3. L'ancien répertoire de recette /v2/ renvoie à la racine. Seul v2/sw.js
+#    reste servi : il désinscrit le service worker de la recette chez les
+#    membres qui l'avaient ouverte (voir deploy/v2-sw.js).
+RewriteCond %{REQUEST_URI} !^/v2/sw\.js$
+RewriteRule ^v2(/(.*))?$ https://%{HTTP_HOST}/$2 [R=301,L]
+
+# 4. Ne pas servir les fichiers de configuration eux-mêmes.
+<FilesMatch "^\.(htaccess|htpasswd)$">
+  Require all denied
+</FilesMatch>
+
+# 5. Type MIME du manifeste : Apache ne connaît pas .webmanifest par défaut,
+#    et un manifeste servi en text/plain n'est pas toujours accepté.
+AddType application/manifest+json .webmanifest
+
+# 6. Le service worker ne doit jamais être servi depuis un cache ancien,
+#    sinon une correction peut mettre des jours à atteindre les visiteurs.
+<Files "sw.js">
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+</Files>
