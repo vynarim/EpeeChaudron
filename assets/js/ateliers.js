@@ -139,8 +139,8 @@ window.EC_ATELIERS = [
   {
     id: 'jeux',
     categorie: 'camp',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir',
+    img: 'assets/img/ateliers/ateliers-jeux.webp',
+    alt: 'Deux plateaux de jeux peints sur toile, dont un jeu du moulin, avec des galets pour pions, posés sur une botte de paille',
     titre: 'Jeux de société',
     resume: 'Découverte de jeux historiques simples, rapides et participatifs.',
     texte: [
@@ -244,7 +244,7 @@ window.EC_ATELIERS = [
     id: 'fruits-legumes',
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-fruits-legumes.webp',
-    alt: 'Fruits, légumes et aliments présentés sur le camp médiéval',
+    alt: 'Une cuisinière en coiffe blanche montre une carotte aux enfants devant sa table de légumes, d’herbes et de pots',
     titre: 'Fruits et légumes',
     resume: 'Produits disponibles, saisonnalité et alimentation au Moyen Âge.',
     texte: [
