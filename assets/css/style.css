@@ -78,6 +78,8 @@ h2{
 .nav{display:flex;align-items:center;gap:4px}
 .nav a{font-size:.92rem;font-weight:650;padding:.55rem .7rem;border-radius:999px;color:#2c271f}
 .nav a:hover,.nav a:focus-visible{background:rgba(18,61,145,.08)}
+/* Libellé abrégé de la barre du bas sur téléphone (« Persos ») */
+.nav-short{display:none}
 .nav-contact{background:var(--blue)!important;color:#fff!important}
 .nav-icon{display:none;width:23px;height:23px;fill:currentColor}
 .nav-home{display:none!important}
@@ -162,7 +164,7 @@ h2{
 }
 .module-wishlist{
   position:absolute;z-index:2;right:6px;bottom:6px;width:44px;height:44px;padding:0;
-  border:2px solid #8a8479;border-radius:50%;
+  border:1px solid rgba(106,98,87,.3);border-radius:50%;
   background:rgba(255,255,255,.92);color:var(--fire);
   display:flex;align-items:center;justify-content:center;
   font-size:1.05rem;line-height:1;cursor:pointer;
@@ -286,15 +288,15 @@ h2{
 .module-modal-prev{left:12px}
 .module-modal-next{right:12px}
 .module-modal-wishlist{
-  flex:0 0 auto;width:44px;height:44px;padding:0;border:2px solid #8a8479;border-radius:50%;
+  flex:0 0 auto;width:44px;height:44px;padding:0;border:1px solid rgba(106,98,87,.3);border-radius:50%;
   background:#fff;color:var(--fire);display:flex;align-items:center;justify-content:center;
   font-size:1.2rem;line-height:1;cursor:pointer;
-  /* Contour gris net et halo discret : le bouton se voit sans crier sur le
-     fond crème ; seul le cœur porte la couleur feu. */
-  box-shadow:0 0 0 4px rgba(106,98,87,.12),0 3px 10px rgba(0,0,0,.14);
+  /* Contour gris fin et ombre douce : le bouton se détache du fond crème
+     sans attirer l'œil ; seul le cœur porte la couleur feu. */
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
   transition:transform .15s ease,box-shadow .15s ease;
 }
-.module-modal-wishlist:hover{transform:scale(1.05);box-shadow:0 0 0 6px rgba(106,98,87,.18),0 3px 10px rgba(0,0,0,.14)}
+.module-modal-wishlist:hover{transform:scale(1.05);box-shadow:0 0 0 4px rgba(106,98,87,.1),0 2px 8px rgba(0,0,0,.14)}
 .module-modal-wishlist:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .module-modal-wishlist[aria-pressed="true"]{background:var(--fire);border-color:var(--fire);color:#fff}
 
@@ -424,6 +426,8 @@ h2{
   .topbar .nav-home{display:flex!important}
   .topbar .nav-icon{display:block}
   .topbar .nav-label{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .topbar .nav-long{display:none}
+  .topbar .nav-short{display:inline}
   .topbar .nav a[aria-current="page"]{background:var(--blue-dark)!important;color:var(--gold)!important;box-shadow:inset 0 0 0 1px rgba(242,204,40,.55),0 3px 10px rgba(7,26,68,.28)}
 
   /* Hero */
