@@ -397,7 +397,7 @@ h2{
   body{font-size:16px;line-height:1.5;padding-bottom:calc(62px + env(safe-area-inset-bottom))}
   .container{width:calc(100% - 24px)}
   .section{padding:38px 0}
-  h2{font-size:1.42rem;line-height:1.16}
+  h2{font-size:1.3rem;line-height:1.18}
   .section-title{margin-bottom:18px}
   .eyebrow{font-size:.7rem;margin-bottom:.45rem}
   /* Cibles tactiles : 44 px minimum sur tout ce qui se touche */
@@ -443,7 +443,7 @@ h2{
   .hero-image{height:285px;min-height:285px}
   .hero-content{padding:0 12px 28px;margin-top:-34px}
   .hero-card{border-radius:18px;padding:18px}
-  .hero h1{font-size:1.5rem;line-height:1.12;letter-spacing:-.015em}
+  .hero h1{font-size:1.36rem;line-height:1.14;letter-spacing:-.01em}
   .hero-lead{font-size:.97rem;line-height:1.45;margin:.8rem 0 1rem}
   .proofs{grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px}
   .proofs div{padding:8px 6px;text-align:center}
@@ -489,7 +489,7 @@ h2{
   .module-modal-panel{min-height:100vh;border-radius:0;display:block}
   .module-modal-panel>img{height:34vh;min-height:220px;max-height:310px}
   .module-modal-content{padding:24px 18px 34px}
-  .module-modal-content h2{font-size:1.45rem}
+  .module-modal-content h2{font-size:1.32rem}
   .module-modal-details{font-size:.9rem;line-height:1.5}
   .module-modal-nav{top:17vh;width:44px;height:44px}
   /* Le texte prend la place qu'il lui faut, et la photo tout le reste de

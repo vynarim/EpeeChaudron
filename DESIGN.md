@@ -148,6 +148,7 @@ La palette est **committed** : le bleu royal et l'or de bannière portent la maj
 ### Hierarchy
 - **Display** (400, `clamp(1.6rem, 3vw, 2.5rem)`, line-height 1.06): titre du hero uniquement.
 - **Headline** (400, `clamp(1.6rem, 2.6vw, 2.25rem)`, line-height 1.1): titres de section (`h2`).
+- **Sur téléphone** (≤ 620 px) : Display à 1.36rem, Headline à 1.3rem (1.32rem dans les fiches plein écran). Le titre du hero tient en 3 lignes au plus de 360 à 430 px.
 - **Title** (700, 1.07rem, line-height 1.18): titres de carte (`h3`), en bleu marine.
 - **Body** (400, 1rem, line-height 1.55): texte courant ; les paragraphes de présentation restent sous 70ch grâce aux grilles contraintes.
 - **Label** (900, 0.75rem, letter-spacing 0.09em, uppercase, couleur feu): réservé à 2 usages délibérés (le hero, et la section « Pour les organisateurs »), jamais répété au-dessus de chaque section. La bande photo porte un label équivalent en or sur navy.
