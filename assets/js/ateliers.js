@@ -256,8 +256,8 @@ window.EC_ATELIERS = [
   {
     id: 'defile',
     categorie: 'camp',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir',
+    img: 'assets/img/ateliers/ateliers-defile.webp',
+    alt: 'Le défilé dans une ruelle pavée : bourreau à la hache, dame en voile, jeune homme au chapeau de paille et chevalier en tabard, sous une bannière armoriée',
     titre: 'Défilé en costumes',
     resume: 'La mesnie défile avec sa bannière, aux côtés des autres troupes.',
     texte: [
