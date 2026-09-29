@@ -299,7 +299,11 @@ h2{
 }
 .persona-modal-atelier-link:hover{color:var(--blue-dark)}
 .persona-modal-atelier-link:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.persona-modal-counter{margin:1.5rem 0 0;color:var(--muted);font-size:.82rem;font-variant-numeric:tabular-nums}
+/* Le rang du personnage, en coin : un repère, pas une information. */
+.persona-modal-counter{
+  position:absolute;right:18px;bottom:12px;margin:0;
+  color:var(--muted);font-size:.75rem;letter-spacing:.02em;font-variant-numeric:tabular-nums
+}
 
 /* --- Contrôles flottants ------------------------------------------------ */
 .back-to-top{
@@ -465,10 +469,11 @@ h2{
   .persona-modal-content h2{margin-bottom:.3rem}
   .persona-modal-details p{margin-bottom:.5rem;font-size:.95rem;line-height:1.42}
   .persona-modal-details p ~ p{font-size:.92rem}
-  /* Le compteur remonte sur la ligne du rôle : une ligne de gagnée,
-     celle qui faisait dépasser le tiers d'écran sur un petit téléphone. */
-  .persona-modal-content{position:relative}
-  .persona-modal-counter{position:absolute;top:16px;right:18px;margin:0}
+  /* Le compteur loge dans le coin, sous la dernière ligne : il ne prend pas
+     de ligne à lui, celle qui faisait dépasser le tiers d'écran sur un petit
+     téléphone. */
+  .persona-modal-content{padding-bottom:26px}
+  .persona-modal-counter{right:14px;bottom:6px}
   .persona-modal .module-modal-nav{top:calc(50vh - 100px);top:calc(50svh - 100px)}
   .module-modal-prev{left:10px}
   .module-modal-next{right:10px}
@@ -529,6 +534,12 @@ h2{
   stroke-linecap:round;stroke-linejoin:round;
 }
 .lightbox-nav svg,.module-modal-nav svg{width:24px;height:24px}
+/* La croix de fermeture aussi : le caractère « × » tombait bas et à gauche
+   dans son rond, selon la police. */
+.lightbox-close,.module-modal-close{display:flex;align-items:center;justify-content:center;padding:0}
+.lightbox-close svg,.module-modal-close svg{
+  width:18px;height:18px;display:block;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;
+}
 .carousel-arrow:hover{background:var(--blue);transform:translateY(-1px)}
 .carousel-arrow:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .carousel-dots{display:flex;gap:2px;flex-wrap:wrap;justify-content:center}
