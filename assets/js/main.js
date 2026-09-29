@@ -492,6 +492,16 @@
     element.addEventListener('touchcancel', () => { sens = 'ignore'; });
   }
 
+  // Une photo en largeur se pose au-dessus du texte, une photo en hauteur à
+  // côté. On attend que l'image soit décodée pour connaître son sens : la
+  // carte, chargée en différé, ne le sait pas toujours encore.
+  const moduleModalPanel = moduleModal ? moduleModal.querySelector('.module-modal-panel') : null;
+  function orienterModuleModal(){
+    if(!moduleModalPanel || !moduleModalImage.naturalWidth) return;
+    moduleModalPanel.classList.toggle('is-paysage', moduleModalImage.naturalWidth > moduleModalImage.naturalHeight);
+  }
+  if(moduleModalImage) moduleModalImage.addEventListener('load', orienterModuleModal);
+
   function openModuleModal(card){
     if(!moduleModal) return;
     const image = card.querySelector('img');
@@ -501,6 +511,7 @@
     moduleTrigger = card;
     moduleModalImage.src = image.src;
     moduleModalImage.alt = image.alt;
+    if(moduleModalImage.complete) orienterModuleModal();
     moduleModalTitle.textContent = title.textContent;
     moduleModalDetails.innerHTML = details.innerHTML;
     updateModalWishlistButton();

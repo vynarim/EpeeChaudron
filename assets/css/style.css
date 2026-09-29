@@ -248,6 +248,22 @@ h2{
 /* Le visuel « Photo à venir » s'affiche entier, sur le même bleu que son fond */
 .module-modal-panel>img[src$="photo-a-venir.webp"]{object-fit:contain;background:#0f2f6e}
 .module-modal-content{align-self:center;padding:clamp(28px,5vw,58px)}
+/* Fiche animation : une photo en hauteur occupe la colonne de gauche (45 %),
+   une photo en largeur se pose au-dessus du texte. Le sens est lu par
+   main.js à l'ouverture (classe is-paysage). Sur téléphone, la photo est
+   toujours au-dessus : voir la règle 620 px. */
+[data-module-modal] .module-modal-panel{grid-template-columns:minmax(280px,45%) 1fr}
+@media (min-width:621px){
+  [data-module-modal] .module-modal-panel.is-paysage{
+    width:min(820px,100%);grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start
+  }
+  [data-module-modal] .module-modal-panel.is-paysage>img{height:auto;min-height:0;aspect-ratio:720/520;max-height:52vh}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{
+    align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
+  }
+  /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(820px,100vw - 36px) * .361)}
+}
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
 .module-modal-details p{color:var(--muted)}
