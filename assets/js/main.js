@@ -360,28 +360,45 @@
   // droite pour la précédente. Réservé au tactile — à la souris, les flèches
   // et les touches du clavier font déjà le travail, et un cliquer-glisser
   // servirait plutôt à sélectionner du texte.
+  //
+  // Un pouce ne trace pas une ligne droite : il tourne autour de sa base et
+  // décrit un arc qui part à peu près à l'horizontale, puis plonge. Juger le
+  // geste sur son point d'arrivée revenait à refuser justement les glissements
+  // les plus naturels. Le sens se décide donc sur les premiers pixels, et un
+  // geste parti à l'horizontale nous appartient jusqu'au bout : le navigateur
+  // n'en fait pas un défilement.
   function enableSwipe(element, onPrev, onNext){
     if(!element) return;
-    let startX = 0;
-    let startY = 0;
-    let tracking = false;
-    element.addEventListener('pointerdown', event => {
-      if(event.pointerType === 'mouse') return;
-      tracking = true;
-      startX = event.clientX;
-      startY = event.clientY;
-    });
-    element.addEventListener('pointercancel', () => { tracking = false; });
-    element.addEventListener('pointerup', event => {
-      if(!tracking) return;
-      tracking = false;
-      const dx = event.clientX - startX;
-      const dy = event.clientY - startY;
-      // Assez franc pour ne pas se déclencher sur un appui, et assez
-      // horizontal pour ne pas contrarier le défilement du texte.
-      if(Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    let x0 = 0;
+    let y0 = 0;
+    let x = 0;
+    let sens = null; // null tant que le doigt n'a pas bougé, puis 'horizontal', 'vertical' ou 'ignore'
+    element.addEventListener('touchstart', event => {
+      // À deux doigts, c'est un pincement pour zoomer : on ne s'en mêle pas.
+      if(event.touches.length !== 1){ sens = 'ignore'; return; }
+      x0 = x = event.touches[0].clientX;
+      y0 = event.touches[0].clientY;
+      sens = null;
+    }, {passive: true});
+    element.addEventListener('touchmove', event => {
+      if(sens === 'ignore' || sens === 'vertical') return;
+      if(event.touches.length !== 1){ sens = 'ignore'; return; }
+      x = event.touches[0].clientX;
+      const dx = Math.abs(x - x0);
+      const dy = Math.abs(event.touches[0].clientY - y0);
+      // On tranche dès que le doigt a vraiment bougé : sous 55° par rapport à
+      // l'horizontale, c'est un changement de fiche ; au-delà, un défilement.
+      if(sens === null && (dx > 10 || dy > 10)) sens = dx > dy * 0.7 ? 'horizontal' : 'vertical';
+      if(sens === 'horizontal' && event.cancelable) event.preventDefault();
+    }, {passive: false});
+    element.addEventListener('touchend', () => {
+      if(sens !== 'horizontal') return;
+      sens = null;
+      const dx = x - x0;
+      if(Math.abs(dx) < 50) return; // un effleurement n'est pas un geste
       if(dx < 0) onNext(); else onPrev();
     });
+    element.addEventListener('touchcancel', () => { sens = 'ignore'; });
   }
 
   function openModuleModal(card){
