@@ -205,7 +205,7 @@ window.EC_ATELIERS = [
     id: 'forge',
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-forge.webp',
-    alt: 'Objets métalliques et outils évoquant le travail de forge',
+    alt: 'Deux forgerons en costume devant la forge : enclume sur son billot, braises dans le foyer, soufflet et tenailles',
     titre: 'Forge',
     resume: 'Le travail du métal, les outils du forgeron et la fabrication des objets.',
     texte: [
