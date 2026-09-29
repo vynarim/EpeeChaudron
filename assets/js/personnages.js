@@ -29,10 +29,10 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-joshua.webp', name:'Joshua', role:'Peintre de cour', hook:'Laissez le tracé de son pinceau immortaliser vos plus grands succès… ou vos plus grands embarras. Au choix.', alt:'Joshua, peintre de cour, devant sa feuille de parchemin', atelier:'illustration et fabrication de peintures médiévales'},
 
   {img:'assets/img/personnages/personnages-frederic.webp', name:'Frédéric', role:'Forgeron', hook:'Il bat le fer tant qu’il est chaud. Approchez sans crainte : c’est l’enclume qui prend les coups.', alt:'Frédéric, forgeron, en pourpoint violet et bonnet noir, la main sur une hampe', atelier:'Forge'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Gaëtan', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-gaetan.webp', name:'Gaëtan', role:'Arbalétrier', hook:'Un carreau, une cible, une seule chance : il prend son temps pour viser, jamais pour tirer.', alt:'Gaëtan, arbalétrier, chaperon bleu à dents, brigandine cloutée, l’arbalète sur l’épaule', atelier:'Armes et armures'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Guillaume', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
   {img:'assets/img/personnages/personnages-denis.webp', name:'Denis', role:'Haubergier', hook:'Des milliers d’anneaux, un par un : sa patience est à toute épreuve, et sa cotte de mailles aussi.', alt:'Denis, haubergier, assis en tunique blanche à croix rouge et bonnet noir', atelier:'Cotte de mailles'},
-  {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Doriane', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
+  {img:'assets/img/personnages/personnages-doriane.webp', name:'Doriane', role:'Tisserande', hook:'Fil après fil, elle tisse ses galons en souriant — même quand le fil casse. Surtout quand le fil casse.', alt:'Doriane, tisserande, en chaperon rouge doublé de bleu, derrière son petit métier à galon', atelier:'Textile et tissage'},
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Christelle', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
 
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Benoît', role:'A définir', hook:'A définir', alt:'A définir', atelier:'à définir'},
