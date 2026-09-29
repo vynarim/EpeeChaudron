@@ -466,7 +466,7 @@ h2{
   /* « Détails » devient un œil : même rôle, sans mot qui mange la photo */
   .module-card:after{
     content:"";width:30px;height:30px;padding:0;
-    background:rgba(7,26,68,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center/17px no-repeat;
+    background:rgba(18,61,145,.55) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center/17px no-repeat;
   }
   /* Le cœur rapetisse à l'œil (32 px) mais garde sa zone tactile de 44 px :
      le rond visible est dessiné par un pseudo-élément. */
