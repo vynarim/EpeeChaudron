@@ -463,7 +463,20 @@ h2{
   .card div{padding:12px}
   .card h3{font-size:1rem;margin-bottom:4px}
   .card p{font-size:.9rem;line-height:1.4}
-  .module-card:after{font-size:.64rem;padding:.24rem .48rem}
+  /* « Détails » devient un œil : même rôle, sans mot qui mange la photo */
+  .module-card:after{
+    content:"";width:30px;height:30px;padding:0;
+    background:rgba(7,26,68,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E") center/17px no-repeat;
+  }
+  /* Le cœur rapetisse à l'œil (32 px) mais garde sa zone tactile de 44 px :
+     le rond visible est dessiné par un pseudo-élément. */
+  .module-wishlist{right:4px;bottom:4px;background:transparent;border:0;box-shadow:none;font-size:.88rem}
+  .module-wishlist::before{
+    content:"";position:absolute;inset:6px;z-index:-1;border-radius:50%;
+    border:1px solid rgba(106,98,87,.3);background:rgba(255,255,255,.92);box-shadow:0 2px 6px rgba(0,0,0,.1);
+  }
+  .module-wishlist[aria-pressed="true"]{background:transparent;color:#fff}
+  .module-wishlist[aria-pressed="true"]::before{background:var(--fire);border-color:var(--fire)}
 
   /* Organisateurs */
   .organiser-grid{gap:22px}
