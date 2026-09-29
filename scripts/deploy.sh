@@ -3,27 +3,30 @@
 # sur https://epee-chaudron.fr/. Il n'y a plus de recette : depuis la bascule
 # du 29/09/2026, chaque envoi part directement chez les visiteurs.
 #
-# Le mot de passe SFTP n'est jamais écrit dans la ligne de commande : il est lu
-# depuis la variable OVH_SFTP_PASSWORD, ou depuis le fichier désigné par
-# OVH_SFTP_PASSWORD_FILE (par défaut ~/.epeechaudron-sftp), et transmis à curl
-# par son entrée standard.
+# Accès SFTP et mot de passe : voir scripts/sftp-commun.sh.
 #
 #   OVH_SFTP_PASSWORD='...' bash scripts/deploy.sh
 #   bash scripts/deploy.sh            # lit ~/.epeechaudron-sftp
 #   bash scripts/deploy.sh --dry-run  # liste ce qui partirait, sans rien envoyer
+#   bash scripts/deploy.sh --force    # envoie malgré une anomalie sur le serveur
+#
+# Avant d'envoyer, le script contrôle le serveur (scripts/verif-serveur.sh) et
+# s'arrête s'il y trouve un fichier ajouté ou modifié hors de ses envois :
+# l'envoi en miroir l'effacerait, et avec lui la trace d'une intrusion. Après
+# l'envoi, il note ce qui est en ligne dans deploy/etat-en-ligne.txt.
 #
 # L'envoi est un miroir : les fichiers présents sur le serveur et absents en
 # local sont retirés. Voir « Nettoyage » plus bas.
 
 set -euo pipefail
 
-HOST="[hôte SFTP retiré]"
-USER="LOGIN_SFTP"
-REMOTE_DIR="/home/LOGIN_SFTP/www"
 DRY_RUN=0
+FORCE=0
 [ "${1:-}" = "--dry-run" ] && DRY_RUN=1
+[ "${1:-}" = "--force" ] && FORCE=1
 
 cd "$(dirname "$0")/.."
+source scripts/sftp-commun.sh
 
 # --- Fichiers à envoyer ------------------------------------------------------
 # index.html, le manifeste, le service worker, robots.txt, le fichier de
@@ -54,28 +57,17 @@ if [ "$DRY_RUN" = "1" ]; then
   exit 0
 fi
 
-# --- Mot de passe ------------------------------------------------------------
-PASS="${OVH_SFTP_PASSWORD:-}"
-if [ -z "$PASS" ]; then
-  PASS_FILE="${OVH_SFTP_PASSWORD_FILE:-$HOME/.epeechaudron-sftp}"
-  if [ ! -f "$PASS_FILE" ]; then
-    echo "Mot de passe introuvable : ni OVH_SFTP_PASSWORD, ni $PASS_FILE" >&2
+# --- Contrôle du serveur avant envoi ---------------------------------------
+charger_mot_de_passe
+if [ -f "$ETAT" ] && ! bash scripts/verif-serveur.sh; then
+  if [ "$FORCE" = "1" ]; then
+    echo "Anomalies ignorées (--force) : l'envoi continue."
+  else
+    echo "Envoi annulé. Examiner ces fichiers sur le serveur avant tout envoi ;" >&2
+    echo "s'ils sont légitimes (dépôt à la main), relancer avec --force." >&2
     exit 1
   fi
-  PASS="$(head -1 "$PASS_FILE" | tr -d '\r\n')"
 fi
-
-curl_conf() {
-  # Valeur NON entre guillemets : curl la prend telle quelle jusqu'au saut de
-  # ligne, donc aucun caractère du mot de passe n'a besoin d'être échappé.
-  printf 'user = %s:%s
-' "$USER" "$PASS"
-  printf 'silent
-show-error
-fail
-ftp-create-dirs
-'
-}
 
 # --- Envoi -------------------------------------------------------------------
 # Une seule invocation curl : la connexion SFTP est réutilisée pour tous les
@@ -83,10 +75,10 @@ ftp-create-dirs
 # l'ancienne recette /v2/ (voir l'en-tête de deploy/v2-sw.js).
 ARGS=()
 for f in "${FILES[@]}"; do
-  ARGS+=( --upload-file "$f" "sftp://$HOST/$REMOTE_DIR/$f" )
+  ARGS+=( --upload-file "$f" "sftp://$HOST$REMOTE_DIR/$f" )
 done
-ARGS+=( --upload-file "deploy/prod.htaccess" "sftp://$HOST/$REMOTE_DIR/.htaccess" )
-ARGS+=( --upload-file "deploy/v2-sw.js" "sftp://$HOST/$REMOTE_DIR/v2/sw.js" )
+ARGS+=( --upload-file "deploy/prod.htaccess" "sftp://$HOST$REMOTE_DIR/.htaccess" )
+ARGS+=( --upload-file "deploy/v2-sw.js" "sftp://$HOST$REMOTE_DIR/v2/sw.js" )
 
 curl_conf | curl -K - "${ARGS[@]}"
 
@@ -100,24 +92,20 @@ curl_conf | curl -K - "${ARGS[@]}"
 # part et ne figure pas dans FILES. Un sous-dossier n'est parcouru que s'il
 # contient un fichier du site : v2/ n'est donc jamais vidé par ce passage.
 
-lister_distant() {   # $1 = chemin du dossier, relatif à REMOTE_DIR, avec / final
-  curl_conf | curl -K - "sftp://$HOST/$REMOTE_DIR/$1" 2>/dev/null \
-    | awk '$1 !~ /^d/' | sed -E 's/^([^ ]+ +){8}//' | grep -v '^\.' || true
-}
-
 mapfile -t DOSSIERS < <(printf '%s\n' "${FILES[@]}" | sed 's#/[^/]*$##; s#^[^/]*$#.#' | sort -u)
 
 RELIQUATS=()
 for d in "${DOSSIERS[@]}"; do
   prefixe=""
   [ "$d" != "." ] && prefixe="$d/"
-  while IFS= read -r nom; do
-    [ -z "$nom" ] && continue
+  liste="$(lister_distant "$prefixe")"
+  while IFS=$'\t' read -r type taille nom; do
+    [ -z "$nom" ] || [ "$type" = d ] || [ "${nom:0:1}" = "." ] && continue
     chemin="$prefixe$nom"
     if ! printf '%s\n' "${FILES[@]}" | grep -qxF "$chemin"; then
       RELIQUATS+=( "$chemin" )
     fi
-  done < <(lister_distant "$prefixe")
+  done <<< "$liste"
 done
 
 if [ ${#RELIQUATS[@]} -gt 0 ]; then
@@ -126,9 +114,17 @@ if [ ${#RELIQUATS[@]} -gt 0 ]; then
     echo "  retiré du serveur : $r"
     SUPPR+=( -Q "rm \"$REMOTE_DIR/$r\"" )
   done
-  curl_conf | curl -K - "${SUPPR[@]}" "sftp://$HOST/$REMOTE_DIR/" -o /dev/null
+  curl_conf | curl -K - "${SUPPR[@]}" "sftp://$HOST$REMOTE_DIR/" -o /dev/null
   echo "${#RELIQUATS[@]} fichier(s) obsolète(s) retiré(s) du serveur."
 fi
+
+# --- État en ligne ------------------------------------------------------------
+# La référence de scripts/verif-serveur.sh : ce qui vient d'être déposé.
+{
+  for f in "${FILES[@]}"; do empreinte "$f" "$f"; done
+  empreinte deploy/prod.htaccess .htaccess
+  empreinte deploy/v2-sw.js v2/sw.js
+} > "$ETAT"
 
 echo "Envoyé dans $REMOTE_DIR/ sur $HOST."
 echo "À vérifier : https://epee-chaudron.fr/"

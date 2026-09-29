@@ -94,6 +94,27 @@ Le `.htaccess` de la racine :
 - redirige `/v2/` vers la racine, sauf `v2/sw.js` (voir plus bas) ;
 - sert le manifeste avec le bon type et interdit la mise en cache de `sw.js`.
 
+### Sécurité
+
+L'ancien site a été piraté : une page `diff.html`, déposée à la racine,
+redirigeait vers un site de spam. Sans code côté serveur, la porte d'entrée
+était presque sûrement le mot de passe FTP. D'où, par ordre d'importance :
+
+1. **Les accès** (à tenir hors du dépôt) : mot de passe SFTP long et unique,
+   FTP classique (port 21) coupé si l'offre le permet, double authentification
+   sur le compte OVH, alertes e-mail de la Google Search Console actives.
+2. **Le contrôle du serveur.** `npm run verif-serveur` compare ce qui est en
+   ligne à `deploy/etat-en-ligne.txt`, écrit à chaque envoi, et signale tout
+   fichier en trop, modifié ou manquant (`--complet` compare les contenus, pas
+   seulement les tailles). `scripts/deploy.sh` le lance avant d'envoyer et
+   **s'arrête** en cas d'anomalie, puisque l'envoi en miroir effacerait la
+   preuve. Un dépôt légitime fait à la main : relancer avec `--force`.
+3. **Le `.htaccess`** : aucun script serveur exécuté ni servi (PHP, CGI…), pas
+   de liste des dossiers, et des consignes au navigateur — le site n'accepte
+   que ses propres scripts et styles (Content-Security-Policy), ne s'affiche
+   dans aucun cadre, et reste en HTTPS (HSTS, un an). Conséquence : **aucun
+   script ni style écrit dans `index.html`**, tout passe par `assets/`.
+
 ### Empreintes du serveur SFTP
 
 À comparer en cas d'avertissement du client SFTP (relevées le 22/09/2026) :

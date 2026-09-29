@@ -82,6 +82,9 @@ deploy/prod.htaccess       Configuration Apache de la racine (HTTPS, redirection
 deploy/v2-sw.js            Désinscrit le service worker de l'ancienne recette /v2/
 scripts/check-project.mjs  Contrôle des fichiers, du manifeste et des chemins
 scripts/deploy.sh          Mise en ligne du site sur https://epee-chaudron.fr/
+scripts/verif-serveur.sh   Contrôle que le serveur n'a rien reçu d'autre que nos envois
+scripts/sftp-commun.sh     Accès SFTP partagé par les deux scripts
+deploy/etat-en-ligne.txt   Ce qui est en ligne d'après le dernier envoi (tailles, empreintes)
 README_DEPLOIEMENT.md      Procédure de déploiement et de mise à jour du contenu
 AGENTS.md                  Règles à respecter avant de modifier le site
 PRODUCT.md                 Cible, positionnement et intentions

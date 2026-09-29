@@ -5,8 +5,8 @@ dist/
 .playwright-mcp/
 .claude/settings.local.json
 
-# Recette V2 : identifiants, jamais dans le dépôt
-deploy/v2.htpasswd
+# Identifiants : jamais dans le dépôt
+*.htpasswd
 *.pwd
 
 # Photos d'origine des personnages : converties en WebP, jamais versionnées

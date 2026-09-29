@@ -39,6 +39,9 @@ exceptionnelles. Voir `PRODUCT.md`.
 - Accessibilité : alt d'images, contraste ≥ 4.5:1, navigation clavier, cibles
   tactiles de 44 px minimum, `prefers-reduced-motion` respecté.
 - Ne pas supprimer `README_DEPLOIEMENT.md`.
+- Aucun `<script>` ni `<style>` écrit dans la page, aucun attribut `style=` ou
+  `onclick=` : la politique de sécurité (`deploy/prod.htaccess`) les bloque en
+  ligne. Tout passe par `assets/`. Pas de ressource chargée depuis un autre site.
 
 ## Où se trouve quoi
 
@@ -93,6 +96,7 @@ npm install
 npm run dev                          # serveur local Vite
 npm run check                        # fichiers, chemins d'images, manifeste
 bash scripts/deploy.sh --dry-run     # ce qui partirait en ligne (site public)
+npm run verif-serveur                # le serveur est-il bien ce qu'on a envoyé ?
 ```
 
 Attention en développement local : Vite sert la feuille de style en
