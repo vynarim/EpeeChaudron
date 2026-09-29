@@ -210,8 +210,17 @@ Même principe que la galerie : les personnages sont déclarés dans
 `assets/js/personnages.js` et les cartes sont générées au chargement. Aucune
 modification de `index.html` ni du CSS n'est nécessaire.
 
-1. Déposer le portrait (photo verticale, format 3/4, environ 900×1200) dans
-   `assets/img/personnages/`.
+1. Préparer le portrait (format 3/4, 900×1200, WebP) dans
+   `assets/img/personnages/`. Depuis n'importe quelle photo, JPEG compris :
+
+   ```bash
+   npm run portrait -- apercu photo.jpg                     # dimensions, échelle, aperçu
+   npm run portrait -- recadrer photo.jpg <x> <y> <largeur> <nom>
+   npm run portrait -- planche <nom> [<nom> …]              # vérifier les cadrages
+   ```
+
+   L'outil se sert d'Edge ou de Chrome comme moteur d'image ; le détail est en
+   tête de `scripts/portrait.mjs`.
 2. Ajouter une entrée dans `assets/js/personnages.js`, à la place voulue dans
    l'ordre du carrousel.
 
@@ -221,7 +230,8 @@ modification de `index.html` ni du CSS n'est nécessaire.
   name: 'Nom affiché',
   role: 'Rôle affiché sous le nom',
   hook: 'Une phrase d’accroche, en italique sur la carte.',
-  alt: 'Description de la photo pour les lecteurs d’écran'
+  alt: 'Description de la photo pour les lecteurs d’écran',
+  atelier: 'L’atelier qu’il anime (facultatif, affiché dans la fiche)'
 }
 ```
 

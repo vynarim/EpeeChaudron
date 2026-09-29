@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node scripts/check-project.mjs"
+    "check": "node scripts/check-project.mjs",
+    "portrait": "node scripts/portrait.mjs"
   },
   "devDependencies": {
+    "playwright-core": "^1.63.0",
     "vite": "latest"
   }
 }

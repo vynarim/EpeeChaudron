@@ -228,8 +228,11 @@ L'ordre du tableau est l'ordre du carrousel. La catégorie n'est plus affichée.
 
 ### Ajouter ou modifier un personnage
 
-1. Déposer le portrait (photo verticale, format 3/4, environ 900×1200, WebP)
-   dans `assets/img/personnages/`.
+1. Déposer le portrait (format 3/4, 900×1200, WebP) dans
+   `assets/img/personnages/`. À partir d'une photo quelconque, `npm run portrait`
+   le recadre et le convertit — voir « Modifier les personnages » dans
+   `README.md`. Le JPEG d'origine peut rester dans le dossier le temps du
+   travail : il n'est ni envoyé en ligne ni versionné, mais le supprimer ensuite.
 2. Ajouter ou modifier la ligne correspondante dans `assets/js/personnages.js` :
 
 ```js
