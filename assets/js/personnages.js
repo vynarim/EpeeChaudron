@@ -15,7 +15,7 @@
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
 window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-eric.webp', name:'Eric', role:'Bourreau', hook:'Ne vous fiez pas à son air avenant : coupable ou simple suspect, il ne versera pas une larme.', alt:'Eric, le bourreau, chaperon noir à l’insigne de corde, cape de laine et hache à la main'},
-  {img:'assets/img/personnages/personnages-morgane.webp', name:'Morgane', role:'Saltimbanque', hook:'Diabolo, bras de fer ou tir à la corde : gare à qui la prend pour une fillette.', alt:'Morgane, jeune saltimbanque au bandeau de cuir'},
+  {img:'assets/img/personnages/personnages-morgane.webp', name:'Morgane', role:'Saltimbanque', hook:'Diabolo, bras de fer ou tir à la corde : gare à qui la prend pour une fillette.', alt:'Morgane, saltimbanque, chapeau de paille et chemise blanche, devant une tente rose et noire'},
   {img:'assets/img/personnages/personnages-ambre.webp', name:'Ambre', role:'Acrobate', hook:'Virevoltante et espiègle, elle se plaît à faire des farces aux voyageurs de passage.', alt:'Ambre, la cadette, acrobate'},
 
   {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes, en tunique bleue à côté d’une armure et d’un écu vert et blanc'},
