@@ -178,8 +178,8 @@ window.EC_ATELIERS = [
   {
     id: 'enfants-en-lice',
     categorie: 'armes',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir des combats d’enfants en lice',
+    img: 'assets/img/ateliers/ateliers-enfants-en-lice.webp',
+    alt: 'Des enfants armés d’écus et d’épées de mousse courent vers la lice, entre bottes de paille et public, devant la tente du camp',
     titre: 'Les enfants en lice',
     resume: 'Épées en mousse et boucliers : les enfants combattent à leur tour, dans la lice.',
     texte: [
