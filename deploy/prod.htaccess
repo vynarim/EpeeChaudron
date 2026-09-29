@@ -28,6 +28,10 @@ RewriteRule ^(association|agenda|liens)\.html$ https://%{HTTP_HOST}/ [R=301,L]
 RewriteCond %{REQUEST_URI} !^/v2/sw\.js$
 RewriteRule ^v2(/(.*))?$ https://%{HTTP_HOST}/$2 [R=301,L]
 
+# 3 bis. www/supprimer/ reçoit ce qui attend d'être effacé à la main (restes
+#    de l'ancien site et de la recette) : jamais servi.
+RewriteRule ^supprimer(/|$) - [F,L]
+
 # 4. Ne pas servir les fichiers de configuration eux-mêmes.
 <FilesMatch "^\.(htaccess|htpasswd)$">
   Require all denied
