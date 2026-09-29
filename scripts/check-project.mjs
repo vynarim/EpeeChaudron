@@ -88,6 +88,13 @@ for (const ref of photoImageRefs) {
   if (!fs.existsSync(path.join(root, ref))) errors.push(`Image de galerie absente: ${ref}`);
 }
 
+// Les portraits : un personnage qui quitte la compagnie emporte sa photo, et
+// l'entrée oubliée pointerait alors dans le vide sans que rien ne le signale.
+const portraitRefs = [...personnages.matchAll(/img:'([^']+)'/g)].map(m => m[1]);
+for (const ref of portraitRefs) {
+  if (!fs.existsSync(path.join(root, ref))) errors.push(`Portrait de personnage absent: ${ref}`);
+}
+
 if (errors.length) {
   console.error('Vérification échouée:');
   for (const err of errors) console.error(`- ${err}`);

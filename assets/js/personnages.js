@@ -10,8 +10,8 @@
 //           plein écran. Une phrase, ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
 window.EC_PERSONNAGES = [
-  {img:'assets/img/personnages/personnages-thibault.webp', name:'Thibault', role:'Bourreau', hook:'Ne vous fiez pas à son air avenant : coupable ou simple suspect, il ne versera pas une larme.', alt:'Thibault, le bourreau, bonnet rouge et plastron de cuir'},
-  {img:'assets/img/personnages/personnages-margot.webp', name:'Dame Margot', role:'Cuisinière', hook:'À quand la prochaine ripaille ? Quand les chasseurs cesseront de rentrer bredouilles !', alt:'Dame Margot goûtant un plat à la cuillère'},
+  {img:'assets/img/personnages/personnages-eric.webp', name:'Eric', role:'Bourreau', hook:'Ne vous fiez pas à son air avenant : coupable ou simple suspect, il ne versera pas une larme.', alt:'Eric, le bourreau, bonnet rouge et plastron de cuir'},
+  {img:'assets/img/personnages/personnages-angelique.webp', name:'Angélique', role:'Cuisinière', hook:'Une faim de loup ou le nez qui coule, dans les deux cas, elle a ce qu’il vous faut !', alt:'Angélique, cuisinière, tournant une cuillère de bois au-dessus des chaudrons', texte:'Atelier : découverte des épices et des plantes médicinales.'},
   {img:'assets/img/personnages/personnages-morgane.webp', name:'Morgane', role:'Saltimbanque', hook:'Diabolo, bras de fer ou tir à la corde : gare à qui la prend pour une fillette.', alt:'Morgane, jeune saltimbanque au bandeau de cuir'},
   {img:'assets/img/personnages/personnages-ambre.webp', name:'Ambre', role:'Acrobate', hook:'Virevoltante et espiègle, elle se plaît à faire des farces aux voyageurs de passage.', alt:'Ambre, la cadette, acrobate'},
   {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes'},
