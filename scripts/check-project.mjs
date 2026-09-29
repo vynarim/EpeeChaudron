@@ -133,6 +133,22 @@ for (const ref of portraitRefs) {
   if (!fs.existsSync(path.join(root, ref))) errors.push(`Portrait de personnage absent: ${ref}`);
 }
 
+// Le siècle de chaque personnage alimente le filtre par époque : un oubli ou
+// une faute de frappe ferait disparaître le personnage des deux filtres.
+if (personnages) {
+  try {
+    const bac = { window: {} };
+    new Function('window', personnages)(bac.window);
+    (bac.window.EC_PERSONNAGES || []).forEach((p, i) => {
+      if (p.siecle !== 13 && p.siecle !== 15) {
+        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (13 ou 15 attendu)`);
+      }
+    });
+  } catch (err) {
+    errors.push(`assets/js/personnages.js illisible : ${err.message}`);
+  }
+}
+
 if (errors.length) {
   console.error('Vérification échouée:');
   for (const err of errors) console.error(`- ${err}`);
