@@ -166,7 +166,7 @@ window.EC_ATELIERS = [
     id: 'duel-judiciaire',
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-duel-judiciaire.webp',
-    alt: 'Armes et armure utilisées pour une démonstration historique',
+    alt: 'Deux combattants en brigandine et gantelets croisent l’épée au corps à corps sur la paille, sous le regard du public, face aux montagnes',
     titre: 'Duel judiciaire',
     resume: 'Un vrai duel à la touche, dans une lice fermée, avec les règles de l’époque.',
     texte: [
