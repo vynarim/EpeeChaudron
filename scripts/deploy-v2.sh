@@ -10,6 +10,9 @@
 #   OVH_SFTP_PASSWORD='...' bash scripts/deploy-v2.sh
 #   bash scripts/deploy-v2.sh            # lit ~/.epeechaudron-sftp
 #   bash scripts/deploy-v2.sh --dry-run  # liste ce qui partirait, sans rien envoyer
+#
+# L'envoi est un miroir : les fichiers présents sur le serveur et absents en
+# local sont retirés. Voir « Nettoyage » plus bas.
 
 set -euo pipefail
 
@@ -75,6 +78,45 @@ else
 fi
 
 curl_conf | curl -K - "${ARGS[@]}"
+
+# --- Nettoyage : ce qui n'existe plus en local part du serveur ---------------
+# Ce script est seul à écrire dans le répertoire de recette. Un fichier présent
+# là-haut mais absent de la liste locale est le reliquat d'un envoi précédent :
+# le portrait d'un membre qui a quitté la compagnie, un JPEG déjà converti en
+# WebP. Sans ce passage il resterait servi indéfiniment — un envoi n'ajoutait
+# que des fichiers, il n'en retirait aucun.
+# Les fichiers cachés sont volontairement épargnés : .htaccess et .htpasswd
+# sont déposés à part et ne figurent pas dans FILES.
+
+lister_distant() {   # $1 = chemin du dossier, relatif à REMOTE_DIR, avec / final
+  curl_conf | curl -K - "sftp://$HOST/$REMOTE_DIR/$1" 2>/dev/null \
+    | awk '$1 !~ /^d/ { print $NF }' | grep -v '^\.' || true
+}
+
+mapfile -t DOSSIERS < <(printf '%s\n' "${FILES[@]}" | sed 's#/[^/]*$##; s#^[^/]*$#.#' | sort -u)
+
+RELIQUATS=()
+for d in "${DOSSIERS[@]}"; do
+  prefixe=""
+  [ "$d" != "." ] && prefixe="$d/"
+  while IFS= read -r nom; do
+    [ -z "$nom" ] && continue
+    chemin="$prefixe$nom"
+    if ! printf '%s\n' "${FILES[@]}" | grep -qxF "$chemin"; then
+      RELIQUATS+=( "$chemin" )
+    fi
+  done < <(lister_distant "$prefixe")
+done
+
+if [ ${#RELIQUATS[@]} -gt 0 ]; then
+  SUPPR=()
+  for r in "${RELIQUATS[@]}"; do
+    echo "  retiré du serveur : $r"
+    SUPPR+=( -Q "rm $REMOTE_DIR/$r" )
+  done
+  curl_conf | curl -K - "${SUPPR[@]}" "sftp://$HOST/$REMOTE_DIR/" -o /dev/null
+  echo "${#RELIQUATS[@]} fichier(s) obsolète(s) retiré(s) du serveur."
+fi
 
 echo "Envoyé dans $REMOTE_DIR/ sur $HOST."
 echo "À vérifier : https://epee-chaudron.fr/v2/"
