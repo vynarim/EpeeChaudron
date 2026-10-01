@@ -2,6 +2,7 @@ window.EC_PHOTOS = [
   {src:'assets/img/full/galerie-camp-portrait.webp', thumb:'assets/img/thumbs/galerie-camp-portrait.webp', title:'Vie de camp', category:'Camp', alt:'Personnage costumé devant une tente médiévale'},
   {src:'assets/img/full/galerie-camp-duo-banniere.webp', thumb:'assets/img/thumbs/galerie-camp-duo-banniere.webp', title:'Devant la bannière', category:'Camp', alt:'Membres costumés devant la bannière et la tente'},
   {src:'assets/img/full/galerie-camp-porte-banniere.webp', thumb:'assets/img/thumbs/galerie-camp-porte-banniere.webp', title:'Bannière de la mesnie', category:'Camp', alt:'Deux membres tenant la bannière de l’association'},
+  {src:'assets/img/full/galerie-camp-defile.webp', thumb:'assets/img/thumbs/galerie-camp-defile.webp', title:'Défilé des troupes', category:'Camp', alt:'Un arbalétrier en brigandine et un membre en chaperon bleu à bord découpé, en tête du défilé des troupes dans la rue'},
   {src:'assets/img/full/galerie-camp-tente-rose.webp', thumb:'assets/img/thumbs/galerie-camp-tente-rose.webp', title:'Tente médiévale', category:'Camp', alt:'Grande tente médiévale rose et grise'},
   {src:'assets/img/full/galerie-cuisine-feu.webp', thumb:'assets/img/thumbs/galerie-cuisine-feu.webp', title:'Cuisine au feu', category:'Cuisine', alt:'Cuisine au feu sur le camp médiéval'},
   {src:'assets/img/full/galerie-cuisine-plat.webp', thumb:'assets/img/thumbs/galerie-cuisine-plat.webp', title:'Cuisine vivante', category:'Cuisine', alt:'Animation de cuisine médiévale avec plat présenté au public'},
@@ -14,5 +15,6 @@ window.EC_PHOTOS = [
   {src:'assets/img/full/galerie-ateliers-blasons-table.webp', thumb:'assets/img/thumbs/galerie-ateliers-blasons-table.webp', title:'Blasons', category:'Ateliers', alt:'Blasons et supports pédagogiques d’héraldique'},
   {src:'assets/img/full/galerie-ateliers-peinture-blason.webp', thumb:'assets/img/thumbs/galerie-ateliers-peinture-blason.webp', title:'Peinture et blason', category:'Ateliers', alt:'Atelier de peinture et blason devant les tentes'},
   {src:'assets/img/full/galerie-ateliers-scribe.webp', thumb:'assets/img/thumbs/galerie-ateliers-scribe.webp', title:'Scribe', category:'Ateliers', alt:'Scribe en costume dans une tente médiévale'},
+  {src:'assets/img/full/galerie-ateliers-forge.webp', thumb:'assets/img/thumbs/galerie-ateliers-forge.webp', title:'La forge', category:'Ateliers', alt:'Le forgeron en cotte brune et bonnet noir actionne le soufflet de sa forge, l’enclume posée sur un billot, sous les arcades d’une place de village'},
   {src:'assets/img/full/galerie-camp-banniere.webp', thumb:'assets/img/thumbs/galerie-camp-banniere.webp', title:'Bannière', category:'Camp', alt:'Bannière de L’Épée et le Chaudron'}
 ];
