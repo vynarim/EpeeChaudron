@@ -41,7 +41,7 @@ window.EC_ATELIERS = [
     actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-heraldique.webp',
-    alt: 'Écus peints aux couleurs de blasons et tableau des émaux et fourrures, sur la table de l’atelier',
+    alt: 'Deux membres souriantes à la table de l’atelier : le tableau des émaux, métaux et fourrures, des écus peints, les meubles héraldiques, et deux métiers à galon',
     titre: 'Héraldique',
     resume: 'Couleurs, meubles, blasons et atelier très visuel pour le public.',
     texte: [
