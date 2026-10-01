@@ -139,7 +139,7 @@ window.EC_ATELIERS = [
     actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-escrime.webp',
-    alt: 'Initiation encadrée autour des armes médiévales',
+    alt: 'Sur l’herbe, un membre en bonnet rouge et gants de cuir croise l’épée longue avec un jeune visiteur, d’autres visiteurs s’exercent derrière eux',
     titre: 'Initiation à l’escrime historique',
     resume: 'Enfants et adultes découvrent les rudiments de l’épée, en toute sécurité.',
     texte: [
