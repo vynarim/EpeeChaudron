@@ -309,11 +309,13 @@
     const selectedAnimations = wishlist.length
       ? wishlist.map(animation => '- ' + animation).join('\n')
       : '- Aucune animation sélectionnée pour le moment';
-    const subject = 'Demande de contact - animations médiévales';
+    // Le nom de l'association ouvre l'objet et revient dans le corps : le mail
+    // se reconnaît d'un coup d'œil dans la boîte de réception, même tronqué.
+    const subject = '[L’Épée et le Chaudron] Demande de contact - animations médiévales';
     const body = [
       'Bonjour,',
       '',
-      'Je souhaite obtenir des renseignements sur vos animations.',
+      'Je souhaite obtenir des renseignements sur les animations de L’Épée et le Chaudron.',
       '',
       'Animations qui m’intéressent :',
       selectedAnimations,
