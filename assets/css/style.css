@@ -225,6 +225,13 @@ h2{
 .footer{background:#060b1b;color:#fff;padding:22px 0}
 .footer-inner{display:flex;justify-content:space-between;gap:16px;align-items:center;font-size:.9rem}
 .footer span:last-child{opacity:.65;text-align:right}
+/* Mentions légales : repliées, une ligne discrète sous le pied de page. */
+.mentions{margin-top:6px;font-size:.9rem;color:rgba(255,255,255,.72)}
+.mentions summary{display:list-item;padding:11px 0;cursor:pointer;color:rgba(255,255,255,.8)}
+.mentions summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.mentions dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 18px;margin:4px 0 8px}
+.mentions dt{font-weight:700;color:#fff}
+.mentions dd{margin:0}
 
 /* --- Lightbox photo ----------------------------------------------------- */
 .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(5,9,20,.94);padding:18px;display:grid;grid-template-rows:1fr auto;place-items:center}
@@ -390,6 +397,8 @@ h2{
   .contact-actions{justify-content:flex-start}
   .footer-inner{display:grid}
   .footer span:last-child{text-align:left}
+  .mentions dl{grid-template-columns:1fr;gap:2px}
+  .mentions dd{margin-bottom:8px}
 }
 
 /* ==========================================================================
