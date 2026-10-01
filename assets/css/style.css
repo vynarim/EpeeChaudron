@@ -664,8 +664,10 @@ h2{
   .persona-carousel .persona-body{padding:10px 12px 12px}
   .persona-carousel .persona h3{font-size:1rem}
   .persona-carousel .persona-role{margin-bottom:.3rem;font-size:.8rem}
+  /* L'accroche occupe toujours trois lignes, même courte : la ligne d'époque
+     tombe alors à la même hauteur sur toutes les cartes d'une rangée. */
   .persona-carousel .persona-hook{
-    font-size:.84rem;line-height:1.4;
+    font-size:.84rem;line-height:1.4;min-height:4.2em;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
   }
 }
