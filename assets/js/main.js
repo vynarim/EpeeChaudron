@@ -18,7 +18,14 @@
     });
     return {
       opened(close){
-        if(closers.includes(close)) return; // fiche suivante : même entrée
+        const i = closers.indexOf(close);
+        if(i !== -1){
+          // Fiche suivante : même entrée. Fiche déjà ouverte plus bas dans la
+          // pile (un personnage, son atelier, puis un autre personnage) : son
+          // entrée remonte en haut, pour que « retour » la referme d'abord.
+          closers.push(closers.splice(i, 1)[0]);
+          return;
+        }
         closers.push(close);
         history.pushState({ecOverlay: true}, '');
       },
@@ -367,6 +374,10 @@
   let notificationTimer = null;
   let moduleTrigger = null;
   let moduleReturn = null;
+  // Renseignés par le bloc des personnages, plus bas : qui anime un atelier,
+  // et comment ouvrir sa fiche par-dessus celle de l'atelier.
+  let animateursDe = () => [];
+  let ouvrirAnimateur = null;
 
   try {
     const savedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey) || '[]');
@@ -582,7 +593,7 @@
   }
   if(moduleModalImage) moduleModalImage.addEventListener('load', orienterModuleModal);
 
-  function openModuleModal(card){
+  function openModuleModal(card, sansHistorique){
     if(!moduleModal) return;
     const image = card.querySelector('img');
     const title = card.querySelector('h3');
@@ -594,11 +605,30 @@
     if(moduleModalImage.complete) orienterModuleModal();
     moduleModalTitle.textContent = title.textContent;
     moduleModalDetails.innerHTML = details.innerHTML;
+    // « Animé par » : les personnages qui citent cet atelier dans leur fiche.
+    const animateurs = animateursDe(title.textContent);
+    if(animateurs.length && ouvrirAnimateur){
+      const ligne = document.createElement('p');
+      ligne.className = 'module-modal-animateurs';
+      const libelle = document.createElement('strong');
+      libelle.textContent = 'Animé par :';
+      ligne.append(libelle, ' ');
+      animateurs.forEach(({nom, index}, i) => {
+        if(i) ligne.append(', ');
+        const lien = document.createElement('button');
+        lien.type = 'button';
+        lien.className = 'persona-modal-atelier-link';
+        lien.textContent = nom;
+        lien.addEventListener('click', () => ouvrirAnimateur(index, card));
+        ligne.append(lien);
+      });
+      moduleModalDetails.appendChild(ligne);
+    }
     updateModalWishlistButton();
     moduleModal.hidden = false;
     document.body.classList.add('is-modal-open');
     document.body.style.overflow = 'hidden';
-    overlayHistory.opened(closeModuleModal);
+    if(!sansHistorique) overlayHistory.opened(closeModuleModal);
     moduleModalClose.focus();
   }
 
@@ -842,6 +872,22 @@
       personaModalCounter.textContent = (personaIndex + 1) + ' / ' + total;
     }
 
+    animateursDe = titre => {
+      const cle = titre.trim().toLowerCase();
+      return personas
+        .map((persona, index) => ({nom: persona.name, index, ateliers: [].concat(persona.atelier || [])}))
+        .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle));
+    };
+    // Depuis la fiche d'un atelier : la fiche du personnage s'ouvre par-dessus,
+    // celle de l'atelier reste dans l'historique et revient à la fermeture.
+    let personaReturn = null;
+    ouvrirAnimateur = (index, card) => {
+      moduleModal.hidden = true;
+      moduleReturn = null;
+      personaReturn = () => openModuleModal(card, true);
+      openPersonaModal(index);
+    };
+
     function atelierCard(nom){
       const cle = nom.trim().toLowerCase();
       return moduleCards.find(card => {
@@ -868,6 +914,7 @@
     function showAtelier(card){
       const from = personaIndex;
       personaModal.hidden = true;
+      personaReturn = null;
       moduleReturn = () => displayPersonaModal(from);
       openModuleModal(card);
     }
@@ -880,6 +927,13 @@
       personaModalDetails.innerHTML = '';
       document.body.classList.remove('is-modal-open');
       document.body.style.overflow = '';
+      // Ouverte depuis la fiche d'un atelier : on y revient.
+      if(personaReturn){
+        const retour = personaReturn;
+        personaReturn = null;
+        retour();
+        return;
+      }
       // Rendre la main sur le personnage affiché en dernier : le carrousel
       // se replace dessus, on ne repart pas d'où on était parti.
       const back = personaCards[personaIndex];

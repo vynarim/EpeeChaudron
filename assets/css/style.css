@@ -298,6 +298,10 @@ h2{
 .module-modal-details h4{margin:1.3rem 0 .45rem;color:var(--blue-dark);font-family:inherit;font-size:inherit;line-height:inherit;font-weight:700}
 .module-modal-details ul{margin:0 0 1.5rem;padding-left:1.2rem;font-family:inherit;font-size:inherit;line-height:inherit}
 .module-modal-details li{margin:.35rem 0;font-family:inherit;font-size:inherit;line-height:inherit}
+/* « Animé par » : mêmes liens que l'atelier dans la fiche d'un personnage,
+   sur des lignes de 44 px pour le doigt. */
+.module-modal-details .module-modal-animateurs{margin:1rem 0 0;color:var(--text);line-height:44px}
+.module-modal-animateurs strong{color:var(--ink);font-weight:800}
 .module-modal-close{
   position:absolute;z-index:3;top:12px;right:12px;width:44px;height:44px;padding:0;border:0;border-radius:50%;
   background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;
