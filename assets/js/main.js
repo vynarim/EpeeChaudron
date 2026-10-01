@@ -33,6 +33,45 @@
     };
   })();
 
+  // Photo en plein écran, sur téléphone : toucher la photo d'une fiche ou de
+  // la galerie l'affiche seule sur fond noir, toucher à nouveau la referme.
+  // Une photo en largeur, sur un téléphone tenu droit, pivote d'un quart de
+  // tour pour occuper tout l'écran : il suffit de tourner le téléphone.
+  const pleinEcran = document.querySelector('[data-plein-ecran]');
+  const pleinEcranImage = pleinEcran ? pleinEcran.querySelector('img') : null;
+  const surTelephone = window.matchMedia('(max-width: 620px)');
+  function orienterPleinEcran(){
+    if(!pleinEcranImage.naturalWidth) return;
+    const paysage = pleinEcranImage.naturalWidth > pleinEcranImage.naturalHeight;
+    pleinEcran.classList.toggle('is-tourne', paysage && window.innerHeight > window.innerWidth);
+  }
+  function fermerPleinEcran(){
+    if(!pleinEcran || pleinEcran.hidden) return;
+    pleinEcran.hidden = true;
+    pleinEcran.classList.remove('is-tourne');
+    pleinEcranImage.removeAttribute('src');
+    overlayHistory.closed(fermerPleinEcran);
+  }
+  function ouvrirPleinEcran(image){
+    if(!pleinEcran || !surTelephone.matches || !image.getAttribute('src')) return;
+    pleinEcranImage.alt = image.alt;
+    pleinEcranImage.src = image.currentSrc || image.src;
+    if(pleinEcranImage.complete) orienterPleinEcran();
+    pleinEcran.hidden = false;
+    overlayHistory.opened(fermerPleinEcran);
+  }
+  if(pleinEcran){
+    pleinEcranImage.addEventListener('load', orienterPleinEcran);
+    pleinEcran.addEventListener('click', fermerPleinEcran);
+    window.addEventListener('resize', () => { if(!pleinEcran.hidden) orienterPleinEcran(); });
+    // Échap ne referme que le plein écran, pas la fiche qui est dessous.
+    window.addEventListener('keydown', event => {
+      if(event.key === 'Escape' && !pleinEcran.hidden){ event.stopPropagation(); fermerPleinEcran(); }
+    }, true);
+    document.querySelectorAll('[data-lightbox-image], [data-module-modal-image], [data-persona-modal-image]')
+      .forEach(image => image.addEventListener('click', () => ouvrirPleinEcran(image)));
+  }
+
   const menuButton = document.querySelector('[data-menu-button]');
   const nav = document.querySelector('[data-nav]');
   if(menuButton && nav){

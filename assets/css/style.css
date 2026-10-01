@@ -236,6 +236,16 @@ h2{
 /* --- Lightbox photo ----------------------------------------------------- */
 .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(5,9,20,.94);padding:18px;display:grid;grid-template-rows:1fr auto;place-items:center}
 .lightbox[hidden]{display:none}
+/* Photo en plein écran (téléphone) : au-dessus de tout, refermée d'un toucher.
+   is-tourne : photo en largeur sur un écran en hauteur, pivotée d'un quart de
+   tour ; ses limites sont donc celles de l'écran, inversées. */
+.plein-ecran{position:fixed;inset:0;z-index:1300;background:#000;display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.plein-ecran[hidden]{display:none}
+.plein-ecran img{max-width:100vw;max-height:100vh;max-height:100svh;object-fit:contain}
+.plein-ecran.is-tourne img{max-width:100vh;max-width:100svh;max-height:100vw;transform:rotate(90deg)}
+@media (max-width:620px){
+  [data-lightbox-image],[data-module-modal-image],[data-persona-modal-image]{cursor:zoom-in}
+}
 .lightbox{touch-action:pan-y pinch-zoom}
 .lightbox img{max-width:min(1100px,96vw);max-height:82vh;border-radius:14px;object-fit:contain}
 .lightbox p{color:#fff;text-align:center;margin:10px 0 0}
