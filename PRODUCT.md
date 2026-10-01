@@ -12,7 +12,7 @@ web
 
 Le public prioritaire est celui qui programme l'association : organisateurs de fêtes médiévales et de reconstitutions, communes qui montent une fête dans un village ancien, responsables de sites patrimoniaux (châteaux, remparts, journées du patrimoine). Ils arrivent sur le site pour évaluer rapidement si la troupe est crédible, si le camp tient dans leur espace et s'il s'intègre à leur programme, souvent sur un premier passage court. Le public secondaire est la famille ou le visiteur qui découvrira le camp le jour de l'événement ; le site doit rester accueillant pour lui, mais ne doit pas sacrifier la lisibilité pour les décideurs afin de lui plaire.
 
-L'association ne cherche pas à animer des salles des fêtes, des mariages ni des espaces bétonnés en ville moderne : le camp s'installe en herbe ou en terre, dans un cadre historique ou champêtre. Les interventions en école ou en médiathèque restent exceptionnelles et ne doivent pas être mises en avant.
+L'association ne cherche pas à animer des salles des fêtes, des mariages ni des espaces bétonnés en ville moderne : le camp s'installe de préférence en herbe ou en terre, dans un cadre historique ou champêtre. Les interventions en école ou en médiathèque restent exceptionnelles et ne doivent pas être mises en avant.
 
 ## Product Purpose
 

@@ -13,7 +13,7 @@ règles, [`README.md`](README.md) pour la structure du dépôt,
 ## Cible
 
 Le site s'adresse d'abord aux organisateurs de fêtes médiévales, de
-reconstitutions et de sites patrimoniaux. La troupe s'installe en herbe ou en
+reconstitutions et de sites patrimoniaux. La troupe s'installe de préférence en herbe ou en
 terre, dans un cadre historique ou champêtre — jamais en salle des fêtes, en
 mariage ou sur du béton en ville moderne. Les interventions en école restent
 exceptionnelles. Voir `PRODUCT.md`.
