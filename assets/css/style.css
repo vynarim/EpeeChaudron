@@ -365,6 +365,24 @@ h2{
   color:var(--muted);font-size:.75rem;letter-spacing:.02em;font-variant-numeric:tabular-nums
 }
 
+/* Ordinateur : une fiche tient toujours dans la fenêtre, si basse soit-elle
+   (portable, barre d'adresse et onglets déduits). La photo se réduit, le
+   texte défile dans sa colonne ; la page derrière ne bouge pas. */
+@media (min-width:621px){
+  .module-modal{overflow:hidden;display:flex;align-items:center}
+  .module-modal-panel{grid-template-rows:minmax(0,1fr);height:calc(100vh - 36px);height:calc(100dvh - 36px);min-height:0}
+  .persona-modal-panel{height:min(700px,calc(100vh - 36px));height:min(700px,calc(100dvh - 36px))}
+  .module-modal-panel>img{height:100%;min-height:0}
+  .module-modal-content{align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;
+    display:flex;flex-direction:column;justify-content:safe center}
+  /* Photo en largeur au-dessus du texte : la fiche s'arrête à sa hauteur utile. */
+  [data-module-modal] .module-modal-panel.is-paysage{
+    display:flex;flex-direction:column;height:auto;max-height:calc(100vh - 36px);max-height:calc(100dvh - 36px)
+  }
+  [data-module-modal] .module-modal-panel.is-paysage>img{flex:0 1 auto;height:auto;min-height:120px;max-height:52vh;max-height:min(52vh,52dvh)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{flex:1 1 auto;justify-content:flex-start}
+}
+
 /* --- Contrôles flottants ------------------------------------------------ */
 .back-to-top{
   position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:90;
