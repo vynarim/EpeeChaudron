@@ -139,7 +139,7 @@ window.EC_ATELIERS = [
     actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-medecine.webp',
-    alt: 'Une soigneuse en coiffe et cape noire présente ses instruments devant des herbiers ouverts, sous la tente',
+    alt: 'Une soigneuse en voile blanc et pelisse de fourrure, derrière sa table : livres de remèdes, trousse d’instruments en cuir et pot de cuivre',
     titre: 'Médecine',
     resume: 'Remèdes, plantes et idées reçues sur la médecine du Moyen Âge.',
     texte: [
