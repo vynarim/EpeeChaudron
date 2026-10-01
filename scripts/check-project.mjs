@@ -140,8 +140,8 @@ if (personnages) {
     const bac = { window: {} };
     new Function('window', personnages)(bac.window);
     (bac.window.EC_PERSONNAGES || []).forEach((p, i) => {
-      if (![11, 13, 15].includes(p.siecle)) {
-        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (11, 13 ou 15 attendu)`);
+      if (![11, 12, 13, 14, 15].includes(p.siecle)) {
+        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (de 11 à 15 attendu)`);
       }
       if (typeof p.epoqueAffichee !== 'boolean') {
         errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » n'a pas epoqueAffichee à true ou false`);

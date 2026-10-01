@@ -627,7 +627,7 @@
 
   // Époque et lieu du costume, une ligne chacun. Rien pour un costume que la
   // compagnie ne présente pas comme historique (epoqueAffichee à false).
-  const SIECLES = {11:'XIe siècle', 13:'XIIIe siècle', 15:'XVe siècle'};
+  const SIECLES = {11:'XIe siècle', 12:'XIIe siècle', 13:'XIIIe siècle', 14:'XIVe siècle', 15:'XVe siècle'};
   function personaContexte(persona, className){
     if(persona.epoqueAffichee !== true) return null;
     const lignes = [persona.epoque || SIECLES[persona.siecle], persona.lieu].filter(Boolean);
