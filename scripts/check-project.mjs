@@ -13,7 +13,8 @@ const required = [
   'assets/js/ateliers.js',
   'assets/img/logo-square.webp',
   'assets/img/icons/favicon-96.png',
-  'assets/img/icons/apple-touch-icon.png'
+  'assets/img/icons/apple-touch-icon.png',
+  'assets/img/partage.jpg'
 ];
 
 let errors = [];

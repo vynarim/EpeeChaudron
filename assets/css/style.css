@@ -140,6 +140,8 @@ h2{
 
 /* Animations : filtres + cartes */
 .module-filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+/* « Voir les 19 animations » : n'existe que sur téléphone (voir la règle 620 px). */
+.module-voir-tout{display:none}
 .module-filter{
   border:1px solid var(--line);background:#fff;color:var(--text);
   border-radius:999px;padding:.5rem .72rem;font-size:.88rem;font-weight:850;cursor:pointer;
@@ -459,6 +461,9 @@ h2{
 
   /* Animations : cartes compactes vignette à gauche */
   .cards{grid-template-columns:1fr;gap:10px}
+  .cards.is-replie .module-card:nth-child(n+7){display:none}
+  .module-voir-tout{display:flex;margin-top:10px}
+  .module-voir-tout[hidden]{display:none}
   .compact-cards .card{display:grid;grid-template-columns:118px 1fr;min-height:112px}
   .compact-cards .card img{aspect-ratio:auto;height:100%;min-height:112px}
   .card div{padding:12px}

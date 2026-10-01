@@ -276,12 +276,33 @@
     });
   }
   const moduleCards = Array.from(document.querySelectorAll('.module-card'));
+  // Sur téléphone, la grille s'arrête aux six premières animations (la règle
+  // est dans le CSS) : toutes empilées, elles faisaient trois écrans. Le
+  // bouton montre le reste ; un filtre, qui réduit déjà la liste, aussi.
+  let deplierAteliers = () => {};
+  if(atelierGrid && moduleCards.length > 6){
+    atelierGrid.classList.add('is-replie');
+    const voirTout = document.createElement('button');
+    voirTout.type = 'button';
+    voirTout.className = 'button secondary module-voir-tout';
+    voirTout.textContent = 'Voir les ' + moduleCards.length + ' animations';
+    deplierAteliers = () => {
+      atelierGrid.classList.remove('is-replie');
+      voirTout.hidden = true;
+    };
+    voirTout.addEventListener('click', () => {
+      deplierAteliers();
+      moduleCards[6].focus({preventScroll: true});
+    });
+    atelierGrid.after(voirTout);
+  }
   const moduleFilterHost = document.querySelector('.module-filters');
   if(moduleFilterHost){
     const moduleFilterButtons = Array.from(moduleFilterHost.querySelectorAll('[data-module-filter]'));
     moduleFilterButtons.forEach(button => {
       button.addEventListener('click', () => {
         const value = button.dataset.moduleFilter;
+        deplierAteliers();
         moduleFilterButtons.forEach(b => b.classList.toggle('is-active', b === button));
         moduleCards.forEach(card => {
           card.hidden = value !== 'toutes' && card.dataset.category !== value;
