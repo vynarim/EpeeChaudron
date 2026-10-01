@@ -77,6 +77,12 @@
     }, true);
     document.querySelectorAll('[data-lightbox-image], [data-module-modal-image], [data-persona-modal-image]')
       .forEach(image => image.addEventListener('click', () => ouvrirPleinEcran(image)));
+    // Bande photo « Une mesnie de passionnés » : le voile et le texte posés
+    // sur la photo reçoivent le toucher, c'est donc la bande entière qui écoute.
+    document.querySelectorAll('.photo-band').forEach(bande => {
+      const image = bande.querySelector('img');
+      if(image) bande.addEventListener('click', () => ouvrirPleinEcran(image));
+    });
   }
 
   const menuButton = document.querySelector('[data-menu-button]');
