@@ -37,20 +37,6 @@ window.EC_ATELIERS = [
     points: ['Foyer, chaudrons et ustensiles', 'Recettes et ingrédients historiques', 'Gestes quotidiens et service de table']
   },
   {
-    id: 'heraldique',
-    actif: true,
-    categorie: 'ateliers',
-    img: 'assets/img/ateliers/ateliers-heraldique.webp',
-    alt: 'Deux membres souriantes à la table de l’atelier : le tableau des émaux, métaux et fourrures, des écus peints, les meubles héraldiques, et deux métiers à galon',
-    titre: 'Héraldique',
-    resume: 'Couleurs, meubles, blasons et atelier très visuel pour le public.',
-    texte: [
-      'L’héraldique est présentée comme un langage visuel construit pour identifier une personne, une famille ou une communauté. Le public apprend à reconnaître les couleurs, les partitions et les figures qui composent un blason.',
-      'Selon le contexte, l’animation peut prendre la forme d’une démonstration, d’un échange autour des bannières ou d’un petit exercice de composition. Elle fonctionne particulièrement bien avec les enfants et les groupes scolaires.'
-    ],
-    points: ['Vocabulaire et règles de composition', 'Lecture de blasons et de bannières', 'Création guidée d’armoiries']
-  },
-  {
     id: 'armes-armures',
     actif: true,
     categorie: 'armes',
@@ -133,20 +119,6 @@ window.EC_ATELIERS = [
       'Le sujet permet d’aborder l’hygiène, l’organisation domestique, la consommation d’eau et le travail nécessaire à l’entretien des textiles avant les produits modernes.'
     ],
     points: ['Préparation de la lessive de cendre', 'Lavage, rinçage et séchage du linge', 'Hygiène et tâches domestiques']
-  },
-  {
-    id: 'medecine',
-    actif: true,
-    categorie: 'camp',
-    img: 'assets/img/ateliers/ateliers-medecine.webp',
-    alt: 'Une soigneuse en voile blanc et pelisse de fourrure, derrière sa table : livres de remèdes, trousse d’instruments en cuir et pot de cuivre',
-    titre: 'Médecine',
-    resume: 'Remèdes, plantes et idées reçues sur la médecine du Moyen Âge.',
-    texte: [
-      'Sur le camp, on soigne comme au Moyen Âge : plantes, onguents et remèdes de la maison, avec les objets et les gestes qui vont avec. Le public découvre ce que l’on savait, ce que l’on croyait, et ce qui a survécu jusqu’à nous.',
-      'Le module se prête aux échanges avec les familles et corrige quelques idées reçues sur l’hygiène et les soins médiévaux.'
-    ],
-    points: ['Plantes, remèdes et soins du quotidien', 'Savoirs et croyances de l’époque', 'Idées reçues sur la médecine médiévale']
   },
   {
     id: 'jeux',
@@ -233,34 +205,6 @@ window.EC_ATELIERS = [
     points: ['Foyer, soufflet, enclume et marteaux', 'Chauffe et mise en forme du métal', 'Objets produits et rôle du forgeron']
   },
   {
-    id: 'cotte-de-mailles',
-    actif: true,
-    categorie: 'ateliers',
-    img: 'assets/img/ateliers/photo-a-venir.webp',
-    alt: 'Photo à venir',
-    titre: 'Cotte de mailles',
-    resume: 'Anneau après anneau : le public voit naître une protection et la soupèse.',
-    texte: [
-      'La cotte de mailles se fabrique anneau par anneau, à la pince, pendant des heures. L’atelier montre le geste, les outils et les motifs d’assemblage, et laisse le public essayer quelques anneaux.',
-      'On y parle aussi du poids, du coût et de l’entretien de cette protection, et de ce qu’elle arrête ou n’arrête pas.'
-    ],
-    points: ['Outils et geste du mailleur', 'Motifs d’assemblage et solidité', 'Poids, coût et entretien']
-  },
-  {
-    id: 'taille-de-pierre',
-    actif: true,
-    categorie: 'ateliers',
-    img: 'assets/img/ateliers/ateliers-taille-de-pierre.webp',
-    alt: 'Trois pierres taillées en bas-relief — un écu à chevron, une croix, un écu — à côté de blocs bruts et de moellons, sur un établi de bois',
-    titre: 'Taille de pierre',
-    resume: 'Les outils et les gestes du tailleur de pierre, à voir de près.',
-    texte: [
-      'Le tailleur de pierre travaille au camp, au ciseau et à la massette : le public suit l’avancement d’une pièce au fil de la journée et découvre les outils, les traces qu’ils laissent et les marques des tailleurs.',
-      'La démonstration fait le lien avec les monuments du lieu quand le site s’y prête : églises, remparts, châteaux.'
-    ],
-    points: ['Outils et traces d’outils', 'Du bloc brut à la pièce finie', 'Marques de tailleurs et chantiers médiévaux']
-  },
-  {
     id: 'fruits-legumes',
     actif: true,
     categorie: 'camp',
@@ -287,5 +231,61 @@ window.EC_ATELIERS = [
       'Le défilé se cale sur votre programme ; il est inclus dans nos interventions sur un week-end.'
     ],
     points: ['Cortège en costumes avec la bannière', 'Ouverture ou clôture de la fête', 'Placé à l’heure de votre programme']
+  },
+  {
+    id: 'taille-de-pierre',
+    actif: true,
+    categorie: 'ateliers',
+    img: 'assets/img/ateliers/ateliers-taille-de-pierre.webp',
+    alt: 'Trois pierres taillées en bas-relief — un écu à chevron, une croix, un écu — à côté de blocs bruts et de moellons, sur un établi de bois',
+    titre: 'Taille de pierre',
+    resume: 'Les outils et les gestes du tailleur de pierre, à voir de près.',
+    texte: [
+      'Le tailleur de pierre travaille au camp, au ciseau et à la massette : le public suit l’avancement d’une pièce au fil de la journée et découvre les outils, les traces qu’ils laissent et les marques des tailleurs.',
+      'La démonstration fait le lien avec les monuments du lieu quand le site s’y prête : églises, remparts, châteaux.'
+    ],
+    points: ['Outils et traces d’outils', 'Du bloc brut à la pièce finie', 'Marques de tailleurs et chantiers médiévaux']
+  },
+  {
+    id: 'cotte-de-mailles',
+    actif: true,
+    categorie: 'ateliers',
+    img: 'assets/img/ateliers/photo-a-venir.webp',
+    alt: 'Photo à venir',
+    titre: 'Cotte de mailles',
+    resume: 'Anneau après anneau : le public voit naître une protection et la soupèse.',
+    texte: [
+      'La cotte de mailles se fabrique anneau par anneau, à la pince, pendant des heures. L’atelier montre le geste, les outils et les motifs d’assemblage, et laisse le public essayer quelques anneaux.',
+      'On y parle aussi du poids, du coût et de l’entretien de cette protection, et de ce qu’elle arrête ou n’arrête pas.'
+    ],
+    points: ['Outils et geste du mailleur', 'Motifs d’assemblage et solidité', 'Poids, coût et entretien']
+  },
+  {
+    id: 'medecine',
+    actif: true,
+    categorie: 'camp',
+    img: 'assets/img/ateliers/ateliers-medecine.webp',
+    alt: 'Une soigneuse en voile blanc et pelisse de fourrure, derrière sa table : livres de remèdes, trousse d’instruments en cuir et pot de cuivre',
+    titre: 'Médecine',
+    resume: 'Remèdes, plantes et idées reçues sur la médecine du Moyen Âge.',
+    texte: [
+      'Sur le camp, on soigne comme au Moyen Âge : plantes, onguents et remèdes de la maison, avec les objets et les gestes qui vont avec. Le public découvre ce que l’on savait, ce que l’on croyait, et ce qui a survécu jusqu’à nous.',
+      'Le module se prête aux échanges avec les familles et corrige quelques idées reçues sur l’hygiène et les soins médiévaux.'
+    ],
+    points: ['Plantes, remèdes et soins du quotidien', 'Savoirs et croyances de l’époque', 'Idées reçues sur la médecine médiévale']
+  },
+  {
+    id: 'heraldique',
+    actif: true,
+    categorie: 'ateliers',
+    img: 'assets/img/ateliers/ateliers-heraldique.webp',
+    alt: 'Deux membres souriantes à la table de l’atelier : le tableau des émaux, métaux et fourrures, des écus peints, les meubles héraldiques, et deux métiers à galon',
+    titre: 'Héraldique',
+    resume: 'Couleurs, meubles, blasons et atelier très visuel pour le public.',
+    texte: [
+      'L’héraldique est présentée comme un langage visuel construit pour identifier une personne, une famille ou une communauté. Le public apprend à reconnaître les couleurs, les partitions et les figures qui composent un blason.',
+      'Selon le contexte, l’animation peut prendre la forme d’une démonstration, d’un échange autour des bannières ou d’un petit exercice de composition. Elle fonctionne particulièrement bien avec les enfants et les groupes scolaires.'
+    ],
+    points: ['Vocabulaire et règles de composition', 'Lecture de blasons et de bannières', 'Création guidée d’armoiries']
   }
 ];
