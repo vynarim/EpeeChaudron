@@ -670,6 +670,16 @@ h2{
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
+/* Grand écran en paysage : deux rangées de quatre photos qui défilent
+   ensemble, comme les personnages. */
+@media (min-width:1181px) and (min-height:640px){
+  .photo-carousel{--per:4}
+  .photo-carousel .carousel-track{
+    display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);
+    grid-auto-columns:calc((100% - (var(--per) - 1)*var(--gap))/var(--per));
+  }
+}
+
 /* --- Personnages -------------------------------------------------------- */
 .personnages{background:var(--paper-2)}
 .persona-carousel{--per:4}
