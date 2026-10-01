@@ -513,12 +513,19 @@ h2{
   .lightbox img{max-height:78vh}
   .lightbox-close{width:44px;height:44px}
   .module-modal{padding:0}
+  /* Fiche animation : la photo prend la moitié de l'écran, le texte la
+     moitié restante et défile sur place si besoin. */
   .module-modal-panel{min-height:100vh;border-radius:0;display:block}
+  [data-module-modal] .module-modal-panel{display:flex;flex-direction:column;min-height:0;height:100vh;height:100svh}
   .module-modal-panel>img{height:34vh;min-height:220px;max-height:310px}
+  [data-module-modal] .module-modal-panel>img{flex:0 0 auto;height:50vh;height:50svh;min-height:0;max-height:none}
   .module-modal-content{padding:24px 18px 34px}
+  [data-module-modal] .module-modal-content{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:16px 18px 24px}
+  [data-module-modal] .module-modal-heading{margin-bottom:.6rem}
   .module-modal-content h2{font-size:1.32rem}
   .module-modal-details{font-size:.9rem;line-height:1.5}
   .module-modal-nav{top:17vh;width:44px;height:44px}
+  [data-module-modal] .module-modal-nav{top:25vh;top:25svh}
   /* Le portrait prend au moins les trois quarts de l'écran ; le texte se
      resserre dans le quart restant et défile s'il ne tient pas. svh plutôt
      que vh : la hauteur visible quand la barre d'adresse du navigateur est
