@@ -625,6 +625,23 @@
     updateBackToTop();
   }
 
+  // Époque et lieu du costume, une ligne chacun. Rien pour un costume que la
+  // compagnie ne présente pas comme historique (epoqueAffichee à false).
+  const SIECLES = {11:'XIe siècle', 13:'XIIIe siècle', 15:'XVe siècle'};
+  function personaContexte(persona, className){
+    if(persona.epoqueAffichee !== true) return null;
+    const lignes = [persona.epoque || SIECLES[persona.siecle], persona.lieu].filter(Boolean);
+    if(!lignes.length) return null;
+    const p = document.createElement('p');
+    p.className = className;
+    lignes.forEach(texte => {
+      const ligne = document.createElement('span');
+      ligne.textContent = texte;
+      p.append(ligne);
+    });
+    return p;
+  }
+
   // Personnages : cartes générées depuis assets/js/personnages.js, comme la
   // galerie l'est depuis photos.js — on ajoute un personnage sans toucher au HTML.
   const personaTrack = document.querySelector('[data-persona-track]');
@@ -657,8 +674,11 @@
       role.className = 'persona-role';
       role.textContent = persona.role;
       const hook = document.createElement('p');
+      hook.className = 'persona-hook';
       hook.textContent = persona.hook;
       body.append(name, role, hook);
+      const contexte = personaContexte(persona, 'persona-contexte');
+      if(contexte) body.append(contexte);
       card.append(figure, body);
       personaTrack.appendChild(card);
       personaCards.push(card);
@@ -700,6 +720,8 @@
       hook.className = 'persona-modal-hook';
       hook.textContent = persona.hook;
       personaModalDetails.appendChild(hook);
+      const contexte = personaContexte(persona, 'persona-modal-contexte');
+      if(contexte) personaModalDetails.appendChild(contexte);
       if(persona.atelier){
         // Un nom, ou une liste de noms pour qui anime plusieurs ateliers.
         const noms = Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier];

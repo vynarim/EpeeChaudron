@@ -319,6 +319,7 @@ h2{
 .persona-modal-details p{margin:0 0 1rem;color:var(--muted);font-style:italic;font-size:1.06rem;line-height:1.5}
 /* L'accroche est en italique ; l'atelier et le texte qui la suivent restent droits. */
 .persona-modal-details p ~ p{font-style:normal;font-size:1rem}
+.persona-modal-details .persona-modal-contexte{font-style:normal;font-size:.9rem;line-height:1.4}
 .persona-modal-atelier strong{color:var(--ink);font-weight:800}
 /* Les liens suivent le fil du texte (plusieurs ateliers s'enchaînent) ; la
    ligne fait 44 px, la hauteur tactile minimale, sans zones qui se chevauchent
@@ -641,7 +642,13 @@ h2{
 .persona-body{padding:14px 14px 16px}
 .persona h3{margin:0;color:var(--blue-dark);font-size:1.07rem;line-height:1.18}
 .persona-role{margin:2px 0 .5rem;color:var(--blue);font-weight:700;font-size:.86rem}
-.persona p:last-child{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45;font-style:italic}
+.persona-hook{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45;font-style:italic}
+/* D'où vient le costume : un repère discret sous l'accroche, pas un titre. */
+.persona-contexte{
+  margin:.6rem 0 0;padding-top:.5rem;border-top:1px solid var(--line);
+  color:var(--muted);font-size:.8rem;line-height:1.35;
+}
+.persona-contexte span,.persona-modal-contexte span{display:block}
 
 /* Grand écran en paysage : deux rangées de quatre, qui défilent ensemble.
    La hauteur des photos suit celle de l'écran pour que les deux rangées
@@ -657,7 +664,7 @@ h2{
   .persona-carousel .persona-body{padding:10px 12px 12px}
   .persona-carousel .persona h3{font-size:1rem}
   .persona-carousel .persona-role{margin-bottom:.3rem;font-size:.8rem}
-  .persona-carousel .persona p:last-child{
+  .persona-carousel .persona-hook{
     font-size:.84rem;line-height:1.4;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
   }
@@ -678,7 +685,7 @@ h2{
   .persona-carousel{--per:1.35}
   .persona-figure img{aspect-ratio:4/5}
   .persona-body{padding:12px}
-  .persona p:last-child{font-size:.88rem}
+  .persona-hook{font-size:.88rem}
   .carousel-controls{margin-top:10px;gap:8px}
   .carousel-arrow{width:44px;height:44px}
   .carousel-dots{gap:0}

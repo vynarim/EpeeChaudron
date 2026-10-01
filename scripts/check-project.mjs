@@ -133,15 +133,18 @@ for (const ref of portraitRefs) {
   if (!fs.existsSync(path.join(root, ref))) errors.push(`Portrait de personnage absent: ${ref}`);
 }
 
-// Le siècle de chaque personnage alimente le filtre par époque : un oubli ou
-// une faute de frappe ferait disparaître le personnage des deux filtres.
+// Le siècle de chaque personnage : un oubli ou une faute de frappe passerait
+// inaperçu, rien d'autre ne le relit.
 if (personnages) {
   try {
     const bac = { window: {} };
     new Function('window', personnages)(bac.window);
     (bac.window.EC_PERSONNAGES || []).forEach((p, i) => {
-      if (p.siecle !== 13 && p.siecle !== 15) {
-        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (13 ou 15 attendu)`);
+      if (![11, 13, 15].includes(p.siecle)) {
+        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (11, 13 ou 15 attendu)`);
+      }
+      if (typeof p.epoqueAffichee !== 'boolean') {
+        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » n'a pas epoqueAffichee à true ou false`);
       }
     });
   } catch (err) {
