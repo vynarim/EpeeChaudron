@@ -66,6 +66,7 @@ if (ateliers) {
       for (const champ of ['id', 'categorie', 'img', 'titre', 'resume']) {
         if (!a[champ]) errors.push(`ateliers.js : « ${nom} » n’a pas de champ ${champ}`);
       }
+      if (typeof a.actif !== 'boolean') errors.push(`ateliers.js : « ${nom} » n’a pas actif à true ou false`);
       if (a.categorie && !CATEGORIES.includes(a.categorie)) {
         errors.push(`ateliers.js : « ${nom} » a la catégorie « ${a.categorie} », qui ne correspond à aucun filtre (${CATEGORIES.join(', ')})`);
       }

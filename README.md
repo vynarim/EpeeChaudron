@@ -187,6 +187,7 @@ au chargement. Aucune modification de `index.html` ni du CSS n'est nécessaire.
 ```js
 {
   id: 'exemple',
+  actif: true,                    // false : l'animation disparaît du site
   categorie: 'ateliers',          // 'camp', 'ateliers' ou 'armes'
   img: 'assets/img/ateliers/ateliers-exemple.webp',
   alt: 'Description de la photo',
@@ -199,6 +200,10 @@ au chargement. Aucune modification de `index.html` ni du CSS n'est nécessaire.
   points: ['Premier point abordé', 'Deuxième', 'Troisième']
 }
 ```
+
+Pour retirer une animation du site sans l'effacer, passer son champ `actif`
+à `false` : sa carte, sa fiche et les liens qui y mènent depuis la fiche d'un
+personnage disparaissent. La remettre à `true` la fait revenir telle quelle.
 
 **Le titre sert aussi d'identifiant** à la liste de souhaits que les visiteurs
 gardent dans leur navigateur : le changer retire l'animation des listes déjà

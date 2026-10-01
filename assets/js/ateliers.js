@@ -5,6 +5,9 @@
 //
 //   id        : identifiant court, sans accent ni espace. Donne son nom au
 //               fichier image.
+//   actif     : true ou false. À false, l'animation disparaît du site (carte,
+//               fiche, lien depuis la fiche d'un personnage) sans être
+//               effacée : la remettre à true la fait revenir telle quelle.
 //   categorie : 'camp', 'ateliers' ou 'armes' — les trois filtres au-dessus
 //               de la grille.
 //   img       : chemin de la photo. Sans photo pour l'instant :
@@ -21,6 +24,7 @@
 window.EC_ATELIERS = [
   {
     id: 'cuisine',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-cuisine.webp',
     alt: 'Deux marmites de fonte fumantes sur les braises, et des volailles qui rôtissent sur un gril suspendu à des chaînes',
@@ -34,6 +38,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'heraldique',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-heraldique.webp',
     alt: 'Écus peints aux couleurs de blasons et tableau des émaux et fourrures, sur la table de l’atelier',
@@ -47,6 +52,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'armes-armures',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-armes-armures.webp',
     alt: 'Cotte de mailles et camail sur un mannequin, râtelier de casques et d’armes d’hast, et un membre en tunique et chapeau de paille qui présente une arme',
@@ -60,6 +66,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'textile',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-textile.webp',
     alt: 'Démonstration de tissage médiéval',
@@ -73,6 +80,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'ecriture',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-ecriture.webp',
     alt: 'Scribe médiéval dans une tente',
@@ -86,6 +94,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'vie-de-camp',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-vie-de-camp.webp',
     alt: 'Foyer du camp : chaudron et poêle sur le feu de bois, crémaillères de fer, et linge qui sèche sur une corde',
@@ -99,6 +108,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'bourreau',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-bourreau.webp',
     alt: 'Personnage du bourreau devant le camp médiéval',
@@ -112,6 +122,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'lessive',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-lessive.webp',
     alt: 'Baquet de bois garni de linge et de son battoir, chaudrons de cuivre pleins d’eau de cendre et bonbonne clissée, posés sur la paille',
@@ -125,6 +136,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'medecine',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-medecine.webp',
     alt: 'Une soigneuse en coiffe et cape noire présente ses instruments devant des herbiers ouverts, sous la tente',
@@ -138,6 +150,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'jeux',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-jeux.webp',
     alt: 'Deux plateaux de jeux peints sur toile, dont un jeu du moulin, avec des galets pour pions, posés sur une botte de paille',
@@ -151,6 +164,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'escrime',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-escrime.webp',
     alt: 'Initiation encadrée autour des armes médiévales',
@@ -164,6 +178,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'duel-judiciaire',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-duel-judiciaire.webp',
     alt: 'Deux combattants, l’un en chapeau noir avec épée et bocle, l’autre en chaperon bleu et gantelets, s’affrontent au milieu du camp, sous les tentes et les arbres',
@@ -177,6 +192,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'enfants-en-lice',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-enfants-en-lice.webp',
     alt: 'Des enfants armés d’écus et d’épées de mousse courent vers la lice, entre bottes de paille et public, devant la tente du camp',
@@ -190,6 +206,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'archerie',
+    actif: true,
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-archerie.webp',
     alt: 'Une ligne d’archers en costume sous les arbres : l’un bande son arc long, un autre attend son tour, flèches en main',
@@ -203,6 +220,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'forge',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-forge.webp',
     alt: 'Le forgeron en cotte brune et bonnet noir actionne le soufflet de sa forge, braises rougeoyantes, enclume sur son billot au premier plan',
@@ -216,6 +234,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'cotte-de-mailles',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/photo-a-venir.webp',
     alt: 'Photo à venir',
@@ -229,6 +248,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'taille-de-pierre',
+    actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-taille-de-pierre.webp',
     alt: 'Trois pierres taillées en bas-relief — un écu à chevron, une croix, un écu — à côté de blocs bruts et de moellons, sur un établi de bois',
@@ -242,6 +262,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'fruits-legumes',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-fruits-legumes.webp',
     alt: 'Une membre en robe rouge et coiffe blanche derrière sa table : cagette de légumes, cartes illustrées de plantes, fiole et cruche',
@@ -255,6 +276,7 @@ window.EC_ATELIERS = [
   },
   {
     id: 'defile',
+    actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-defile.webp',
     alt: 'Le défilé dans une ruelle pavée : bourreau à la hache, dame en voile, jeune homme au chapeau de paille et chevalier en tabard, sous une bannière armoriée',

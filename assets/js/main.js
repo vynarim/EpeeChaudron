@@ -220,8 +220,14 @@
   // ligne suivante, qui les recense pour les filtres, la liste de souhaits et
   // la fiche plein écran — le balisage produit est celui qu'écrivait le HTML.
   const atelierGrid = document.querySelector('[data-atelier-grid]');
+  // Une animation à « actif: false » dans ateliers.js n'apparaît nulle part :
+  // ni carte, ni fiche, ni lien depuis un personnage, ni liste de souhaits.
+  const ateliersActifs = (window.EC_ATELIERS || []).filter(atelier => atelier.actif !== false);
+  const ateliersMasques = new Set((window.EC_ATELIERS || [])
+    .filter(atelier => atelier.actif === false)
+    .map(atelier => String(atelier.titre).trim().toLowerCase()));
   if(atelierGrid){
-    (window.EC_ATELIERS || []).forEach(atelier => {
+    ateliersActifs.forEach(atelier => {
       const card = document.createElement('article');
       card.className = 'card module-card reveal';
       card.dataset.category = atelier.categorie;
@@ -293,7 +299,8 @@
 
   try {
     const savedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey) || '[]');
-    if(Array.isArray(savedWishlist)) wishlist = savedWishlist.filter(item => typeof item === 'string');
+    if(Array.isArray(savedWishlist)) wishlist = savedWishlist.filter(item =>
+      typeof item === 'string' && !ateliersMasques.has(item.trim().toLowerCase()));
   } catch(error) {
     wishlist = [];
   }
@@ -723,8 +730,10 @@
       const contexte = personaContexte(persona, 'persona-modal-contexte');
       if(contexte) personaModalDetails.appendChild(contexte);
       if(persona.atelier){
-        // Un nom, ou une liste de noms pour qui anime plusieurs ateliers.
-        const noms = Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier];
+        // Un nom, ou une liste de noms pour qui anime plusieurs ateliers. Un
+        // atelier désactivé dans ateliers.js n'est plus mentionné.
+        const noms = (Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier])
+          .filter(nom => !ateliersMasques.has(String(nom).trim().toLowerCase()));
         const atelier = document.createElement('p');
         atelier.className = 'persona-modal-atelier';
         const libelle = document.createElement('strong');
@@ -745,7 +754,7 @@
             atelier.append(nom);
           }
         });
-        personaModalDetails.appendChild(atelier);
+        if(noms.length) personaModalDetails.appendChild(atelier);
       }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
       // tableau de paragraphes, affichés sous l'atelier.
