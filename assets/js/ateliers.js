@@ -279,7 +279,7 @@ window.EC_ATELIERS = [
     actif: true,
     categorie: 'camp',
     img: 'assets/img/ateliers/ateliers-defile.webp',
-    alt: 'Le défilé dans une ruelle pavée : bourreau à la hache, dame en voile, jeune homme au chapeau de paille et chevalier en tabard, sous une bannière armoriée',
+    alt: 'La troupe en costumes autour de la bannière de l’association, au bord du Rhône, face aux remparts et au palais des Papes d’Avignon',
     titre: 'Défilé en costumes',
     resume: 'La mesnie défile avec sa bannière, aux côtés des autres troupes.',
     texte: [
