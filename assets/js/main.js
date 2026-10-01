@@ -131,6 +131,14 @@
         panels.forEach(panel => panel.classList.toggle('is-active', panel.dataset.panel === id));
       });
     });
+    // Glisser le pouce sur la carte : gauche pour l'onglet suivant, droite
+    // pour le précédent. On ne boucle pas : au bout, le geste ne fait rien.
+    const voisin = offset => {
+      const liste = Array.from(tabs);
+      const i = liste.findIndex(t => t.classList.contains('is-active')) + offset;
+      if(i >= 0 && i < liste.length) liste[i].click();
+    };
+    enableSwipe(tabsRoot, () => voisin(-1), () => voisin(1));
   });
 
   const photos = window.EC_PHOTOS || [];

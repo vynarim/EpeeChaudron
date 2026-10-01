@@ -189,6 +189,7 @@ h2{
 .ticks li:before{content:"";position:absolute;left:0;top:.25rem;width:18px;height:18px;border-radius:50%;background:var(--blue)}
 .ticks li:after{content:"";position:absolute;left:5px;top:.48rem;width:8px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg)}
 .format-card{background:var(--blue-dark);color:#fff;border-radius:22px;padding:16px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.12)}
+.format-card{touch-action:pan-y pinch-zoom}
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
 .tab{border:0;border-radius:999px;background:rgba(255,255,255,.12);color:#fff;padding:.55rem .3rem;font-size:.84rem;font-weight:850;white-space:nowrap;cursor:pointer;transition:background .18s ease}
 .tab:not(.is-active):hover{background:rgba(255,255,255,.22)}
@@ -670,10 +671,10 @@ h2{
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
 
-/* Grand écran en paysage : deux rangées de quatre photos qui défilent
+/* Grand écran en paysage : deux rangées de trois photos qui défilent
    ensemble, comme les personnages. */
 @media (min-width:1181px) and (min-height:640px){
-  .photo-carousel{--per:4}
+  .photo-carousel{--per:3}
   .photo-carousel .carousel-track{
     display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,auto);
     grid-auto-columns:calc((100% - (var(--per) - 1)*var(--gap))/var(--per));
