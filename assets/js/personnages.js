@@ -26,6 +26,9 @@
 //                  epoque:'Fin XIVe – début XVe siècle', lieu:'Vallée du Rhône / Provence'
 //   Ces quatre champs viennent de l'analyse des costumes, costumes/analyse.json :
 //   corriger l'analyse, puis « npm run costumes -- appliquer » les recopie ici.
+//   Deux entrées du même nom : un membre, deux costumes. Le site n'en fait
+//   qu'une carte et qu'une fiche, où les costumes se relaient ; leur donner
+//   les mêmes ateliers.
 //   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
 //           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
@@ -36,7 +39,7 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-doriane.webp', name:'Doriane', siecle:14, epoqueAffichee:true, lieu:'Europe', role:'Tisserande', hook:'Fil après fil, elle tisse ses galons en souriant — même quand le fil casse. Surtout quand le fil casse.', alt:'Doriane, tisserande, en chaperon rouge doublé de bleu, derrière son petit métier à galon', atelier:'Textile et tissage'},
   {img:'assets/img/personnages/personnages-kilian.webp', name:'Kilian', siecle:14, epoqueAffichee:true, epoque:'Seconde moitié du XIVe siècle', lieu:'Europe', role:'Chevalier', hook:'Chevalier de son état, il relève tous les défis — surtout ceux lancés par des adversaires d’un mètre vingt.', alt:'Kilian, chevalier, en pourpoint mi-parti bleu et rouge', atelier:'Les enfants en lice'},
   {img:'assets/img/personnages/personnages-childeric.webp', name:'Childéric', siecle:13, epoqueAffichee:true, epoque:'Fin XIIIe siècle', lieu:'Europe', role:'Maître d’armes', hook:'L’art de l’épée ? Croiser le fer, puis porter l’estoc ou la taille.', alt:'Childéric, maître d’armes, en tunique bleue à côté d’une armure et d’un écu vert et blanc', atelier:['Duel judiciaire', 'Armes et armures', 'Initiation à l’escrime historique', 'Archerie']},
-  {img:'assets/img/personnages/personnages-childeric-archer.webp', name:'Childéric', siecle:14, epoqueAffichee:true, epoque:'Seconde moitié du XIVe siècle', lieu:'Europe', role:'Archer', hook:'Des lunettes pour mieux viser : la cible n’a qu’à bien se tenir… et vous, à rester derrière lui.', alt:'Childéric, archer, chaperon bleu à bord découpé, lunettes à rivet, cotte boutonnée et ceinture à plaques, des flèches à la ceinture', atelier:'Archerie'},
+  {img:'assets/img/personnages/personnages-childeric-archer.webp', name:'Childéric', siecle:14, epoqueAffichee:true, epoque:'Seconde moitié du XIVe siècle', lieu:'Europe', role:'Archer', hook:'Des lunettes pour mieux viser : la cible n’a qu’à bien se tenir… et vous, à rester derrière lui.', alt:'Childéric, archer, chaperon bleu à bord découpé, lunettes à rivet, cotte boutonnée et ceinture à plaques, des flèches à la ceinture', atelier:['Duel judiciaire', 'Armes et armures', 'Initiation à l’escrime historique', 'Archerie']},
   {img:'assets/img/personnages/personnages-guillaume.webp', name:'Guillaume', siecle:13, epoqueAffichee:true, lieu:'Europe', role:'Cuisinier', hook:'Écuelles alignées, gobelet en main : il vous sert le repas du camp, pourvu que vous n’arriviez pas après lui.', alt:'Guillaume, cuisinier, en cotte verte, attablé devant ses écuelles et gobelets de bois, une tente derrière lui', atelier:'Cuisine au feu'},
 
   {img:'assets/img/personnages/personnages-thibault-le-jeune.webp', name:'Thibault le jeune', siecle:11, epoqueAffichee:true, lieu:'Europe', role:'Apprenti arbalétrier', hook:'Il s’adonne à l’arbalestrie. Mieux vaut, pour l’instant, protéger vos têtes.', alt:'Thibault le jeune, chaperon rouge et cale blanche, devant une tente', atelier:'Jeux de société'},

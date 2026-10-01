@@ -761,7 +761,47 @@
   // Personnages : cartes générées depuis assets/js/personnages.js, comme la
   // galerie l'est depuis photos.js — on ajoute un personnage sans toucher au HTML.
   const personaTrack = document.querySelector('[data-persona-track]');
-  const personas = window.EC_PERSONNAGES || [];
+  // Un membre qui porte deux costumes d'époques différentes a deux entrées du
+  // même nom dans personnages.js, mais une seule carte et une seule fiche : ses
+  // costumes s'y relaient (photo, rôle, accroche, époque). Ses ateliers sont
+  // ceux des deux entrées réunis : c'est la même personne qui les anime.
+  const personas = [];
+  (window.EC_PERSONNAGES || []).forEach(entree => {
+    let persona = personas.find(p => p.name === entree.name);
+    if(!persona){
+      persona = {name: entree.name, costumes: [], atelier: []};
+      personas.push(persona);
+    }
+    persona.costumes.push(entree);
+    [].concat(entree.atelier || []).forEach(nom => {
+      if(!persona.atelier.includes(nom)) persona.atelier.push(nom);
+    });
+    if(entree.texte && !persona.texte) persona.texte = entree.texte;
+  });
+  const RELAIS_COSTUMES = 4500; // ms entre deux costumes
+  const sansAnimation = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Change le costume affiché derrière un fondu ; d'un coup si le visiteur a
+  // demandé moins d'animations.
+  function fondu(elements, changer){
+    if(sansAnimation){ changer(); return; }
+    elements.forEach(el => el.classList.add('is-fondu'));
+    window.setTimeout(() => {
+      changer();
+      elements.forEach(el => el.classList.remove('is-fondu'));
+    }, 350);
+  }
+  // Fait tourner les costumes d'un membre ; renvoie de quoi arrêter.
+  function relayerCostumes(persona, afficher){
+    if(persona.costumes.length < 2) return () => {};
+    // Portraits suivants chargés d'avance : le fondu ne montre pas un cadre vide.
+    persona.costumes.slice(1).forEach(c => { const i = new Image(); i.src = c.img; });
+    let rang = 0;
+    const minuterie = window.setInterval(() => {
+      rang = (rang + 1) % persona.costumes.length;
+      afficher(persona.costumes[rang]);
+    }, RELAIS_COSTUMES);
+    return () => window.clearInterval(minuterie);
+  }
   const personaCards = [];
   if(personaTrack){
     personas.forEach((persona, index) => {
@@ -770,13 +810,12 @@
       card.tabIndex = 0;
       card.setAttribute('role', 'button');
       card.setAttribute('aria-haspopup', 'dialog');
-      card.setAttribute('aria-label', 'Voir la fiche de ' + persona.name + ', ' + persona.role);
+      card.setAttribute('aria-label', 'Voir la fiche de ' + persona.name + ', '
+        + persona.costumes.map(c => c.role).join(' et '));
       card.dataset.personaIndex = String(index);
       const figure = document.createElement('figure');
       figure.className = 'persona-figure';
       const img = document.createElement('img');
-      img.src = persona.img;
-      img.alt = persona.alt || persona.name;
       img.loading = 'lazy';
       img.decoding = 'async';
       img.width = 300;
@@ -788,13 +827,21 @@
       name.textContent = persona.name;
       const role = document.createElement('p');
       role.className = 'persona-role';
-      role.textContent = persona.role;
       const hook = document.createElement('p');
       hook.className = 'persona-hook';
-      hook.textContent = persona.hook;
       body.append(name, role, hook);
-      const contexte = personaContexte(persona, 'persona-contexte');
-      if(contexte) body.append(contexte);
+      let contexte = null;
+      const afficher = costume => {
+        img.src = costume.img;
+        img.alt = costume.alt || persona.name;
+        role.textContent = costume.role;
+        hook.textContent = costume.hook;
+        if(contexte) contexte.remove();
+        contexte = personaContexte(costume, 'persona-contexte');
+        if(contexte) body.append(contexte);
+      };
+      afficher(persona.costumes[0]);
+      relayerCostumes(persona, costume => fondu([img, body], () => afficher(costume)));
       card.append(figure, body);
       personaTrack.appendChild(card);
       personaCards.push(card);
@@ -813,23 +860,33 @@
     const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
     const personaModalNext = personaModal.querySelector('[data-persona-modal-next]');
     let personaIndex = 0;
+    let arreterRelais = () => {};
 
     function showPersona(index){
       const total = personas.length;
       personaIndex = ((index % total) + total) % total;
       const persona = personas[personaIndex];
-      personaModalImage.src = persona.img;
-      personaModalImage.alt = persona.alt || persona.name;
-      personaModalRole.textContent = persona.role;
+      arreterRelais();
       personaModalTitle.textContent = persona.name;
       personaModalDetails.innerHTML = '';
       const hook = document.createElement('p');
       hook.className = 'persona-modal-hook';
-      hook.textContent = persona.hook;
       personaModalDetails.appendChild(hook);
-      const contexte = personaContexte(persona, 'persona-modal-contexte');
-      if(contexte) personaModalDetails.appendChild(contexte);
-      if(persona.atelier){
+      let contexte = null;
+      // Ce qui change d'un costume à l'autre ; les ateliers, dessous, restent.
+      const afficher = costume => {
+        personaModalImage.src = costume.img;
+        personaModalImage.alt = costume.alt || persona.name;
+        personaModalRole.textContent = costume.role;
+        hook.textContent = costume.hook;
+        if(contexte) contexte.remove();
+        contexte = personaContexte(costume, 'persona-modal-contexte');
+        if(contexte) hook.after(contexte);
+      };
+      afficher(persona.costumes[0]);
+      arreterRelais = relayerCostumes(persona, costume =>
+        fondu([personaModalImage, personaModalRole, hook], () => afficher(costume)));
+      if(persona.atelier.length){
         // Un nom, ou une liste de noms pour qui anime plusieurs ateliers. Un
         // atelier désactivé dans ateliers.js n'est plus mentionné.
         const noms = (Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier])
@@ -872,12 +929,7 @@
     animateursDe = titre => {
       const cle = titre.trim().toLowerCase();
       return personas
-        // Deux personnages du même nom (un membre, deux costumes) : le rôle
-        // les distingue, « Childéric (archer) ».
-        .map((persona, index) => ({
-          nom: personas.filter(p => p.name === persona.name).length > 1
-            ? persona.name + ' (' + persona.role.toLowerCase() + ')' : persona.name,
-          index, ateliers: [].concat(persona.atelier || [])}))
+        .map((persona, index) => ({nom: persona.name, index, ateliers: persona.atelier}))
         .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle));
     };
     // Depuis la fiche d'un atelier : la fiche du personnage s'ouvre par-dessus,
@@ -924,6 +976,7 @@
     function closePersonaModal(){
       if(personaModal.hidden) return;
       personaModal.hidden = true;
+      arreterRelais();
       overlayHistory.closed(closePersonaModal);
       personaModalImage.removeAttribute('src');
       personaModalDetails.innerHTML = '';
