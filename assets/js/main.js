@@ -799,15 +799,6 @@
       personaTrack.appendChild(card);
       personaCards.push(card);
     });
-    // Le titre annonce le nombre de fiches : il suit tout seul les arrivées et
-    // les départs dans personnages.js. Sans JavaScript, la page garde son titre
-    // d'origine, sans chiffre.
-    const titre = document.getElementById('perso-title');
-    if(titre && personas.length){
-      titre.textContent = personas.length === 1
-        ? '1 personnage haut en couleur'
-        : personas.length + ' personnages hauts en couleur';
-    }
   }
 
   // Fiche personnage en plein écran, sur le modèle de la fiche animation.
