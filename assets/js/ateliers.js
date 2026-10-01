@@ -223,7 +223,7 @@ window.EC_ATELIERS = [
     actif: true,
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-forge.webp',
-    alt: 'Le forgeron en cotte brune et bonnet noir actionne le soufflet de sa forge, braises rougeoyantes, enclume sur son billot au premier plan',
+    alt: 'Le forgeron en cotte brune et chapeau de paille, une rose de fer forgé à la main, près de son enclume sur un billot et du soufflet, devant un mur de lierre',
     titre: 'Forge',
     resume: 'Le travail du métal, les outils du forgeron et la fabrication des objets.',
     texte: [
