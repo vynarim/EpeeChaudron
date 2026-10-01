@@ -236,6 +236,7 @@ h2{
 /* --- Lightbox photo ----------------------------------------------------- */
 .lightbox{position:fixed;inset:0;z-index:1000;background:rgba(5,9,20,.94);padding:18px;display:grid;grid-template-rows:1fr auto;place-items:center}
 .lightbox[hidden]{display:none}
+.lightbox{touch-action:pan-y pinch-zoom}
 .lightbox img{max-width:min(1100px,96vw);max-height:82vh;border-radius:14px;object-fit:contain}
 .lightbox p{color:#fff;text-align:center;margin:10px 0 0}
 .lightbox-close{position:absolute;top:12px;right:12px;width:44px;height:44px;border:0;border-radius:50%;background:var(--gold);color:var(--ink);font-size:1.7rem;line-height:1;cursor:pointer}

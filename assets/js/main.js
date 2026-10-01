@@ -177,6 +177,9 @@
   if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
   if(lightboxPrev) lightboxPrev.addEventListener('click', () => showRelativePhoto(-1));
   if(lightboxNext) lightboxNext.addEventListener('click', () => showRelativePhoto(1));
+  // Glisser le pouce sur la photo : gauche pour la suivante, droite pour la
+  // précédente, comme dans les fiches (voir enableSwipe plus bas).
+  enableSwipe(lightbox, () => showRelativePhoto(-1), () => showRelativePhoto(1));
   if(lightbox) lightbox.addEventListener('click', event => { if(event.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', event => {
     if(!lightbox || lightbox.hidden) return;
