@@ -778,7 +778,7 @@
     });
     if(entree.texte && !persona.texte) persona.texte = entree.texte;
   });
-  const RELAIS_COSTUMES = 4500; // ms entre deux costumes
+  const RELAIS_COSTUMES = 6000; // ms entre deux costumes
   const sansAnimation = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Change le costume affiché derrière un fondu ; d'un coup si le visiteur a
   // demandé moins d'animations.
@@ -842,6 +842,8 @@
       };
       afficher(persona.costumes[0]);
       relayerCostumes(persona, costume => fondu([img, body], () => afficher(costume)));
+      // Le carrousel attend que tous les costumes aient été vus avant d'avancer.
+      if(persona.costumes.length > 1) card.dataset.dureeMin = String(persona.costumes.length * RELAIS_COSTUMES);
       card.append(figure, body);
       personaTrack.appendChild(card);
       personaCards.push(card);
@@ -1115,7 +1117,9 @@
       track.scrollTo({left: stops[i], behavior: smooth && !reduceMotion ? 'smooth' : 'auto'});
     };
     const update = () => {
+      const avant = current;
       current = nearestIndex();
+      if(current !== avant) arrivee = Date.now();
       dots.forEach((dot, i) => {
         dot.classList.toggle('is-active', i === current);
         if(i === current) dot.setAttribute('aria-current', 'true'); else dot.removeAttribute('aria-current');
@@ -1124,9 +1128,19 @@
       if(counter && stops.length) counter.textContent = (current + 1) + ' / ' + stops.length;
     };
     const stop = () => { window.clearInterval(timer); timer = null; };
+    // Une carte peut demander à rester plus longtemps à l'écran (data-duree-min,
+    // en ms) : un personnage à plusieurs costumes doit les montrer tous.
+    let arrivee = Date.now();
+    const dureeVisible = () => items
+      .filter(item => {
+        const x = offsetOf(item) - track.scrollLeft;
+        return x > -2 && x < track.clientWidth - 2;
+      })
+      .reduce((max, item) => Math.max(max, Number(item.dataset.dureeMin) || 0), 0);
     const step = () => {
       if(paused || !inView || document.hidden || !stops.length) return;
       if(document.body.classList.contains('is-modal-open')) return;
+      if(Date.now() - arrivee < dureeVisible()) return;
       goTo(current >= lastStart() ? 0 : current + 1);
     };
     const start = () => {
