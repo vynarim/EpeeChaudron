@@ -491,7 +491,6 @@ h2{
   .photo-band{min-height:270px}
   .photo-band:after{background:linear-gradient(180deg,rgba(7,26,68,.12),rgba(7,26,68,.85))}
   .photo-band div{margin:0 12px 14px;width:calc(100% - 24px);padding:14px;border-radius:16px}
-  .photo-band strong{font-size:1.25rem}
 
   .contact-card{padding:18px;border-radius:18px;gap:16px}
 
@@ -551,7 +550,10 @@ h2{
 .hero-actions + .proofs{margin-top:16px}
 
 /* --- Bande photo : cadrage hérité, texte plus court ---------------------- */
+/* La taille téléphone est ici et non dans la section responsive : placée
+   avant cette règle, elle était écrasée par elle. */
 .photo-band strong{font-size:1.5rem}
+@media (max-width:620px){.photo-band strong{font-size:1.2rem}}
 
 /* ==========================================================================
    Carrousel générique : défilement horizontal natif (swipe, molette,
