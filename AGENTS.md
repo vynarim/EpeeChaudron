@@ -51,8 +51,14 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `assets/js/photos.js` — données de la galerie photo.
 - `assets/js/ateliers.js` — données des ateliers : cartes et fiches plein
   écran. Le `titre` identifie l'animation dans la liste de souhaits des
-  visiteurs : ne pas le renommer à la légère.
-- `assets/js/personnages.js` — données des personnages.
+  visiteurs : ne pas le renommer à la légère. `actif: false` retire une
+  animation du site sans l'effacer.
+- `assets/js/personnages.js` — données des personnages. `siecle`,
+  `epoqueAffichee`, `epoque` et `lieu` viennent de l'analyse des costumes :
+  ne pas les modifier à la main.
+- `costumes/analyse.json` — analyse des costumes, portrait par portrait
+  (siècle, région, pièces qui dénotent). Jamais mise en ligne. Procédure :
+  skill `costumes` (`.claude/skills/costumes/`), outil `scripts/costumes.mjs`.
 - `assets/js/main.js` — interactions ; à ne toucher que si le comportement doit
   changer.
 - `manifest.webmanifest` — description de l'application installable.
@@ -61,7 +67,9 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `assets/img/icons/` — icônes d'application et captures d'installation.
 
 Ajouter une photo, un atelier ou un personnage se fait dans les fichiers de
-données, sans modifier `index.html` ni le CSS.
+données, sans modifier `index.html` ni le CSS. Un nouveau personnage, ou un
+portrait remplacé, passe ensuite par l'analyse de son costume : `npm run check`
+le rappelle.
 
 ## Règles de style mobile
 
@@ -95,6 +103,7 @@ données, sans modifier `index.html` ni le CSS.
 npm install
 npm run dev                          # serveur local Vite
 npm run check                        # fichiers, chemins d'images, manifeste
+npm run costumes                     # costumes à analyser, écarts avec le site
 bash scripts/deploy.sh --dry-run     # ce qui partirait en ligne (site public)
 npm run verif-serveur                # le serveur est-il bien ce qu'on a envoyé ?
 ```

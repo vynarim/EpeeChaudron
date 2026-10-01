@@ -135,17 +135,19 @@ for (const ref of portraitRefs) {
 }
 
 // Le siècle de chaque personnage : un oubli ou une faute de frappe passerait
-// inaperçu, rien d'autre ne le relit.
+// inaperçu, rien d'autre ne le relit. Il n'est exigé que pour un costume dont
+// l'époque s'affiche.
 if (personnages) {
   try {
     const bac = { window: {} };
     new Function('window', personnages)(bac.window);
     (bac.window.EC_PERSONNAGES || []).forEach((p, i) => {
-      if (![11, 12, 13, 14, 15].includes(p.siecle)) {
-        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » a le siècle « ${p.siecle} » (de 11 à 15 attendu)`);
-      }
+      const nom = p.name || `personnage n°${i + 1}`;
       if (typeof p.epoqueAffichee !== 'boolean') {
-        errors.push(`personnages.js : « ${p.name || `personnage n°${i + 1}`} » n'a pas epoqueAffichee à true ou false`);
+        errors.push(`personnages.js : « ${nom} » n'a pas epoqueAffichee à true ou false`);
+      }
+      if ((p.epoqueAffichee || p.siecle !== undefined) && ![11, 12, 13, 14, 15].includes(p.siecle)) {
+        errors.push(`personnages.js : « ${nom} » a le siècle « ${p.siecle} » (de 11 à 15 attendu)`);
       }
     });
   } catch (err) {
@@ -153,10 +155,28 @@ if (personnages) {
   }
 }
 
+// Costumes : rappel, sans bloquer, des personnages dont le costume reste à
+// analyser (nouveau venu, portrait remplacé) ou dont la ligne d'époque ne
+// suit plus l'analyse. Voir npm run costumes.
+const rappels = [];
+try {
+  const { etatCostumes } = await import('./costumes.mjs');
+  const etat = etatCostumes();
+  if (etat.aAnalyser.length) {
+    rappels.push(`costume à analyser : ${etat.aAnalyser.map(x => x.nom).join(', ')} (npm run costumes)`);
+  }
+  if (etat.ecarts.length) {
+    rappels.push(`époque affichée différente de l’analyse : ${etat.ecarts.map(x => x.nom).join(', ')} (npm run costumes -- appliquer)`);
+  }
+} catch (err) {
+  rappels.push(`analyse des costumes illisible : ${err.message}`);
+}
+
 if (errors.length) {
   console.error('Vérification échouée:');
   for (const err of errors) console.error(`- ${err}`);
-  process.exit(1);
+} else {
+  console.log('Vérification OK. Projet cohérent.');
 }
-
-console.log('Vérification OK. Projet cohérent.');
+for (const r of rappels) console.log(`À noter : ${r}`);
+if (errors.length) process.exit(1);

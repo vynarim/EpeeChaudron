@@ -22,3 +22,6 @@ assets/img/ateliers/*.JPEG
 
 # Aperçus fabriqués par scripts/portrait.mjs : jetables
 .apercus/
+
+# Page à partager fabriquée par scripts/costumes.mjs : se refait à la demande
+costumes/page/

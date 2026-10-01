@@ -81,6 +81,9 @@ assets/img/icons/          Icônes d'application et captures d'installation
 deploy/prod.htaccess       Configuration Apache de la racine (HTTPS, redirections)
 deploy/v2-sw.js            Désinscrit le service worker de l'ancienne recette /v2/
 scripts/check-project.mjs  Contrôle des fichiers, du manifeste et des chemins
+scripts/portrait.mjs       Recadrage et conversion des portraits de personnages
+scripts/costumes.mjs       Analyse des costumes : état, report sur le site, page à partager
+costumes/analyse.json      Analyse des costumes, portrait par portrait (jamais en ligne)
 scripts/deploy.sh          Mise en ligne du site sur https://epee-chaudron.fr/
 scripts/verif-serveur.sh   Contrôle que le serveur n'a rien reçu d'autre que nos envois
 scripts/sftp-commun.sh     Accès SFTP partagé par les deux scripts
@@ -232,17 +235,39 @@ modification de `index.html` ni du CSS n'est nécessaire.
    tête de `scripts/portrait.mjs`.
 2. Ajouter une entrée dans `assets/js/personnages.js`, à la place voulue dans
    l'ordre du carrousel.
+3. Faire analyser le costume (voir plus bas) : `npm run check` le rappelle tant
+   que ce n'est pas fait.
 
 ```js
 {
   img: 'assets/img/personnages/personnages-exemple.webp',
   name: 'Nom affiché',
+  epoqueAffichee: false,          // posé par l'analyse du costume, avec siecle, epoque et lieu
   role: 'Rôle affiché sous le nom',
   hook: 'Une phrase d’accroche, en italique sur la carte.',
   alt: 'Description de la photo pour les lecteurs d’écran',
   atelier: 'L’atelier qu’il anime (facultatif, affiché dans la fiche)'
 }
 ```
+
+### Analyse des costumes
+
+Sous l'accroche, chaque personnage peut afficher le siècle et la région que
+représente son costume. Ces lignes viennent d'une analyse faite portrait par
+portrait et archivée dans `costumes/analyse.json`, avec pour chacun ce qui
+tient, ce qui dénote et, le cas échéant, la décision de la troupe. Un costume
+jugé non historique n'affiche rien.
+
+```bash
+npm run costumes                          # qui est à analyser, écarts avec le site
+npm run costumes -- reprendre <nom>       # nouvelle analyse ; l'ancienne va dans l'historique
+npm run costumes -- zoom <nom> <x> <y> <largeur>   # agrandir un détail du portrait
+npm run costumes -- appliquer             # recopier siècle, époque et région dans personnages.js
+npm run costumes -- page                  # refaire la page à partager avec la troupe
+```
+
+La procédure complète, et la grille de datation qui garde les analyses
+cohérentes d'une fois sur l'autre, sont dans `.claude/skills/costumes/`.
 
 Les portraits actuels sont des reprises de l'ancien site en basse définition :
 remplacer le fichier par une photo HD du même nom suffit.

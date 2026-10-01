@@ -1,13 +1,12 @@
 // Personnages de la mesnie, dans l'ordre d'affichage du carrousel.
 // Pour en ajouter un : déposer son portrait (vertical, format 3/4) dans
-// assets/img/personnages/ puis ajouter une ligne ici. Rien d'autre à modifier.
+// assets/img/personnages/ puis ajouter une ligne ici. Rien d'autre à modifier,
+// sinon analyser son costume : npm run check le rappelle (voir plus bas).
 //   img  : chemin du portrait
 //   name : nom affiché
 //   role : rôle affiché sous le nom
 //   hook : accroche d'une phrase, en italique sur la carte
 //   alt  : description de la photo pour les lecteurs d'écran
-//   siecle : de 11 à 15 — le siècle que le personnage représente. Aucune
-//            autre valeur n'est acceptée (npm run check le vérifie).
 //   atelier : FACULTATIF — l'atelier qu'anime le personnage. Affiché dans la
 //             fiche plein écran, précédé de « Atelier : » en gras ; ne pas
 //             réécrire ce mot ici. Écrit exactement comme le titre d'une
@@ -18,9 +17,13 @@
 //            qu'on dise d'où il vient ? À true, une ligne discrète s'affiche
 //            sous l'accroche, sur la carte et dans la fiche : l'époque
 //            (« XVe siècle », tirée de siecle, si epoque n'est pas renseigné)
-//            et le lieu s'il l'est. À false, rien.
-//   epoque, lieu : FACULTATIFS — précisent cette ligne :
+//            et le lieu. À false, rien.
+//   siecle : de 11 à 15 — le siècle que représente le costume. Obligatoire
+//            quand epoqueAffichee est true (npm run check le vérifie).
+//   epoque, lieu : précisent cette ligne :
 //                  epoque:'Fin XIVe – début XVe siècle', lieu:'Vallée du Rhône / Provence'
+//   Ces quatre champs viennent de l'analyse des costumes, costumes/analyse.json :
+//   corriger l'analyse, puis « npm run costumes -- appliquer » les recopie ici.
 //   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
 //           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
