@@ -71,7 +71,7 @@
       "historique": []
     },
     {
-      "nom": "Childéric",
+      "nom": "Childéric — Maître d’armes",
       "date": "2026-10-01",
       "empreinte": "87c71673bd1a542d",
       "verdict": "affiche",
@@ -81,6 +81,19 @@
       "alt": "Childéric : cotte bleue, chaperon sur cale nouée, lunettes à rivet, à côté d’un mannequin armé",
       "tient": "La cotte bleue simple et ceinturée, le chaperon porté sur une cale nouée sous le menton. Le mannequin est bien du XIIIe : chapel de fer, cotte d’armes armoriée, écu.",
       "details": "Les lunettes à rivet, inventées en Italie vers 1285–1290, imposent la fin du siècle. Le galon brodé au col évoque plutôt les XIe–XIIe siècles. Le pendentif en étoile n’a pas de modèle médiéval évident.",
+      "historique": []
+    },
+    {
+      "nom": "Childéric — Archer",
+      "date": "2026-10-01",
+      "empreinte": "d6a11ea863dd52bc",
+      "verdict": "affiche",
+      "siecle": 14,
+      "epoque": "Seconde moitié du XIVe siècle",
+      "lieu": "Europe",
+      "alt": "Childéric en archer : chaperon bleu à bord découpé, lunettes à rivet, cotte boutonnée, ceinture à plaques, flèches à la ceinture",
+      "tient": "Le chaperon bleu au bord découpé en dents, doublé de violet. La cotte ajustée, fermée du col à l’ourlet par une rangée serrée de boutons de tissu, à manches étroites : la mode des années 1350–1400. La ceinture d’orfèvrerie à plaques portée bas, la bourse de cuir, les flèches passées à la ceinture, les lunettes à rivet.",
+      "details": "Le gant jaune ressemble à un gant de travail actuel : un gant ou une palette d’archer en cuir naturel serait plus juste. Le pendentif en étoile n’a pas de modèle médiéval évident, comme sur son autre costume.",
       "historique": []
     },
     {
@@ -114,6 +127,12 @@
       "date": "2026-10-01",
       "empreinte": "58df784baa560ddc",
       "verdict": "a-revoir",
+      "siecle": 13,
+      "lieu": "Europe",
+      "alt": "Angélique : voile et guimpe de lin, corselet brun lacé, chemise blanche, devant ses chaudrons de cuivre",
+      "tient": "Le voile et la guimpe de lin, coiffure de la femme mariée au XIIIe : très juste. La chemise blanche à manches longues, les chaudrons de cuivre, le mortier et les herbes de sa table.",
+      "denote": "Le corselet brun lacé en croisillons, une pièce de costume de fête. Au XIIIe, les robes sont amples. Les lunettes se voient aussi sur la photo.",
+      "arbitrage": "Nouvelle photo du 01/10/2026 : même costume, analyse reconduite.",
       "historique": [
         {
           "nom": "Angélique",
@@ -126,13 +145,7 @@
           "tient": "Le voile et la guimpe de lin, coiffure de la femme mariée au XIIIe : très juste. Le tablier, la crémaillère, la cuillère de bois.",
           "denote": "Le corselet brun lacé en croisillons, une pièce de costume de fête. Au XIIIe, les robes sont amples. Les lunettes se voient aussi sur la photo."
         }
-      ],
-      "siecle": 13,
-      "lieu": "Europe",
-      "tient": "Le voile et la guimpe de lin, coiffure de la femme mariée au XIIIe : très juste. La chemise blanche à manches longues, les chaudrons de cuivre, le mortier et les herbes de sa table.",
-      "denote": "Le corselet brun lacé en croisillons, une pièce de costume de fête. Au XIIIe, les robes sont amples. Les lunettes se voient aussi sur la photo.",
-      "alt": "Angélique : voile et guimpe de lin, corselet brun lacé, chemise blanche, devant ses chaudrons de cuivre",
-      "arbitrage": "Nouvelle photo du 01/10/2026 : même costume, analyse reconduite."
+      ]
     },
     {
       "nom": "Sire l’Écarlate",

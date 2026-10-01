@@ -49,10 +49,17 @@ const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 
 
 // --- Lecture et écriture ------------------------------------------------------
 
+// Chaque personnage est identifié dans l'archive par son nom ; deux
+// personnages du même nom (un membre, deux costumes) le sont par
+// « nom — rôle ». C'est la clé `cle`, reprise dans le champ `nom` des fiches.
 export function lirePersonnages() {
   const bac = {};
   new Function('window', fs.readFileSync(PERSONNAGES, 'utf8'))(bac);
-  return bac.EC_PERSONNAGES || [];
+  const liste = bac.EC_PERSONNAGES || [];
+  const compte = {};
+  for (const p of liste) compte[p.name] = (compte[p.name] || 0) + 1;
+  for (const p of liste) p.cle = compte[p.name] > 1 ? `${p.name} — ${p.role}` : p.name;
+  return liste;
 }
 
 function lireArchive() {
@@ -63,7 +70,7 @@ function lireArchive() {
 // Les fiches suivent l'ordre du carrousel ; une analyse sans personnage reste
 // à la fin, le temps de décider si c'est un renommage.
 function ecrireArchive(archive, personnages) {
-  const rang = new Map(personnages.map((p, i) => [p.name, i]));
+  const rang = new Map(personnages.map((p, i) => [p.cle, i]));
   archive.personnages.sort((a, b) => (rang.get(a.nom) ?? 1e9) - (rang.get(b.nom) ?? 1e9));
   archive.personnages = archive.personnages.map(ordonner);
   fs.mkdirSync(path.dirname(ARCHIVE), { recursive: true });
@@ -91,12 +98,14 @@ export function slug(texte) {
 function trouver(personnages, nom) {
   if (!nom) throw new Error('Préciser le nom du personnage.');
   const s = slug(nom);
-  const exact = personnages.filter(p => slug(p.name) === s);
+  const exact = personnages.filter(p => slug(p.cle) === s || slug(p.name) === s);
   if (exact.length === 1) return exact[0];
-  const proches = personnages.filter(p => slug(p.name).includes(s));
+  const parCle = exact.filter(p => slug(p.cle) === s);
+  if (parCle.length === 1) return parCle[0];
+  const proches = personnages.filter(p => slug(p.cle).includes(s));
   if (proches.length === 1) return proches[0];
   throw new Error(proches.length
-    ? `« ${nom} » désigne plusieurs personnages : ${proches.map(p => p.name).join(', ')}.`
+    ? `« ${nom} » désigne plusieurs personnages : ${proches.map(p => p.cle).join(', ')}.`
     : `Aucun personnage ne s’appelle « ${nom} ».`);
 }
 
@@ -148,21 +157,21 @@ export function etatCostumes() {
   const fiches = new Map(archive.personnages.map(f => [f.nom, f]));
   const etat = { total: personnages.length, aJour: [], aAnalyser: [], incompletes: [], ecarts: [], orphelines: [] };
   for (const p of personnages) {
-    const f = fiches.get(p.name);
-    if (!f) { etat.aAnalyser.push({ nom: p.name, raison: 'jamais analysé' }); continue; }
-    if (!f.verdict) { etat.aAnalyser.push({ nom: p.name, raison: 'fiche ouverte, à remplir' }); continue; }
+    const f = fiches.get(p.cle);
+    if (!f) { etat.aAnalyser.push({ nom: p.cle, raison: 'jamais analysé' }); continue; }
+    if (!f.verdict) { etat.aAnalyser.push({ nom: p.cle, raison: 'fiche ouverte, à remplir' }); continue; }
     const m = manques(f);
-    if (m.length) { etat.incompletes.push({ nom: p.name, manques: m }); continue; }
+    if (m.length) { etat.incompletes.push({ nom: p.cle, manques: m }); continue; }
     if (f.empreinte !== empreinte(p.img)) {
-      etat.aAnalyser.push({ nom: p.name, raison: `portrait remplacé depuis l’analyse du ${dateFr(f.date)}` });
+      etat.aAnalyser.push({ nom: p.cle, raison: `portrait remplacé depuis l’analyse du ${dateFr(f.date)}` });
     } else {
-      etat.aJour.push(p.name);
+      etat.aJour.push(p.cle);
     }
     const e = ecarts(f, p);
-    if (e.length) etat.ecarts.push({ nom: p.name, ecarts: e });
+    if (e.length) etat.ecarts.push({ nom: p.cle, ecarts: e });
   }
-  const noms = new Set(personnages.map(p => p.name));
-  const parEmpreinte = new Map(personnages.map(p => [empreinte(p.img), p.name]));
+  const noms = new Set(personnages.map(p => p.cle));
+  const parEmpreinte = new Map(personnages.map(p => [empreinte(p.img), p.cle]));
   for (const f of archive.personnages) {
     if (noms.has(f.nom)) continue;
     const meme = parEmpreinte.get(f.empreinte);
@@ -196,8 +205,8 @@ function reprendre(nom) {
   const personnages = lirePersonnages();
   const p = trouver(personnages, nom);
   const archive = lireArchive();
-  const neuve = { nom: p.name, date: aujourdhui(), empreinte: empreinte(p.img), verdict: '' };
-  let f = archive.personnages.find(x => x.nom === p.name);
+  const neuve = { nom: p.cle, date: aujourdhui(), empreinte: empreinte(p.img), verdict: '' };
+  let f = archive.personnages.find(x => x.nom === p.cle);
   if (f) {
     const { historique = [], ...ancienne } = f;
     if (ancienne.verdict) historique.push(ancienne);
@@ -208,7 +217,7 @@ function reprendre(nom) {
     archive.personnages.push(f);
   }
   ecrireArchive(archive, personnages);
-  console.log(`Fiche de « ${p.name} » ouverte dans costumes/analyse.json`
+  console.log(`Fiche de « ${p.cle} » ouverte dans costumes/analyse.json`
     + (f.historique.length ? ' ; l’analyse précédente est dans son historique.' : '.'));
   console.log(`Portrait à analyser : ${p.img}`);
 }
@@ -249,7 +258,7 @@ async function zoom(nom, x, y, largeur, hauteur) {
     }, { url, zone });
     if (r.hors) throw new Error(`La zone sort du portrait (${r.hors}).`);
     fs.mkdirSync(APERCUS, { recursive: true });
-    const dst = path.join(APERCUS, `zoom-${slug(p.name)}.png`);
+    const dst = path.join(APERCUS, `zoom-${slug(p.cle)}.png`);
     fs.writeFileSync(dst, Buffer.from(r.png, 'base64'));
     console.log(`${path.relative(RACINE, dst)} : zone ${zone.w} × ${zone.h} du portrait de ${p.name}`);
   } finally {
@@ -286,9 +295,9 @@ function appliquer() {
   const faits = [];
   for (const f of archive.personnages) {
     if (manques(f).length) continue;
-    const p = personnages.find(x => x.name === f.nom);
+    const p = personnages.find(x => x.cle === f.nom);
     if (!p || !ecarts(f, p).length) continue;
-    const i = lignes.findIndex(l => l.includes(`name:${js(f.nom)}`));
+    const i = lignes.findIndex(l => l.includes(`name:${js(p.name)}`) && l.includes(`role:${js(p.role)}`));
     if (i < 0) { console.warn(`${f.nom} : ligne introuvable dans personnages.js, à corriger à la main.`); continue; }
     lignes[i] = reecrire(lignes[i], f);
     faits.push(f.nom);
@@ -321,7 +330,7 @@ function carte({ p, f, fichier }) {
     .map(([k, libelle]) => `<div><dt${k === 'denote' ? ' class="denote"' : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
     .join('\n          ');
   return `
-      <article class="fiche" id="${slug(p.name)}">
+      <article class="fiche" id="${slug(p.cle)}">
         <img src="img/${fichier}" alt="${echapper(f.alt || p.alt || p.name)}" width="900" height="1200" loading="lazy">
         <div class="fiche-tete"><h3>${texte(p.name)}</h3><p class="role">${texte(p.role)}</p></div>
         <p class="affiche"><span class="affiche-label">Sur le site</span>${ligne}</p>
@@ -337,7 +346,7 @@ function gabarit({ retenus, decor, date }) {
   const bilan = parGroupe.map(g => `
     <div class="bilan-ligne">
       <p class="bilan-titre"><span class="pastille ${g.classe}" aria-hidden="true"></span>${texte(g.titre)} <span class="compte">${g.fiches.length}</span></p>
-      <p class="noms">${g.fiches.map(r => `<a href="#${slug(r.p.name)}">${texte(r.p.name)}</a>`).join('')}</p>
+      <p class="noms">${g.fiches.map(r => `<a href="#${slug(r.p.cle)}">${texte(r.p.name)}</a>`).join('')}</p>
     </div>`).join('');
   const groupes = parGroupe.map(g => `
   <section class="groupe" aria-labelledby="groupe-${g.classe}">
@@ -393,9 +402,9 @@ function page() {
   const archive = lireArchive();
   const fiches = new Map(archive.personnages.map(f => [f.nom, f]));
   const retenus = personnages
-    .map(p => ({ p, f: fiches.get(p.name) }))
+    .map(p => ({ p, f: fiches.get(p.cle) }))
     .filter(r => r.f && !manques(r.f).length)
-    .map(r => ({ ...r, fichier: slug(r.p.name) + path.extname(r.p.img) }));
+    .map(r => ({ ...r, fichier: slug(r.p.cle) + path.extname(r.p.img) }));
   if (!retenus.length) throw new Error('Aucune analyse complète : rien à mettre en page.');
 
   fs.rmSync(PAGE, { recursive: true, force: true });

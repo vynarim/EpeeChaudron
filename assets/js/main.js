@@ -872,7 +872,12 @@
     animateursDe = titre => {
       const cle = titre.trim().toLowerCase();
       return personas
-        .map((persona, index) => ({nom: persona.name, index, ateliers: [].concat(persona.atelier || [])}))
+        // Deux personnages du même nom (un membre, deux costumes) : le rôle
+        // les distingue, « Childéric (archer) ».
+        .map((persona, index) => ({
+          nom: personas.filter(p => p.name === persona.name).length > 1
+            ? persona.name + ' (' + persona.role.toLowerCase() + ')' : persona.name,
+          index, ateliers: [].concat(persona.atelier || [])}))
         .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle));
     };
     // Depuis la fiche d'un atelier : la fiche du personnage s'ouvre par-dessus,
