@@ -81,8 +81,8 @@ ARGS+=( --upload-file "deploy/prod.htaccess" "sftp://$HOST$REMOTE_DIR/.htaccess"
 ARGS+=( --upload-file "deploy/v2-sw.js" "sftp://$HOST$REMOTE_DIR/v2/sw.js" )
 # Adresse courte de la page des costumes, pour les membres (lire l'en-tête de
 # deploy/costumes/index.html). Hors de FILES : le nettoyage ne la touche pas.
-ARGS+=( --upload-file "deploy/costumes/index.html" "sftp://$HOST$REMOTE_DIR/costumes-mstfwq/index.html" )
-ARGS+=( --upload-file "deploy/costumes/apercu.jpg" "sftp://$HOST$REMOTE_DIR/costumes-mstfwq/apercu.jpg" )
+ARGS+=( --upload-file "deploy/costumes/index.html" "sftp://$HOST$REMOTE_DIR/mstfwq/index.html" )
+ARGS+=( --upload-file "deploy/costumes/apercu.jpg" "sftp://$HOST$REMOTE_DIR/mstfwq/apercu.jpg" )
 
 curl_conf | curl -K - "${ARGS[@]}"
 
@@ -128,8 +128,8 @@ fi
   for f in "${FILES[@]}"; do empreinte "$f" "$f"; done
   empreinte deploy/prod.htaccess .htaccess
   empreinte deploy/v2-sw.js v2/sw.js
-  empreinte deploy/costumes/index.html costumes-mstfwq/index.html
-  empreinte deploy/costumes/apercu.jpg costumes-mstfwq/apercu.jpg
+  empreinte deploy/costumes/index.html mstfwq/index.html
+  empreinte deploy/costumes/apercu.jpg mstfwq/apercu.jpg
 } > "$ETAT"
 
 echo "Envoyé dans $REMOTE_DIR/ sur $HOST."

@@ -28,10 +28,10 @@ RewriteRule ^(association|agenda|liens)\.html$ https://%{HTTP_HOST}/ [R=301,L]
 RewriteCond %{REQUEST_URI} !^/v2/sw\.js$
 RewriteRule ^v2(/(.*))?$ https://%{HTTP_HOST}/$2 [R=301,L]
 
-# 3 ter. /costumes-mstfwq/ : adresse courte de la page d'analyse des
+# 3 ter. /mstfwq/ : adresse courte de la page d'analyse des
 #    costumes, pour les membres seulement (voir deploy/costumes/index.html).
 #    Sans la barre finale, la cible est écrite en entier comme en 2.
-RewriteRule ^costumes-mstfwq$ https://%{HTTP_HOST}/costumes-mstfwq/ [R=301,L]
+RewriteRule ^mstfwq$ https://%{HTTP_HOST}/mstfwq/ [R=301,L]
 
 # 3 bis. www/supprimer/ reçoit ce qui attend d'être effacé à la main (restes
 #    de l'ancien site et de la recette) : jamais servi.
@@ -76,9 +76,9 @@ Options -Indexes
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
   Header always set Strict-Transport-Security "max-age=31536000"
-  # /costumes-mstfwq/ ne doit apparaître dans aucun moteur de recherche. Pas de
+  # /mstfwq/ ne doit apparaître dans aucun moteur de recherche. Pas de
   # Disallow dans robots.txt : il signalerait l'adresse à qui le lit, et un
   # robot interdit d'entrée ne verrait jamais cette consigne.
-  SetEnvIf Request_URI "^/costumes-mstfwq(/|$)" EC_NOINDEX
+  SetEnvIf Request_URI "^/mstfwq(/|$)" EC_NOINDEX
   Header always set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet, noimageindex" env=EC_NOINDEX
 </IfModule>
