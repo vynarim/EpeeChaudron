@@ -305,9 +305,11 @@ h2{
    sur des lignes de 44 px pour le doigt. */
 .module-modal-details .module-modal-animateurs{margin:1rem 0 0;color:var(--text);line-height:44px}
 .module-modal-animateurs strong{color:var(--ink);font-weight:800}
-/* L'espace à prévoir : une mention courte, détachée du texte par un filet. */
-.module-modal-details .module-espace{padding-left:.75rem;border-left:3px solid var(--gold);font-size:.95rem}
-.module-espace strong{color:var(--ink);font-weight:800}
+/* Espace à prévoir, option avec supplément : mentions courtes, détachées du
+   texte par un filet. */
+.module-modal-details .module-mention{padding-left:.75rem;border-left:3px solid var(--gold);font-size:.95rem}
+.module-modal-details .module-mention + .module-mention{margin-top:-.4rem}
+.module-mention strong{color:var(--ink);font-weight:800}
 .module-modal-close{
   position:absolute;z-index:3;top:12px;right:12px;width:44px;height:44px;padding:0;border:0;border-radius:50%;
   background:var(--gold);color:var(--ink);display:flex;align-items:center;justify-content:center;

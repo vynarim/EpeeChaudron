@@ -322,14 +322,16 @@
         p.textContent = contenu;
         details.appendChild(p);
       });
-      if(atelier.espace){
-        const espace = document.createElement('p');
-        espace.className = 'module-espace';
+      // Mentions courtes pour l'organisateur : l'espace à prévoir, le supplément.
+      [['espace', 'Espace :'], ['option', 'Option :']].forEach(([champ, nom]) => {
+        if(!atelier[champ]) return;
+        const mention = document.createElement('p');
+        mention.className = 'module-mention';
         const libelle = document.createElement('strong');
-        libelle.textContent = 'Espace :';
-        espace.append(libelle, ' ' + atelier.espace);
-        details.appendChild(espace);
-      }
+        libelle.textContent = nom;
+        mention.append(libelle, ' ' + atelier[champ]);
+        details.appendChild(mention);
+      });
       if(atelier.points && atelier.points.length){
         const rubrique = document.createElement('h4');
         rubrique.textContent = 'Points abordés';

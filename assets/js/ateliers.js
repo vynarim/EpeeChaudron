@@ -22,6 +22,9 @@
 //   texte     : les paragraphes de la fiche plein écran.
 //   espace    : FACULTATIF — l'espace qu'il faut prévoir, en une phrase,
 //               affichée dans la fiche après « Espace : ».
+//   option    : FACULTATIF — l'animation est une option avec supplément
+//               (matériel, consommables) : pourquoi, en une phrase, affichée
+//               après « Option : ». Jamais de montant : pas de tarif en ligne.
 //   points    : FACULTATIF — la liste « Points abordés » en bas de la fiche.
 window.EC_ATELIERS = [
   {
@@ -194,6 +197,7 @@ window.EC_ATELIERS = [
       'Selon le lieu et l’espace disponible, la présentation se prolonge par des tirs sur cible commentés par nos archers.'
     ],
     espace: 'dédié et sécurisé, de la taille d’une lice de combat. Une seule lice suffit pour l’escrime, le duel judiciaire, les enfants en lice et l’archerie.',
+    option: 'avec supplément, pour les flèches et les cibles.',
     points: ['Arcs et flèches : matériaux, formes, usages', 'La place de l’archer dans les batailles', 'Tirs sur cible commentés, selon le lieu']
   },
   {
@@ -209,6 +213,7 @@ window.EC_ATELIERS = [
       'La démonstration permet d’évoquer la place essentielle de la forge dans la vie quotidienne : outils agricoles, éléments de construction, objets domestiques et équipement militaire. Son déroulement est adapté au lieu et aux conditions de sécurité de l’événement.'
     ],
     espace: 'dédié et sécurisé, à part : une fois installée, la forge ne se déplace plus.',
+    option: 'avec supplément, pour le charbon et le fer consommés.',
     points: ['Foyer, soufflet, enclume et marteaux', 'Chauffe et mise en forme du métal', 'Objets produits et rôle du forgeron']
   },
   {
@@ -251,6 +256,7 @@ window.EC_ATELIERS = [
       'Le tailleur de pierre travaille au camp, au ciseau et à la massette : le public suit l’avancement d’une pièce au fil de la journée et découvre les outils, les traces qu’ils laissent et les marques des tailleurs.',
       'La démonstration fait le lien avec les monuments du lieu quand le site s’y prête : églises, remparts, châteaux.'
     ],
+    option: 'avec supplément, pour la pierre taillée sur place.',
     points: ['Outils et traces d’outils', 'Du bloc brut à la pièce finie', 'Marques de tailleurs et chantiers médiévaux']
   },
   {
