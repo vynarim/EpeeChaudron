@@ -304,7 +304,7 @@ h2{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,95vw * .361)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(1120px,100vw - 32px) * .361)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -393,11 +393,19 @@ h2{
    (portable, barre d'adresse et onglets déduits). La photo se réduit, le
    texte défile dans sa colonne ; la page derrière ne bouge pas. */
 @media (min-width:621px){
-  /* Les fiches occupent 95 % de la fenêtre, en largeur comme en hauteur. */
-  .module-modal{overflow:hidden;display:flex;align-items:center;padding:2.5vh 2.5vw;padding:2.5dvh 2.5vw}
+  /* Les fiches prennent la largeur du corps de page (--max, comme .container),
+     jamais plus, et au plus 95 % de la hauteur de la fenêtre. */
+  .module-modal{overflow:hidden;display:flex;align-items:center;padding:2.5vh 16px;padding:2.5dvh 16px}
   /* Fiches d'atelier et de personnage : même largeur, même hauteur. */
+  /* Hauteur : celle qui laisse au portrait, sur la moitié de la largeur, son
+     format 3/4 (largeur × 2/3), dans la limite de la fenêtre. Les fiches
+     d'atelier prennent la même. */
   .module-modal-panel,.persona-modal-panel,
-  [data-module-modal] .module-modal-panel.is-paysage{width:100%;height:100%;min-height:0}
+  [data-module-modal] .module-modal-panel.is-paysage{
+    --largeur-fiche:min(var(--max),100vw - 32px);
+    width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
+  }
+  .persona-modal-panel{grid-template-columns:50% 50%}
   .module-modal-panel{grid-template-rows:minmax(0,1fr)}
   /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
      une photo en largeur, il forme une colonne centrée. */
