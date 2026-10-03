@@ -886,8 +886,43 @@
         if(contexte) hook.after(contexte);
       };
       afficher(persona.costumes[0]);
-      arreterRelais = relayerCostumes(persona, costume =>
-        fondu([personaModalImage, personaModalRole, hook], () => afficher(costume)));
+      // Plusieurs costumes : un bouton par costume, au-dessus de l'accroche. Ils
+      // suivent le relais automatique ; un choix du visiteur l'arrête.
+      const choix = [];
+      const marquer = costume => choix.forEach(b => {
+        b.classList.toggle('is-active', b.costume === costume);
+        b.setAttribute('aria-pressed', String(b.costume === costume));
+      });
+      if(persona.costumes.length > 1){
+        const roles = new Set(persona.costumes.map(c => c.role));
+        const barre = document.createElement('div');
+        barre.className = 'persona-modal-costumes';
+        barre.setAttribute('role', 'group');
+        barre.setAttribute('aria-label', 'Costumes de ' + persona.name);
+        persona.costumes.forEach(costume => {
+          const bouton = document.createElement('button');
+          bouton.type = 'button';
+          bouton.className = 'module-filter';
+          bouton.costume = costume;
+          // Le rôle quand il distingue les costumes, sinon l'époque.
+          bouton.textContent = roles.size === persona.costumes.length ? costume.role
+            : (costume.epoqueAffichee && (costume.epoque || SIECLES[costume.siecle])) || costume.role;
+          bouton.addEventListener('click', () => {
+            arreterRelais();
+            arreterRelais = () => {};
+            marquer(costume);
+            fondu([personaModalImage, personaModalRole, hook], () => afficher(costume));
+          });
+          choix.push(bouton);
+          barre.append(bouton);
+        });
+        personaModalDetails.prepend(barre);
+        marquer(persona.costumes[0]);
+      }
+      arreterRelais = relayerCostumes(persona, costume => {
+        marquer(costume);
+        fondu([personaModalImage, personaModalRole, hook], () => afficher(costume));
+      });
       if(persona.atelier.length){
         // Un nom, ou une liste de noms pour qui anime plusieurs ateliers. Un
         // atelier désactivé dans ateliers.js n'est plus mentionné.

@@ -725,6 +725,9 @@ h2{
 .persona h3{margin:0;color:var(--blue-dark);font-size:1.07rem;line-height:1.18}
 .persona-role{margin:2px 0 .5rem;color:var(--blue);font-weight:700;font-size:.86rem}
 /* Relais des costumes d'un même membre : fondu entre deux portraits. */
+/* Fiche d'un membre à plusieurs costumes : un bouton par costume. */
+.persona-modal-costumes{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.persona-modal-costumes .module-filter{min-height:44px}
 .persona-figure img,.persona-body,.persona-modal-panel>img,.persona-modal-role,.persona-modal-hook{transition:opacity .35s ease}
 .is-fondu{opacity:0}
 .persona-hook{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45;font-style:italic}
