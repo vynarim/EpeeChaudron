@@ -34,15 +34,15 @@ const APERCUS = path.join(RACINE, '.apercus');
 
 const SIECLES = { 11: 'XIe siècle', 12: 'XIIe siècle', 13: 'XIIIe siècle', 14: 'XIVe siècle', 15: 'XVe siècle' };
 const GROUPES = [
-  { verdict: 'affiche', classe: 'ok', titre: 'Affiché tel quel',
-    intro: 'Le costume correspond à l’époque affichée. Les détails notés sont mineurs.' },
-  { verdict: 'a-revoir', classe: 'revoir', titre: 'Affiché, une pièce à revoir',
-    intro: 'La base du costume est juste. Une pièce visible sur la photo appartient à une autre époque : c’est elle à revoir avant la prochaine prise de vue.' },
-  { verdict: 'rien', classe: 'rien', titre: 'Rien d’affiché',
-    intro: 'Tel qu’il apparaît sur la photo, le costume ne correspond à aucune époque entre le XIe et le XVe siècle. La piste indique ce qui suffirait pour l’afficher un jour.' },
+  { verdict: 'affiche', classe: 'ok', titre: 'Époque affichée',
+    intro: 'Le costume correspond à l’époque affichée. Les remarques sont des finitions, pour qui a envie d’aller plus loin.' },
+  { verdict: 'a-revoir', classe: 'revoir', titre: 'Époque affichée, une piste pour aller plus loin',
+    intro: 'La base du costume est juste et son époque s’affiche sur le site. Une pièce vient d’ailleurs : le jour où l’envie viendra de la faire évoluer, c’est elle qui fera gagner le plus au costume.' },
+  { verdict: 'rien', classe: 'rien', titre: 'Époque à venir',
+    intro: 'Sur la photo, ces costumes ne se rattachent pas encore à une époque précise entre le XIe et le XVe siècle : le site n’en affiche donc aucune, sans rien enlever au personnage. Le conseil indique la pièce qui suffirait à en faire apparaître une.' },
 ];
 const VERDICTS = GROUPES.map(g => g.verdict);
-const NOTES = [['tient', 'Ce qui tient'], ['details', 'Détails'], ['denote', 'Ce qui dénote'], ['pourquoi', 'Pourquoi'], ['piste', 'Piste']];
+const NOTES = [['tient', 'Les points forts'], ['details', 'Pour peaufiner'], ['denote', 'À faire évoluer'], ['pourquoi', 'Où en est le costume'], ['piste', 'Conseil']];
 const ORDRE_CHAMPS = ['nom', 'date', 'empreinte', 'verdict', 'siecle', 'epoque', 'lieu', 'alt',
   'tient', 'details', 'denote', 'pourquoi', 'piste', 'arbitrage', 'historique'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
@@ -324,7 +324,7 @@ function texte(s) {
 
 function carte({ p, f, fichier }) {
   const ligne = f.verdict === 'rien'
-    ? '<span class="vide">Rien d’affiché</span>'
+    ? '<span class="vide">Pas encore d’époque affichée</span>'
     : `<span>${texte(f.epoque || SIECLES[f.siecle])}</span><span>${texte(f.lieu)}</span>`;
   const notes = NOTES.filter(([k]) => f[k])
     .map(([k, libelle]) => `<div><dt${k === 'denote' ? ' class="denote"' : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
@@ -371,16 +371,17 @@ ${STYLE}</style>
   <header class="entete">
     <p class="eyebrow">L’Épée et le Chaudron</p>
     <h1>Les costumes de la mesnie</h1>
-    <p class="lede">${texte(`Sous l’accroche de chaque personnage, le site affiche une ligne discrète : le siècle et la région que représente son costume. Cette page reprend les ${retenus.length} portraits un par un et dit ce qui a été retenu, et pourquoi.`)}</p>
+    <p class="lede">${texte(`Sous l’accroche de chaque personnage, le site affiche une ligne discrète : le siècle et la région que représente son costume. Cette page reprend les ${retenus.length} portraits un par un : ce qui fonctionne déjà, et une piste quand il y en a une.`)}</p>
   </header>
 
   <section class="methode" aria-labelledby="methode-titre">
     <h2 id="methode-titre">Comment les photos ont été lues</h2>
     <ul>
+      <li>${texte('Cette page n’est pas un classement. Elle est là pour donner des idées pour la prochaine pièce à coudre ou à acheter, à son rythme : un costume se construit sur des années, et on joue d’abord pour le plaisir de partager.')}</li>
       <li>${texte('Chaque fiche part du portrait publié sur le site. Une seule photo ne montre pas tout : jambes et chaussures sont souvent hors cadre.')}</li>
       <li>${texte('Le siècle est celui que désignent les pièces les plus datantes : coiffure, coupe, fermetures, armement. La région n’est précisée que lorsque le costume la désigne, sinon la ligne indique « Europe ».')}</li>
-      <li>${texte('Une pièce qui dénote appartient à une autre époque, ou à l’imaginaire médiéval-fantastique. Quand la base du costume est juste, elle n’empêche pas l’affichage.')}</li>
-      <li>${texte('Une source contredit une fiche (enluminure, fouille, pièce de musée) ? Signalez-la, et la ligne du site sera corrigée.')}</li>
+      <li>${texte('Une pièce « à faire évoluer » vient d’une autre époque, ou de l’imaginaire médiéval-fantastique, très présent sur les fêtes. Quand la base du costume est juste, l’époque s’affiche quand même.')}</li>
+      <li>${texte('Une source contredit une fiche (enluminure, fouille, pièce de musée) ? Signalez-la, et la fiche comme la ligne du site seront corrigées.')}</li>
     </ul>
   </section>
 
@@ -616,7 +617,7 @@ h1{
 .notes{grid-area:notes;margin:0;display:grid;gap:8px;align-content:start;font-size:.95rem;line-height:1.5}
 .notes div{display:grid;gap:1px}
 .notes dt{font-weight:700;color:var(--ink);font-size:.86rem}
-.notes dt.denote{color:var(--fire)}
+.notes dt.denote{color:var(--blue)}
 .notes dd{margin:0;color:var(--text)}
 
 /* --- Décor et pied de page --- */

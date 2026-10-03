@@ -84,17 +84,27 @@ Verdicts :
 
 ## Écrire pour la troupe
 
-La page est lue par les membres eux-mêmes : on juge le costume tel qu'il
-apparaît sur la photo, jamais la personne.
+La page est lue par les membres eux-mêmes. Elle est là pour conseiller, pas
+pour juger : on parle du costume tel qu'il apparaît sur la photo, jamais de
+la personne, et chacun doit en ressortir avec une idée, pas avec une note.
 
 - Phrases courtes et factuelles, une pièce par phrase. Le terme exact (cale,
   guimpe, surcot, chaperon) plutôt que « chapeau » ou « robe ».
 - Dire ce qui tient avant ce qui dénote, et donner une piste concrète
-  quand il y en a une.
-- Lunettes de vue, bracelet de festival, téléphone : les signaler comme
-  visibles sur la photo, sans insister.
+  presque à chaque fois (`piste`), même pour un verdict `rien` : une pièce
+  à changer, pas une liste de reproches.
+- Dire d'où vient une pièce (« vient plutôt de la Renaissance », « de
+  l'univers fantastique ») plutôt que la condamner (« moderne », « n'a
+  jamais existé », « fantaisie », « à retirer »). Pas de comparaison
+  moqueuse (bicorne napoléonien, lutin) quand une date suffit.
+- Lunettes de vue, appareil auditif : ne pas les mentionner, sauf quand
+  elles servent le costume (lunettes à rivet).
+- Téléphone, bracelet de festival, chaussures de ville : jamais dans une
+  fiche nominative. Un rappel général pour les prochaines photos, dans
+  `decor`.
 - Le décor (parking, mobilier moderne, panneau de prix) ne compte pas dans
-  le verdict. Il va dans `decor`, en tête de l'archive.
+  le verdict. Il va dans `decor`, en tête de l'archive, sans nommer
+  personne.
 - Mise en forme : une espace simple avant « : ; ? ! » et dans « 1 € », la
   page pose les insécables. `*mot*` met un terme étranger en italique.
 
