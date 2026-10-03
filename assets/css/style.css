@@ -405,12 +405,14 @@ h2{
     --largeur-fiche:min(var(--max),100vw - 32px);
     width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
   }
-  .persona-modal-panel{grid-template-columns:50% 50%}
+  .persona-modal-panel{grid-template-columns:50% 50%;--largeur-fiche:calc(min(var(--max),100vw - 32px) * .95)}
   /* Colonne de texte en trois temps : le métier en haut, le nom, l'accroche
      et l'époque au milieu, les ateliers en bas. */
   .persona-modal-content{justify-content:flex-start}
   .persona-modal-content h2{margin-top:auto}
   .persona-modal-details{margin-bottom:auto}
+  /* Le milieu (nom, accroche, époque) s’écarte du bouton « suivant ». */
+  .persona-modal-content h2,.persona-modal-details{padding-right:40px}
   .persona-modal-bas{padding-top:1rem}
   .persona-modal-atelier,.persona-modal-atelier-link{line-height:1.8}
   /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
