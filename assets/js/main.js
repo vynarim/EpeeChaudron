@@ -962,6 +962,8 @@
     const personaModalMetier = personaModal.querySelector('[data-persona-modal-metier]');
     const personaModalTitle = personaModal.querySelector('[data-persona-modal-title]');
     const personaModalDetails = personaModal.querySelector('[data-persona-modal-details]');
+    // Le bas de la fiche : les ateliers, posés au pied de la colonne de texte.
+    const personaModalBas = personaModal.querySelector('[data-persona-modal-bas]') || personaModalDetails;
     const personaModalCounter = personaModal.querySelector('[data-persona-modal-counter]');
     const personaModalClose = personaModal.querySelector('[data-persona-modal-close]');
     const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
@@ -991,6 +993,7 @@
       }
       personaModalTitle.textContent = persona.name;
       personaModalDetails.innerHTML = '';
+      if(personaModalBas !== personaModalDetails) personaModalBas.innerHTML = '';
       const hook = document.createElement('p');
       hook.className = 'persona-modal-hook';
       hook.textContent = insecables(persona.hook);
@@ -1027,7 +1030,7 @@
           if(ids.length || i) atelier.append(', ');
           atelier.append(activite);
         });
-        personaModalDetails.appendChild(atelier);
+        personaModalBas.appendChild(atelier);
       }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
       // tableau de paragraphes, affichés sous l'atelier.
@@ -1090,6 +1093,7 @@
       overlayHistory.closed(closePersonaModal);
       personaModalImage.removeAttribute('src');
       personaModalDetails.innerHTML = '';
+      if(personaModalBas !== personaModalDetails) personaModalBas.innerHTML = '';
       document.body.classList.remove('is-modal-open');
       document.body.style.overflow = '';
       // Ouverte depuis la fiche d'un atelier : on y revient.

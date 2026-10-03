@@ -376,7 +376,7 @@ h2{
 /* Les liens suivent le fil du texte (plusieurs ateliers s'enchaînent) ; la
    ligne fait 44 px, la hauteur tactile minimale, sans zones qui se chevauchent
    d'une ligne à l'autre. */
-.persona-modal-details .persona-modal-atelier{line-height:44px}
+.persona-modal-atelier{margin:0;color:var(--muted);line-height:44px}
 .persona-modal-atelier-link{
   display:inline-block;padding:0;border:0;background:none;cursor:pointer;
   color:var(--blue);font:inherit;line-height:44px;text-decoration:underline;text-underline-offset:3px;text-align:left
@@ -406,6 +406,13 @@ h2{
     width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
   }
   .persona-modal-panel{grid-template-columns:50% 50%}
+  /* Colonne de texte en trois temps : le métier en haut, le nom, l'accroche
+     et l'époque au milieu, les ateliers en bas. */
+  .persona-modal-content{justify-content:flex-start}
+  .persona-modal-content h2{margin-top:auto}
+  .persona-modal-details{margin-bottom:auto}
+  .persona-modal-bas{padding-top:1rem}
+  .persona-modal-atelier,.persona-modal-atelier-link{line-height:1.8}
   /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
      pour montrer le plus de texte possible. */
   [data-module-modal] .module-modal-panel,
@@ -625,6 +632,7 @@ h2{
   .persona-modal-counter{order:2;position:static;margin-left:auto}
   .persona-modal-metier{order:3;flex-basis:100%;margin:.5rem 0 .25rem;font-size:.84rem;line-height:1.38}
   .persona-modal-details{order:4;flex-basis:100%;margin-top:.3rem}
+  .persona-modal-bas{order:5;flex-basis:100%}
   .persona-modal-details p,.persona-modal-details p ~ p{margin-bottom:.25rem;font-size:.94rem;line-height:1.35}
   .persona-modal-details .persona-modal-hook{font-size:.88rem;line-height:1.38}
   .persona-modal-details .persona-modal-contexte{font-size:.8rem;line-height:1.2;margin:.15rem 0 .45rem}
