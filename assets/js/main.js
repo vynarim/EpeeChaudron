@@ -417,9 +417,20 @@
     wishlist = [];
   }
 
+  // Une animation dans le mail : son titre, puis l'espace à prévoir et
+  // l'option avec supplément quand la fiche en mentionne, pour que la
+  // demande parte avec ce que l'organisateur devra prévoir.
+  function ligneAtelier(id){
+    const atelier = ateliersParId.get(id) || {};
+    const lignes = ['- ' + titreAtelier(id)];
+    if(atelier.espace) lignes.push('    Espace : ' + atelier.espace);
+    if(atelier.option) lignes.push('    Option : ' + atelier.option);
+    return lignes.join('\n');
+  }
+
   function buildContactEmail(){
     const selectedAnimations = wishlist.length
-      ? wishlist.map(id => '- ' + titreAtelier(id)).join('\n')
+      ? wishlist.map(ligneAtelier).join('\n')
       : '- Aucune animation sélectionnée pour le moment';
     // Le nom de l'association ouvre l'objet et revient dans le corps : le mail
     // se reconnaît d'un coup d'œil dans la boîte de réception, même tronqué.

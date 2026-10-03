@@ -280,7 +280,7 @@ h2{
 .module-modal{position:fixed;inset:0;z-index:1100;background:rgba(5,9,20,.92);padding:18px;overflow-y:auto}
 .module-modal[hidden]{display:none}
 .module-modal-panel{
-  position:relative;width:min(960px,100%);min-height:calc(100vh - 36px);margin:auto;
+  position:relative;width:min(920px,100%);min-height:calc(100vh - 36px);margin:auto;
   background:var(--paper-2);border-radius:22px;overflow:hidden;
   display:grid;grid-template-columns:minmax(280px,42%) 1fr;
   box-shadow:0 24px 70px rgba(0,0,0,.38);
@@ -297,14 +297,14 @@ h2{
 [data-module-modal] .module-modal-panel{grid-template-columns:minmax(280px,45%) 1fr}
 @media (min-width:621px){
   [data-module-modal] .module-modal-panel.is-paysage{
-    width:min(820px,100%);grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start
+    width:min(920px,100%);grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start
   }
   [data-module-modal] .module-modal-panel.is-paysage>img{height:auto;min-height:0;aspect-ratio:720/520;max-height:52vh}
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(820px,100vw - 36px) * .361)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(920px,100vw - 36px) * .361)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -394,14 +394,14 @@ h2{
    texte défile dans sa colonne ; la page derrière ne bouge pas. */
 @media (min-width:621px){
   .module-modal{overflow:hidden;display:flex;align-items:center}
-  .module-modal-panel{grid-template-rows:minmax(0,1fr);height:calc(100vh - 36px);height:calc(100dvh - 36px);min-height:0}
-  .persona-modal-panel{height:min(700px,calc(100vh - 36px));height:min(700px,calc(100dvh - 36px))}
+  /* Fiches d'atelier et de personnage : même largeur, même hauteur. */
+  .module-modal-panel{grid-template-rows:minmax(0,1fr);height:min(860px,calc(100vh - 36px));height:min(860px,calc(100dvh - 36px));min-height:0}
   .module-modal-panel>img{height:100%;min-height:0}
   .module-modal-content{align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;
     display:flex;flex-direction:column;justify-content:safe center}
   /* Photo en largeur au-dessus du texte : la fiche s'arrête à sa hauteur utile. */
   [data-module-modal] .module-modal-panel.is-paysage{
-    display:flex;flex-direction:column;height:auto;max-height:calc(100vh - 36px);max-height:calc(100dvh - 36px)
+    display:flex;flex-direction:column
   }
   [data-module-modal] .module-modal-panel.is-paysage>img{flex:0 1 auto;height:auto;min-height:120px;max-height:52vh;max-height:min(52vh,52dvh)}
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{flex:1 1 auto;justify-content:flex-start}
