@@ -282,9 +282,10 @@ window.EC_ATELIERS = [
     resume: 'Remèdes, plantes et idées reçues sur la médecine du Moyen Âge.',
     texte: [
       'Sur le camp, on soigne comme au Moyen Âge : plantes, onguents et remèdes de la maison, avec les objets et les gestes qui vont avec. Le public découvre ce que l’on savait, ce que l’on croyait, et ce qui a survécu jusqu’à nous.',
+      'Les herbes médicinales y tiennent une grande place : les « simples » du jardin, sauge, camomille, millepertuis ou plantain, comment on les cueillait, les séchait et les préparait en tisanes, onguents ou cataplasmes.',
       'Le module se prête aux échanges avec les familles et corrige quelques idées reçues sur l’hygiène et les soins médiévaux.'
     ],
-    points: ['Plantes, remèdes et soins du quotidien', 'Savoirs et croyances de l’époque', 'Idées reçues sur la médecine médiévale']
+    points: ['Herbes médicinales : les simples et leurs usages', 'Remèdes et soins du quotidien', 'Savoirs et croyances de l’époque', 'Idées reçues sur la médecine médiévale']
   },
   {
     id: 'heraldique',
