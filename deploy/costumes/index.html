@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  Adresse courte de la page d'analyse des costumes, à donner aux membres :
+  https://epee-chaudron.fr/costumes/ — servie à www/costumes/index.html par
+  scripts/deploy.sh. La page elle-même vit sur claude.ai (champ « page » de
+  costumes/analyse.json) ; celle-ci n'est là que pour l'aperçu du lien
+  (WhatsApp, Messenger…), que claude.ai ne permet pas de personnaliser.
+
+  Discrète par construction : liée nulle part sur le site, absente de
+  robots.txt (y figurer la signalerait), noindex ici et dans l'en-tête
+  X-Robots-Tag posé par deploy/prod.htaccess.
+
+  Le renvoi passe par meta refresh et non par une redirection du serveur :
+  les robots d'aperçu ne suivent pas le meta refresh, ils lisent donc les
+  balises og: de cette page et pas celles de claude.ai.
+-->
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Les costumes de la mesnie — L’Épée et le Chaudron</title>
+  <meta name="description" content="Une fiche par personnage : ce qui fonctionne déjà, et des idées pour aller plus loin.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="L’Épée et le Chaudron">
+  <meta property="og:title" content="Les costumes de la mesnie">
+  <meta property="og:description" content="Une fiche par personnage : ce qui fonctionne déjà, et des idées pour aller plus loin.">
+  <meta property="og:url" content="https://epee-chaudron.fr/costumes/">
+  <meta property="og:image" content="https://epee-chaudron.fr/costumes/apercu.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Portraits en costume de cinq membres de la mesnie">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta http-equiv="refresh" content="0; url=https://claude.ai/artifact/8KQNysH7KeQV2G86aoWW3K">
+  <link rel="icon" href="/assets/img/favicon.png">
+</head>
+<body>
+  <p><a href="https://claude.ai/artifact/8KQNysH7KeQV2G86aoWW3K">Ouvrir « Les costumes de la mesnie »</a></p>
+</body>
+</html>

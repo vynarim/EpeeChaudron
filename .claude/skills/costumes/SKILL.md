@@ -54,6 +54,10 @@ l'archive.
    `file_path` = chemin absolu de `costumes/page/index.html`,
    `root` = `costumes/page` et la liste `files` affichée. Sans `url`, une
    nouvelle page naîtrait et le lien déjà donné à la troupe ne bougerait pas.
+   Les membres reçoivent l'adresse courte https://epee-chaudron.fr/costumes/
+   (`deploy/costumes/`, aperçu de lien soigné, jamais indexée) qui renvoie
+   vers cette page : si l'adresse claude.ai change, la corriger dans
+   `deploy/costumes/index.html` et redéployer.
 
 ## La fiche
 

@@ -412,7 +412,9 @@ function page() {
   fs.rmSync(PAGE, { recursive: true, force: true });
   fs.mkdirSync(path.join(PAGE, 'img'), { recursive: true });
   for (const r of retenus) fs.copyFileSync(path.join(RACINE, r.p.img), path.join(PAGE, 'img', r.fichier));
-  const date = retenus.map(r => r.f.date).sort().at(-1);
+  // Date de la page : celle où on la fabrique, puisqu’on la refait à chaque
+  // changement de l’archive (une fiche reformulée ne change pas sa propre date).
+  const date = aujourdhui();
   const html = gabarit({ retenus, decor: archive.decor || [], date });
   fs.writeFileSync(path.join(PAGE, 'index.html'), html);
   // Aperçu local : la publication ajoute elle-même doctype, charset et viewport.
