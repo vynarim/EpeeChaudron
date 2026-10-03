@@ -406,6 +406,10 @@ h2{
     width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
   }
   .persona-modal-panel{grid-template-columns:50% 50%}
+  /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
+     pour montrer le plus de texte possible. */
+  [data-module-modal] .module-modal-panel,
+  [data-module-modal] .module-modal-panel.is-paysage{height:95vh;height:95dvh}
   .module-modal-panel{grid-template-rows:minmax(0,1fr)}
   /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
      une photo en largeur, il forme une colonne centrée. */
