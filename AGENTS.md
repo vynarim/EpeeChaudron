@@ -50,8 +50,9 @@ exceptionnelles. Voir `PRODUCT.md`.
   sections ; ne pas réintroduire de CSS minifié ni de règles dupliquées.
 - `assets/js/photos.js` — données de la galerie photo.
 - `assets/js/ateliers.js` — données des ateliers : cartes et fiches plein
-  écran. Le `titre` identifie l'animation dans la liste de souhaits des
-  visiteurs : ne pas le renommer à la légère. `actif: false` retire une
+  écran. L'`id` identifie l'atelier partout (ateliers des personnages, liste
+  de souhaits des visiteurs) : ne jamais le changer une fois en ligne. Le
+  `titre` n'est que de l'affichage, il se renomme librement. `actif: false` retire une
   animation du site sans l'effacer.
 - `assets/js/personnages.js` — données des personnages. `siecle`,
   `epoqueAffichee`, `epoque` et `lieu` viennent de l'analyse des costumes :

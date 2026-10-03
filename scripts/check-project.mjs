@@ -71,8 +71,8 @@ if (ateliers) {
       if (a.categorie && !CATEGORIES.includes(a.categorie)) {
         errors.push(`ateliers.js : « ${nom} » a la catégorie « ${a.categorie} », qui ne correspond à aucun filtre (${CATEGORIES.join(', ')})`);
       }
-      // Le titre identifie l'animation dans la liste de souhaits des visiteurs :
-      // deux ateliers du même nom s'y confondraient.
+      // L'id identifie l'atelier partout (personnages, liste de souhaits des
+      // visiteurs) ; deux titres identiques prêteraient à confusion à l'écran.
       for (const cle of ['id', 'titre']) {
         if (a[cle] && vus[cle].has(a[cle])) errors.push(`ateliers.js : ${cle} « ${a[cle]} » en double`);
         if (a[cle]) vus[cle].add(a[cle]);
@@ -138,12 +138,29 @@ for (const ref of portraitRefs) {
 // Le siècle de chaque personnage : un oubli ou une faute de frappe passerait
 // inaperçu, rien d'autre ne le relit. Il n'est exigé que pour un costume dont
 // l'époque s'affiche.
+let metiersManquants = [];
 if (personnages) {
   try {
     const bac = { window: {} };
     new Function('window', personnages)(bac.window);
+    // Les ateliers d'un personnage sont des ids de ateliers.js : un id inconnu
+    // (faute de frappe, atelier supprimé) ferait disparaître le lien sans bruit.
+    const ids = new Set();
+    try {
+      const b = {};
+      new Function('window', ateliers)(b);
+      (b.EC_ATELIERS || []).forEach(a => ids.add(a.id));
+    } catch { /* ateliers.js illisible : déjà signalé plus haut */ }
+    const metiers = bac.window.EC_METIERS || {};
+    const sansMetier = new Set();
     (bac.window.EC_PERSONNAGES || []).forEach((p, i) => {
       const nom = p.name || `personnage n°${i + 1}`;
+      for (const id of [].concat(p.atelier || [])) {
+        if (ids.size && !ids.has(id)) {
+          errors.push(`personnages.js : « ${nom} » cite l'atelier « ${id} », absent de ateliers.js (attendu : l'id d'un atelier, ${[...ids].slice(0, 3).join(', ')}…)`);
+        }
+      }
+      if (p.role && !metiers[p.role]) sansMetier.add(p.role);
       if (typeof p.epoqueAffichee !== 'boolean') {
         errors.push(`personnages.js : « ${nom} » n'a pas epoqueAffichee à true ou false`);
       }
@@ -151,6 +168,7 @@ if (personnages) {
         errors.push(`personnages.js : « ${nom} » a le siècle « ${p.siecle} » (de 11 à 15 attendu)`);
       }
     });
+    if (sansMetier.size) metiersManquants = [...sansMetier];
   } catch (err) {
     errors.push(`assets/js/personnages.js illisible : ${err.message}`);
   }
@@ -160,6 +178,9 @@ if (personnages) {
 // analyser (nouveau venu, portrait remplacé) ou dont la ligne d'époque ne
 // suit plus l'analyse. Voir npm run costumes.
 const rappels = [];
+if (metiersManquants.length) {
+  rappels.push(`rôle sans phrase « le métier à l'époque » (EC_METIERS, personnages.js) : ${metiersManquants.join(', ')}`);
+}
 try {
   const { etatCostumes } = await import('./costumes.mjs');
   const etat = etatCostumes();

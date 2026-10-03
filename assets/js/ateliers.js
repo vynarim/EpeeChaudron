@@ -4,7 +4,9 @@
 // à modifier : ni index.html, ni le CSS.
 //
 //   id        : identifiant court, sans accent ni espace. Donne son nom au
-//               fichier image.
+//               fichier image, et c'est par lui que les personnages
+//               (atelier:'forge') et la liste de souhaits des visiteurs
+//               désignent l'atelier : NE PAS LE CHANGER une fois en ligne.
 //   actif     : true ou false. À false, l'animation disparaît du site (carte,
 //               fiche, lien depuis la fiche d'un personnage) sans être
 //               effacée : la remettre à true la fait revenir telle quelle.
@@ -13,11 +15,8 @@
 //   img       : chemin de la photo. Sans photo pour l'instant :
 //               'assets/img/ateliers/photo-a-venir.webp'.
 //   alt       : description de la photo pour les lecteurs d'écran.
-//   titre     : nom de l'animation. ATTENTION — il sert aussi d'identifiant à
-//               la liste de souhaits que les visiteurs gardent dans leur
-//               navigateur : le modifier retire l'animation des listes déjà
-//               faites. Corriger une faute, oui ; renommer, en connaissance
-//               de cause.
+//   titre     : nom de l'animation, tel qu'il s'affiche. On peut le corriger
+//               ou le renommer librement : rien ne s'y réfère.
 //   resume    : une phrase, affichée sur la carte.
 //   texte     : les paragraphes de la fiche plein écran.
 //   espace    : FACULTATIF — l'espace qu'il faut prévoir, en une phrase,

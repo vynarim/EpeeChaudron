@@ -208,9 +208,10 @@ Pour retirer une animation du site sans l'effacer, passer son champ `actif`
 à `false` : sa carte, sa fiche et les liens qui y mènent depuis la fiche d'un
 personnage disparaissent. La remettre à `true` la fait revenir telle quelle.
 
-**Le titre sert aussi d'identifiant** à la liste de souhaits que les visiteurs
-gardent dans leur navigateur : le changer retire l'animation des listes déjà
-faites. Corriger une faute, oui ; renommer, en connaissance de cause.
+**L'id est l'identifiant de l'atelier** : les personnages le citent
+(`atelier: 'forge'`) et la liste de souhaits que les visiteurs gardent dans
+leur navigateur le retient. Ne jamais le changer une fois en ligne. Le titre,
+lui, n'est que de l'affichage : on peut le corriger ou le renommer librement.
 
 `npm run check` exécute le fichier et refuse un champ manquant, une catégorie
 qui ne correspond à aucun filtre, un titre ou un identifiant en double, et une
@@ -246,7 +247,8 @@ modification de `index.html` ni du CSS n'est nécessaire.
   role: 'Rôle affiché sous le nom',
   hook: 'Une phrase d’accroche, en italique sur la carte.',
   alt: 'Description de la photo pour les lecteurs d’écran',
-  atelier: 'L’atelier qu’il anime (facultatif, affiché dans la fiche)'
+  atelier: 'forge',               // id de l'atelier qu'il anime (facultatif) ; plusieurs : ['forge', 'archerie']
+  activites: ['Ce qu’il fait d’autre, hors ateliers du site']  // facultatif, sans lien
 }
 ```
 

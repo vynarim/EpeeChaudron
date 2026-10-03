@@ -288,7 +288,12 @@
   const ateliersActifs = (window.EC_ATELIERS || []).filter(atelier => atelier.actif !== false);
   const ateliersMasques = new Set((window.EC_ATELIERS || [])
     .filter(atelier => atelier.actif === false)
-    .map(atelier => String(atelier.titre).trim().toLowerCase()));
+    .map(atelier => atelier.id));
+  // Tout renvoi vers un atelier (fiche d'un personnage, liste de souhaits)
+  // passe par son id : le titre n'est que de l'affichage, on peut le corriger
+  // ou le renommer sans rien casser.
+  const ateliersParId = new Map((window.EC_ATELIERS || []).map(atelier => [atelier.id, atelier]));
+  const titreAtelier = id => (ateliersParId.get(id) || {}).titre || id;
   if(atelierGrid){
     ateliersActifs.forEach(atelier => {
       const card = document.createElement('article');
@@ -397,15 +402,24 @@
 
   try {
     const savedWishlist = JSON.parse(localStorage.getItem(wishlistStorageKey) || '[]');
-    if(Array.isArray(savedWishlist)) wishlist = savedWishlist.filter(item =>
-      typeof item === 'string' && !ateliersMasques.has(item.trim().toLowerCase()));
+    // Jusqu'en octobre 2026, la liste retenait les titres : on les convertit
+    // en ids, une fois, et on écarte ce qui n'existe plus ou est désactivé.
+    const parTitre = new Map((window.EC_ATELIERS || [])
+      .map(atelier => [String(atelier.titre).trim().toLowerCase(), atelier.id]));
+    if(Array.isArray(savedWishlist)) wishlist = [...new Set(savedWishlist
+      .filter(item => typeof item === 'string')
+      .map(item => ateliersParId.has(item) ? item : parTitre.get(item.trim().toLowerCase()))
+      .filter(id => id && !ateliersMasques.has(id)))];
+    if(JSON.stringify(wishlist) !== JSON.stringify(savedWishlist)){
+      localStorage.setItem(wishlistStorageKey, JSON.stringify(wishlist));
+    }
   } catch(error) {
     wishlist = [];
   }
 
   function buildContactEmail(){
     const selectedAnimations = wishlist.length
-      ? wishlist.map(animation => '- ' + animation).join('\n')
+      ? wishlist.map(id => '- ' + titreAtelier(id)).join('\n')
       : '- Aucune animation sélectionnée pour le moment';
     // Le nom de l'association ouvre l'objet et revient dans le corps : le mail
     // se reconnaît d'un coup d'œil dans la boîte de réception, même tronqué.
@@ -484,7 +498,7 @@
       const title = card.querySelector('h3');
       const button = card.querySelector('[data-module-wishlist]');
       if(!title || !button) return;
-      const selected = wishlist.includes(title.textContent.trim());
+      const selected = wishlist.includes(card.dataset.atelier);
       button.setAttribute('aria-pressed', String(selected));
       button.textContent = selected ? '♥' : '♡';
       button.setAttribute('aria-label', selected
@@ -499,7 +513,7 @@
     const title = moduleTrigger.querySelector('h3');
     if(!title) return;
     const animation = title.textContent.trim();
-    const selected = wishlist.includes(animation);
+    const selected = wishlist.includes(moduleTrigger.dataset.atelier);
     moduleModalWishlist.setAttribute('aria-pressed', String(selected));
     moduleModalWishlist.textContent = selected ? '♥' : '♡';
     moduleModalWishlist.setAttribute('aria-label', selected
@@ -522,9 +536,9 @@
     const title = card.querySelector('h3');
     if(!title) return;
     const animation = title.textContent.trim();
-    const animationIndex = wishlist.indexOf(animation);
+    const animationIndex = wishlist.indexOf(card.dataset.atelier);
     if(animationIndex === -1){
-      wishlist.push(animation);
+      wishlist.push(card.dataset.atelier);
       saveWishlist();
       showWishlistNotification(animation, 'added');
     } else {
@@ -622,7 +636,7 @@
     moduleModalTitle.textContent = title.textContent;
     moduleModalDetails.innerHTML = details.innerHTML;
     // « Animé par » : les personnages qui citent cet atelier dans leur fiche.
-    const animateurs = animateursDe(title.textContent);
+    const animateurs = animateursDe(card.dataset.atelier);
     if(animateurs.length && ouvrirAnimateur){
       const ligne = document.createElement('p');
       ligne.className = 'module-modal-animateurs';
@@ -972,32 +986,37 @@
       personaModalDetails.appendChild(hook);
       const contexte = personaContexte(persona, 'persona-modal-contexte');
       if(contexte) personaModalDetails.appendChild(contexte);
-      if(persona.atelier){
-        // Un nom, ou une liste de noms pour qui anime plusieurs ateliers. Un
-        // atelier désactivé dans ateliers.js n'est plus mentionné.
-        const noms = (Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier])
-          .filter(nom => !ateliersMasques.has(String(nom).trim().toLowerCase()));
+      // « atelier » : l'id d'un atelier de ateliers.js, ou une liste d'ids ;
+      // chacun devient un lien vers sa fiche. Un atelier désactivé n'est plus
+      // mentionné. « activites » : ce qui n'est pas un atelier du site, en
+      // texte simple à la suite.
+      const ids = [].concat(persona.atelier || []).filter(id => !ateliersMasques.has(id));
+      const activites = [].concat(persona.activites || []);
+      if(ids.length || activites.length){
         const atelier = document.createElement('p');
         atelier.className = 'persona-modal-atelier';
         const libelle = document.createElement('strong');
-        libelle.textContent = noms.length > 1 ? 'Ateliers :' : 'Atelier :';
+        libelle.textContent = ids.length + activites.length > 1 ? 'Ateliers :' : 'Atelier :';
         atelier.append(libelle, ' ');
-        noms.forEach((nom, i) => {
+        ids.forEach((id, i) => {
           if(i) atelier.append(', ');
-          // Un atelier qui porte le titre d'une animation ouvre sa fiche.
-          const card = atelierCard(nom);
+          const card = moduleCards.find(carte => carte.dataset.atelier === id);
           if(card){
             const lien = document.createElement('button');
             lien.type = 'button';
             lien.className = 'persona-modal-atelier-link';
-            lien.textContent = nom;
+            lien.textContent = titreAtelier(id);
             lien.addEventListener('click', () => showAtelier(card));
             atelier.append(lien);
           } else {
-            atelier.append(nom);
+            atelier.append(titreAtelier(id));
           }
         });
-        if(noms.length) personaModalDetails.appendChild(atelier);
+        activites.forEach((activite, i) => {
+          if(ids.length || i) atelier.append(', ');
+          atelier.append(activite);
+        });
+        personaModalDetails.appendChild(atelier);
       }
       // « texte » est facultatif dans personnages.js : une phrase, ou un
       // tableau de paragraphes, affichés sous l'atelier.
@@ -1013,12 +1032,11 @@
       personaModalCounter.textContent = (visibles.indexOf(personaIndex) + 1) + ' / ' + visibles.length;
     }
 
-    animateursDe = titre => {
-      const cle = titre.trim().toLowerCase();
+    animateursDe = id => {
       const vus = new Set();
       return fiches
         .map((fiche, index) => ({nom: fiche.name, index, ateliers: [].concat(fiche.atelier || [])}))
-        .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle))
+        .filter(p => p.ateliers.includes(id))
         // Un membre à deux costumes n'est cité qu'une fois, vers sa première fiche.
         .filter(p => !vus.has(p.nom) && vus.add(p.nom));
     };
@@ -1031,14 +1049,6 @@
       personaReturn = () => openModuleModal(card, true);
       openPersonaModal(index);
     };
-
-    function atelierCard(nom){
-      const cle = nom.trim().toLowerCase();
-      return moduleCards.find(card => {
-        const titre = card.querySelector('h3');
-        return titre && titre.textContent.trim().toLowerCase() === cle;
-      });
-    }
 
     function displayPersonaModal(index){
       showPersona(index);
