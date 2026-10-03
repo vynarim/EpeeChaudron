@@ -20,6 +20,8 @@
 //               de cause.
 //   resume    : une phrase, affichée sur la carte.
 //   texte     : les paragraphes de la fiche plein écran.
+//   espace    : FACULTATIF — l'espace qu'il faut prévoir, en une phrase,
+//               affichée dans la fiche après « Espace : ».
 //   points    : FACULTATIF — la liste « Points abordés » en bas de la fiche.
 window.EC_ATELIERS = [
   {
@@ -146,6 +148,7 @@ window.EC_ATELIERS = [
       'Le public s’initie à l’art du combat tel que le décrivent les traités des maîtres d’armes : épée longue, dague, épée et bocle, combat en groupe avec bouclier. Une approche ludique et concrète, avec du matériel adapté et un encadrement permanent.',
       'L’initiation se fait en passages courts, pour que plusieurs groupes participent au fil de la journée, enfants comme adultes. Plusieurs membres de l’association pratiquent les arts martiaux historiques européens.'
     ],
+    espace: 'dédié et sécurisé, de la taille d’une lice de combat. Une seule lice suffit pour l’escrime, le duel judiciaire, les enfants en lice et l’archerie.',
     points: ['Consignes et gestes de base', 'Épée longue, dague, épée et bocle, bouclier', 'Petits groupes, matériel adapté à l’âge']
   },
   {
@@ -160,6 +163,7 @@ window.EC_ATELIERS = [
       'Ce n’est pas de l’escrime de spectacle : les combattants s’affrontent à la touche, dans une lice fermée et sécurisée, selon des règles qui existaient aux XIVe et XVe siècles. Un maréchal arbitre et explique au public le contexte : pourquoi un combat pouvait rendre la justice, chez les nobles comme dans le peuple.',
       'Les équipements varient d’un duel à l’autre : doublet, cotte de mailles, brigandine, armure. Un temps fort rarement présenté dans les fêtes médiévales, dont l’heure et la durée se calent sur votre programme.'
     ],
+    espace: 'dédié et sécurisé, de la taille d’une lice de combat. Une seule lice suffit pour l’escrime, le duel judiciaire, les enfants en lice et l’archerie.',
     points: ['Contexte juridique et règles du duel', 'Duel armuré et duel civil : ce qui change', 'Combat à la touche, arbitré et commenté']
   },
   {
@@ -174,6 +178,7 @@ window.EC_ATELIERS = [
       'Entre deux passages d’adultes, la lice revient aux enfants. Épées en mousse, boucliers à leur taille : le matériel est prévu pour eux, et un membre de l’association arbitre chaque combat du début à la fin.',
       'Les règles sont celles des grands, expliquées avant d’entrer : le salut, la garde, la touche. Les passages sont courts pour que tout le monde y vienne au fil de la journée, et les parents suivent depuis le bord de la lice.'
     ],
+    espace: 'dédié et sécurisé, de la taille d’une lice de combat. Une seule lice suffit pour l’escrime, le duel judiciaire, les enfants en lice et l’archerie.',
     points: ['Salut, garde et touche, comme chez les grands', 'Épées en mousse et boucliers adaptés à la taille', 'Passages courts et arbitrés, plusieurs fois dans la journée']
   },
   {
@@ -188,6 +193,7 @@ window.EC_ATELIERS = [
       'De l’arc à double courbure au long bow anglais, l’animation compare les matériaux, les formes et les usages, et explique pourquoi tant d’armées ont plié face aux archers. Le public découvre les différents types de flèches : pour chasser, percer une armure, ralentir un navire ou incendier un engin de siège.',
       'Selon le lieu et l’espace disponible, la présentation se prolonge par des tirs sur cible commentés par nos archers.'
     ],
+    espace: 'dédié et sécurisé, de la taille d’une lice de combat. Une seule lice suffit pour l’escrime, le duel judiciaire, les enfants en lice et l’archerie.',
     points: ['Arcs et flèches : matériaux, formes, usages', 'La place de l’archer dans les batailles', 'Tirs sur cible commentés, selon le lieu']
   },
   {
@@ -202,6 +208,7 @@ window.EC_ATELIERS = [
       'Cette animation présente le métier du forgeron et les principales étapes nécessaires pour transformer le métal. Le public découvre le rôle du foyer, de l’enclume, du marteau et des différents outils utilisés pour chauffer, façonner et finir une pièce.',
       'La démonstration permet d’évoquer la place essentielle de la forge dans la vie quotidienne : outils agricoles, éléments de construction, objets domestiques et équipement militaire. Son déroulement est adapté au lieu et aux conditions de sécurité de l’événement.'
     ],
+    espace: 'dédié et sécurisé, à part : une fois installée, la forge ne se déplace plus.',
     points: ['Foyer, soufflet, enclume et marteaux', 'Chauffe et mise en forme du métal', 'Objets produits et rôle du forgeron']
   },
   {

@@ -322,6 +322,14 @@
         p.textContent = contenu;
         details.appendChild(p);
       });
+      if(atelier.espace){
+        const espace = document.createElement('p');
+        espace.className = 'module-espace';
+        const libelle = document.createElement('strong');
+        libelle.textContent = 'Espace :';
+        espace.append(libelle, ' ' + atelier.espace);
+        details.appendChild(espace);
+      }
       if(atelier.points && atelier.points.length){
         const rubrique = document.createElement('h4');
         rubrique.textContent = 'Points abordés';
