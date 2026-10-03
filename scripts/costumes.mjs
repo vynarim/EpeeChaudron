@@ -42,9 +42,9 @@ const GROUPES = [
     intro: 'Sur la photo, ces costumes ne se rattachent pas encore à une époque précise entre le XIe et le XVe siècle : le site n’en affiche donc aucune, sans rien enlever au personnage. Le conseil indique la pièce qui suffirait à en faire apparaître une.' },
 ];
 const VERDICTS = GROUPES.map(g => g.verdict);
-const NOTES = [['tient', 'Les points forts'], ['details', 'Pour peaufiner'], ['denote', 'À faire évoluer'], ['pourquoi', 'Où en est le costume'], ['piste', 'Conseil']];
+const NOTES = [['tient', 'Les points forts'], ['details', 'Pour peaufiner'], ['denote', 'À faire évoluer'], ['pourquoi', 'Où en est le costume'], ['piste', 'Conseil'], ['photo', 'La photo']];
 const ORDRE_CHAMPS = ['nom', 'date', 'empreinte', 'verdict', 'siecle', 'epoque', 'lieu', 'alt',
-  'tient', 'details', 'denote', 'pourquoi', 'piste', 'arbitrage', 'historique'];
+  'tient', 'details', 'denote', 'pourquoi', 'piste', 'photo', 'arbitrage', 'historique'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
 // --- Lecture et écriture ------------------------------------------------------
@@ -327,7 +327,7 @@ function carte({ p, f, fichier }) {
     ? '<span class="vide">Pas encore d’époque affichée</span>'
     : `<span>${texte(f.epoque || SIECLES[f.siecle])}</span><span>${texte(f.lieu)}</span>`;
   const notes = NOTES.filter(([k]) => f[k])
-    .map(([k, libelle]) => `<div><dt${k === 'denote' ? ' class="denote"' : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
+    .map(([k, libelle]) => `<div><dt${k === 'denote' || k === 'photo' ? ` class="${k}"` : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
     .join('\n          ');
   return `
       <article class="fiche" id="${slug(p.cle)}">
@@ -512,7 +512,7 @@ a{color:inherit}
 a:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
 
 /* --- En-tête --- */
-.entete{display:grid;gap:14px;max-width:68ch}
+.entete{display:grid;gap:14px}
 .eyebrow{
   color:var(--fire);font-size:.75rem;font-weight:900;
   letter-spacing:.09em;text-transform:uppercase;
@@ -524,7 +524,7 @@ h1{
 .lede{font-size:1.06rem;color:var(--text)}
 
 .methode{
-  margin-top:28px;display:grid;gap:10px;max-width:68ch;
+  margin-top:28px;display:grid;gap:10px;
   padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:var(--surface);
 }
 .methode h2{font-family:var(--sans);font-size:1rem;font-weight:700;color:var(--navy)}
@@ -557,7 +557,7 @@ h1{
 
 /* --- Groupes et fiches --- */
 .groupe{margin-top:52px;display:grid;gap:18px}
-.groupe-tete{display:grid;gap:6px;max-width:68ch}
+.groupe-tete{display:grid;gap:6px}
 .groupe-tete h2{
   display:flex;align-items:baseline;gap:12px;
   font-family:var(--serif);font-weight:400;color:var(--navy);
@@ -618,10 +618,11 @@ h1{
 .notes div{display:grid;gap:1px}
 .notes dt{font-weight:700;color:var(--ink);font-size:.86rem}
 .notes dt.denote{color:var(--blue)}
+.notes dt.photo{color:var(--fire)}
 .notes dd{margin:0;color:var(--text)}
 
 /* --- Décor et pied de page --- */
-.decor{margin-top:52px;display:grid;gap:10px;max-width:68ch}
+.decor{margin-top:52px;display:grid;gap:10px}
 .decor h2{font-family:var(--serif);font-weight:400;font-size:1.5rem;color:var(--navy)}
 .pied{
   margin-top:48px;padding-top:16px;border-top:1px solid var(--line);

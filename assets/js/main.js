@@ -1084,11 +1084,16 @@
     let settleTimer = null;
 
     const offsetOf = item => item.offsetLeft - items[0].offsetLeft;
+    // Les dernières colonnes ne peuvent pas venir en tête : le défilement
+    // s'arrête quand la dernière touche le bord droit. Leurs positions sont
+    // ramenées à cette butée, sinon le compteur annoncerait des pages qu'on
+    // n'atteint jamais (« 10 / 12 » au bout de la galerie sur ordinateur).
     const computeStops = () => {
       const vus = new Set();
+      const maxScroll = Math.max(0, Math.round(track.scrollWidth - track.clientWidth));
       stops = [];
       items.forEach(item => {
-        const x = Math.round(offsetOf(item));
+        const x = Math.min(Math.round(offsetOf(item)), maxScroll);
         if(!vus.has(x)){ vus.add(x); stops.push(x); }
       });
       stops.sort((a, b) => a - b);

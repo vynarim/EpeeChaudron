@@ -2,7 +2,7 @@
   "page": "https://claude.ai/artifact/8KQNysH7KeQV2G86aoWW3K",
   "decor": [
     "Un conseil pour les prochaines photos : l’organisateur qui découvre le site regarde aussi ce qu’il y a autour du costume. Un fond de tente, de toile ou de verdure met chaque costume en valeur, bien mieux qu’un parking, une terrasse ou une table où traînent des bouteilles.",
-    "Au moment de poser, c’est aussi l’occasion de sortir du cadre ce qui vient du quotidien : téléphone, bracelet d’entrée, lunettes de soleil, chaussures de ville, meubles récents."
+    "Au moment de poser, sortir du cadre ce qui vient du quotidien : téléphone, bracelet d’entrée, lunettes modernes, chaussures de ville, meubles récents. Une photo où ils se voient est à retoucher, ou à reprendre."
   ],
   "personnages": [
     {
@@ -105,7 +105,7 @@
       "lieu": "Europe",
       "alt": "Guillaume : cotte verte, attablé devant sa vaisselle de bois",
       "tient": "La cotte verte simple, la vaisselle de bois et de terre.",
-      "details": "Peu de pièces datantes sur la photo : l’ensemble irait du XIIe au XIVe siècle.",
+      "details": "Peu de pièces datantes sur la photo : l’ensemble irait du XIIe au XIVe siècle. Pour peaufiner : une cale de lin nouée sous le menton, que portent la plupart des hommes au travail dans les enluminures du XIIIe, et les cuisiniers en particulier. Elle préciserait l’époque et irait très bien avec le rôle.",
       "historique": []
     },
     {
@@ -132,6 +132,8 @@
       "alt": "Angélique : voile et guimpe de lin, corselet brun lacé, chemise blanche, devant ses chaudrons de cuivre",
       "tient": "Le voile et la guimpe de lin, coiffure de la femme mariée au XIIIe : très juste. La chemise blanche à manches longues, les chaudrons de cuivre, le mortier et les herbes de sa table.",
       "denote": "Le corselet brun lacé en croisillons vient plutôt des costumes de fête. Au XIIIe, les robes sont amples et tombent droit.",
+      "piste": "Une cotte ample de laine sur la chemise, avec une ceinture simple, et le XIIIe serait complet.",
+      "photo": "Des lunettes de vue modernes se voient sur le portrait : la photo n’a pas été prise au bon moment. Retoucher la photo pour les effacer, ou en reprendre une sans elles, est fortement conseillé.",
       "arbitrage": "Nouvelle photo du 01/10/2026 : même costume, analyse reconduite.",
       "historique": [
         {
@@ -145,8 +147,7 @@
           "tient": "Le voile et la guimpe de lin, coiffure de la femme mariée au XIIIe : très juste. Le tablier, la crémaillère, la cuillère de bois.",
           "denote": "Le corselet brun lacé en croisillons, une pièce de costume de fête. Au XIIIe, les robes sont amples. Les lunettes se voient aussi sur la photo."
         }
-      ],
-      "piste": "Une cotte ample de laine sur la chemise, avec une ceinture simple, et le XIIIe serait complet."
+      ]
     },
     {
       "nom": "Sire l’Écarlate",
@@ -212,9 +213,10 @@
       "alt": "La Bougonne : linge enroulé sur la tête, robe bleue à manches courtes sur chemise froncée",
       "tient": "Le linge enroulé sur la tête. La chemise froncée à l’encolure sous une robe sans manches longues rappelle la tenue de travail italienne de la fin du XVe, la *camicia* sous la *gamurra*.",
       "denote": "Le volant au poignet et la robe-tablier à manches courtes tirent vers le XVIe.",
+      "piste": "Des manches longues ajustées, lacées ou épinglées à la robe, rapprocheraient la tenue de la *gamurra* de la fin du XVe.",
+      "photo": "Un bracelet de festival orange se voit au poignet : la photo n’a pas été prise au bon moment. Retoucher la photo pour l’effacer est fortement conseillé.",
       "arbitrage": "Affichage décidé par la troupe : la première analyse proposait de ne rien afficher, « Fin XVe siècle, Italie » étant la lecture la plus favorable.",
-      "historique": [],
-      "piste": "Des manches longues ajustées, lacées ou épinglées à la robe, rapprocheraient la tenue de la *gamurra* de la fin du XVe."
+      "historique": []
     },
     {
       "nom": "Benoît",
@@ -243,10 +245,11 @@
       "empreinte": "53a08df46a3259d2",
       "verdict": "rien",
       "alt": "Denis : tabard blanc à croix rouge, chaperon, béret noir, pantalon blanc",
+      "tient": "Le tabard à croix et le chaperon, qui renvoient aux XIIe–XIIIe siècles.",
       "pourquoi": "Le béret de velours noir appartient au XVIe ; le pantalon blanc ample et les bottes de daim sont plus récents encore.",
       "piste": "Sans le béret, avec des chausses, on pourrait afficher « XIIe – XIIIe siècle ». Un détail d’histoire, pour un haubergier : le manteau blanc à croix rouge était réservé aux chevaliers du Temple, les sergents et frères de métier portaient du noir ou du brun.",
-      "historique": [],
-      "tient": "Le tabard à croix et le chaperon, qui renvoient aux XIIe–XIIIe siècles."
+      "photo": "Un téléphone en main se voit sur le portrait : la photo n’a pas été prise au bon moment. Retoucher la photo pour l’effacer, ou en reprendre une, est fortement conseillé.",
+      "historique": []
     },
     {
       "nom": "Melynn",

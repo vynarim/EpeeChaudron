@@ -72,6 +72,7 @@ l'archive.
 | `pourquoi` | Pourquoi rien n'est affiché. Obligatoire pour `rien`. |
 | `piste` | Facultatif : ce qui suffirait à corriger. |
 | `arbitrage` | Facultatif, interne, absent de la page : une décision de la troupe et sa raison. |
+| `photo` | Facultatif : objet du quotidien visible sur le portrait, et le conseil de retoucher la photo. |
 | `historique` | Les analyses précédentes. Ne pas y toucher. |
 
 Verdicts :
@@ -97,11 +98,12 @@ la personne, et chacun doit en ressortir avec une idée, pas avec une note.
   l'univers fantastique ») plutôt que la condamner (« moderne », « n'a
   jamais existé », « fantaisie », « à retirer »). Pas de comparaison
   moqueuse (bicorne napoléonien, lutin) quand une date suffit.
-- Lunettes de vue, appareil auditif : ne pas les mentionner, sauf quand
-  elles servent le costume (lunettes à rivet).
-- Téléphone, bracelet de festival, chaussures de ville : jamais dans une
-  fiche nominative. Un rappel général pour les prochaines photos, dans
-  `decor`.
+- Objet du quotidien visible sur le portrait (téléphone, lunettes de vue
+  modernes, bracelet de festival) : ce n'est pas le costume, c'est la photo
+  qui n'a pas été prise au bon moment. Le dire dans le champ `photo`
+  (« La photo » sur la page, en couleur feu) et conseiller fortement de la
+  retoucher pour l'effacer, ou de la reprendre. Les lunettes à rivet
+  d'époque ne comptent pas : elles servent le costume.
 - Le décor (parking, mobilier moderne, panneau de prix) ne compte pas dans
   le verdict. Il va dans `decor`, en tête de l'archive, sans nommer
   personne.
