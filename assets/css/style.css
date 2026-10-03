@@ -364,6 +364,8 @@ h2{
 .persona-modal-metier{margin:.15rem 0 1.15rem;color:var(--muted);font-size:.88rem;line-height:1.45}
 .persona-modal-details p{margin:0 0 1rem;color:var(--muted);font-style:italic;font-size:1.06rem;line-height:1.5}
 /* L'accroche est en italique ; l'atelier et le texte qui la suivent restent droits. */
+/* L'accroche reste discrète : un peu plus petite que le texte courant. */
+.persona-modal-details .persona-modal-hook{font-size:.95rem;line-height:1.45}
 .persona-modal-details p ~ p{font-style:normal;font-size:1rem}
 .persona-modal-details .persona-modal-contexte{display:flex;flex-wrap:wrap;gap:6px;font-style:normal;font-size:.8rem;line-height:1.2}
 /* Époque et région en pastilles discrètes : des repères, pas un titre. */
@@ -603,6 +605,7 @@ h2{
   .persona-modal-metier{order:3;flex-basis:100%;margin:.5rem 0 .25rem;font-size:.84rem;line-height:1.38}
   .persona-modal-details{order:4;flex-basis:100%;margin-top:.3rem}
   .persona-modal-details p,.persona-modal-details p ~ p{margin-bottom:.25rem;font-size:.94rem;line-height:1.35}
+  .persona-modal-details .persona-modal-hook{font-size:.88rem;line-height:1.38}
   .persona-modal-details .persona-modal-contexte{font-size:.8rem;line-height:1.2;margin:.15rem 0 .45rem}
   .persona-modal .module-modal-nav{top:30%}
   .module-modal-prev{left:10px}
