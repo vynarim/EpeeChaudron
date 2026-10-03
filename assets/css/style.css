@@ -304,7 +304,6 @@ h2{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:calc(var(--haut-photo) / 2)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -405,7 +404,7 @@ h2{
     --largeur-fiche:min(var(--max),100vw - 32px);
     width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
   }
-  .persona-modal-panel{grid-template-columns:50% 50%;--largeur-fiche:calc(min(var(--max),100vw - 32px) * .95)}
+  .persona-modal-panel{grid-template-columns:50% 50%;--largeur-fiche:calc(min(var(--max),100vw - 32px) * .9)}
   /* Colonne de texte en trois temps : le métier en haut, le nom, l'accroche
      et l'époque au milieu, les ateliers en bas. */
   .persona-modal-content{justify-content:flex-start}
@@ -416,9 +415,9 @@ h2{
   .persona-modal-bas{padding-top:1rem}
   .persona-modal-atelier,.persona-modal-atelier-link{line-height:1.8}
   /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
-     pour montrer le plus de texte possible. */
+     pour montrer le plus de texte possible ; 90 % de la largeur du corps. */
   [data-module-modal] .module-modal-panel,
-  [data-module-modal] .module-modal-panel.is-paysage{width:calc(var(--largeur-fiche) * .95);height:95vh;height:95dvh}
+  [data-module-modal] .module-modal-panel.is-paysage{width:calc(var(--largeur-fiche) * .9);height:95vh;height:95dvh}
   .module-modal-panel{grid-template-rows:minmax(0,1fr)}
   /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
      une photo en largeur, il forme une colonne centrée. */
@@ -427,20 +426,39 @@ h2{
   .module-modal-panel>img{height:100%;min-height:0}
   .module-modal-content{align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;
     display:flex;flex-direction:column;justify-content:safe center}
-  /* Photo en largeur au-dessus du texte : la fiche s'arrête à sa hauteur utile. */
+  /* Fiche d'atelier, photo en largeur : toute la fiche défile d'un bloc. La
+     photo, entière et à son format, reste en haut ; le texte monte par-dessus
+     comme une feuille qu'on tire. Sur un écran bas, la photo se limite aux
+     trois quarts de la fiche, centrée sur un fond bleu nuit. */
   [data-module-modal] .module-modal-panel.is-paysage{
-    display:flex;flex-direction:column
+    --l-fiche:calc(min(var(--max),100vw - 32px) * .9);
+    --haut-photo:min(75%,var(--l-fiche) * 520 / 720);
+    display:block;overflow-y:auto;overscroll-behavior:contain;
+    background:linear-gradient(var(--blue-dark),var(--blue-dark)) top/100% var(--haut-photo) no-repeat,var(--paper-2)
   }
-  /* La photo garde toujours son format, jamais rognée : toute la largeur de
-     la fiche si la hauteur le permet ; sinon, sur un écran bas, elle se limite
-     aux deux tiers de la fiche et se centre sur un fond sombre. */
-  [data-module-modal] .module-modal-panel.is-paysage{background:linear-gradient(var(--blue-dark),var(--blue-dark)) top/100% var(--haut-photo) no-repeat,var(--paper-2)}
-  [data-module-modal] .module-modal-panel.is-paysage{--haut-photo:min(64%,var(--largeur-fiche) * .95 * 520 / 720)}
   [data-module-modal] .module-modal-panel.is-paysage>img{
-    flex:0 0 auto;align-self:center;width:auto;max-width:100%;
-    height:var(--haut-photo);min-height:0;max-height:none;aspect-ratio:720/520;object-fit:cover
+    position:sticky;top:0;display:block;margin:0 auto;
+    width:auto;max-width:100%;height:var(--haut-photo);min-height:0;max-height:none;
+    aspect-ratio:720/520;object-fit:cover
   }
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{flex:1 1 auto;justify-content:flex-start}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{
+    position:relative;z-index:1;overflow:visible;min-height:calc(100% - var(--haut-photo));
+    background:var(--paper-2);box-shadow:0 -14px 28px rgba(5,9,20,.18);justify-content:flex-start
+  }
+  /* Croix et flèches restent en place pendant le défilement : elles sont
+     posées sur la fenêtre, à l'endroit exact du coin de la fiche et du milieu
+     de la photo (fiche centrée, à 2,5 % du haut). */
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-close,
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{position:fixed;z-index:2}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-close{
+    top:calc(2.5vh + 12px);top:calc(2.5dvh + 12px);right:calc((100vw - var(--l-fiche)) / 2 + 12px)
+  }
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{
+    top:calc(2.5vh + min(95vh * .75,var(--l-fiche) * 520 / 720) / 2);
+    top:calc(2.5dvh + min(95dvh * .75,var(--l-fiche) * 520 / 720) / 2)
+  }
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-prev{left:calc((100vw - var(--l-fiche)) / 2 + 12px)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-next{right:calc((100vw - var(--l-fiche)) / 2 + 12px)}
 }
 
 /* --- Contrôles flottants ------------------------------------------------ */
