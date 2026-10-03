@@ -754,6 +754,9 @@
   // Époque et lieu du costume, une ligne chacun. Rien pour un costume que la
   // compagnie ne présente pas comme historique (epoqueAffichee à false).
   const SIECLES = {11:'XIe siècle', 12:'XIIe siècle', 13:'XIIIe siècle', 14:'XIVe siècle', 15:'XVe siècle'};
+  // Ponctuation à la française : « : ; ! ? » ne passent jamais seuls à la ligne.
+  const insecables = texte => String(texte || '').replace(/ ([:;!?»])/g, '\u00a0$1').replace(/« /g, '«\u00a0');
+
   function personaContexte(persona, className){
     if(persona.epoqueAffichee !== true) return null;
     const lignes = [persona.epoque || SIECLES[persona.siecle], persona.lieu].filter(Boolean);
@@ -869,6 +872,7 @@
   if(personaModal && fiches.length){
     const personaModalImage = personaModal.querySelector('[data-persona-modal-image]');
     const personaModalRole = personaModal.querySelector('[data-persona-modal-role]');
+    const personaModalMetier = personaModal.querySelector('[data-persona-modal-metier]');
     const personaModalTitle = personaModal.querySelector('[data-persona-modal-title]');
     const personaModalDetails = personaModal.querySelector('[data-persona-modal-details]');
     const personaModalCounter = personaModal.querySelector('[data-persona-modal-counter]');
@@ -884,11 +888,17 @@
       personaModalImage.src = persona.img;
       personaModalImage.alt = persona.alt || persona.name;
       personaModalRole.textContent = persona.role;
+      // Le métier à l'époque, en une ou deux phrases (personnages.js).
+      const metier = (window.EC_METIERS || {})[persona.role];
+      if(personaModalMetier){
+        personaModalMetier.textContent = metier ? insecables(metier) : '';
+        personaModalMetier.hidden = !metier;
+      }
       personaModalTitle.textContent = persona.name;
       personaModalDetails.innerHTML = '';
       const hook = document.createElement('p');
       hook.className = 'persona-modal-hook';
-      hook.textContent = persona.hook;
+      hook.textContent = insecables(persona.hook);
       personaModalDetails.appendChild(hook);
       const contexte = personaContexte(persona, 'persona-modal-contexte');
       if(contexte) personaModalDetails.appendChild(contexte);

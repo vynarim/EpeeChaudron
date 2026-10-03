@@ -59,3 +59,31 @@ window.EC_PERSONNAGES = [
   {img:'assets/img/personnages/personnages-portrait-a-venir.webp', name:'Dimitri', epoqueAffichee:false, role:'Souillard', hook:'Pots, chaudrons, écuelles : tout passe entre ses mains et ressort brillant… tout, sauf lui.', alt:'Portrait de Dimitri, souillard, à venir', atelier:['Cuisine au feu', 'Les enfants en lice']},
   {img:'assets/img/personnages/personnages-ambre.webp', name:'Ambre', siecle:13, epoqueAffichee:false, role:'Acrobate', hook:'Virevoltante et espiègle, elle se plaît à faire des farces aux voyageurs de passage.', alt:'Ambre, acrobate, bonnet pointu de feutre et cape sombre, sourire malicieux, à côté de la bannière de la troupe'}
 ];
+
+// Le métier à l'époque : une ou deux phrases de remise en contexte, affichées
+// dans la fiche entre le rôle et le nom. Une entrée par rôle de la liste
+// ci-dessus, écrite exactement comme lui ; un rôle sans entrée n'affiche rien.
+window.EC_METIERS = {
+  'Arbalétrier': 'Soldat de métier, engagé et payé à la solde. L’arbalète perçait les armures et s’apprenait vite, mais coûtait cher : les arbalétriers génois étaient recherchés dans toute l’Europe.',
+  'Apprenti arbalétrier': 'Les villes entretenaient des compagnies d’arbalétriers qui s’exerçaient au tir chaque dimanche. Un jeune y apprenait le tir et l’entretien de l’arme auprès des anciens.',
+  'Forgeron': 'Artisan indispensable, au village comme en ville : outils des champs, fers des chevaux, clous, ferrures. Un métier respecté, organisé en corporation dans les villes.',
+  'Bugadière et tisserande': 'La bugadière faisait la « bugade », la grande lessive à la cendre, deux ou trois fois l’an : un travail pénible, payé à la journée. Le tissage occupait les femmes dans presque chaque foyer.',
+  'Tisserande': 'Le tissage occupait les femmes dans presque chaque foyer. En ville, certaines travaillaient pour des marchands ; à Paris, des métiers de la soie étaient même réservés aux femmes.',
+  'Chevalier': 'Guerrier à cheval, lié à un seigneur par l’hommage. Cheval, armure et écuyers coûtaient une fortune : la chevalerie était un état, un idéal autant qu’un métier des armes.',
+  'Maître d’armes': 'Il enseignait l’escrime contre paiement, aux nobles comme aux bourgeois. Son savoir nous est parvenu par des traités, comme celui de Fiore dei Liberi vers 1400.',
+  'Archer': 'Fantassin souvent issu du peuple, milicien des villes ou soldat payé. Entraînés dès l’enfance, les archers anglais ont décidé de grandes batailles de la guerre de Cent Ans.',
+  'Archer et cracheur de feu': 'L’archer était un fantassin souvent issu du peuple. Le cracheur de feu appartient aux bateleurs, ces amuseurs itinérants des foires qui jouaient avec le feu pour étonner la foule.',
+  'Cuisinier': 'Dans les grandes maisons, la cuisine était une petite armée sous les ordres du queux. Un bon cuisinier était recherché : Taillevent, queux de Charles V, a laissé un livre de recettes célèbre.',
+  'Cuisinière': 'Au foyer, la cuisine revenait aux femmes ; dans les grandes maisons, à une brigade d’hommes menée par le queux. Une bonne cuisinière était précieuse dans les maisons bourgeoises.',
+  'Médecin': 'Le médecin, formé à l’université, examinait les urines et consultait les astres ; barbiers et chirurgiens soignaient de la main. Des femmes soignaient aussi, parfois poursuivies pour cela.',
+  'Bourreau': 'Officier de justice payé par la ville ou le seigneur, il appliquait les peines. Indispensable mais tenu à l’écart : on évitait de le toucher, et la charge passait souvent de père en fils.',
+  'Fille du bourreau': 'La famille du bourreau vivait à l’écart, et ses enfants se mariaient souvent entre familles de bourreaux. La charge se transmettait ainsi d’une génération à l’autre.',
+  'Tailleuse de pierre': 'Les tailleurs de pierre façonnaient les blocs des cathédrales et des châteaux, chacun signant sa pierre d’une marque pour être payé. Des femmes travaillaient aussi sur les chantiers.',
+  'Enlumineur': 'Il ornait les manuscrits de lettrines, de miniatures et d’or. D’abord moines, les enlumineurs sont surtout, dès le XIIIe siècle, des artisans laïcs installés en ville, à Paris notamment.',
+  'Blasonnière': 'Peindre les armoiries sur les écus, les bannières et les cottes d’armes était l’affaire des peintres. Un travail très demandé : au tournoi, chacun se reconnaissait à ses couleurs.',
+  'Haubergier': 'Il fabriquait les hauberts, ces chemises faites de milliers d’anneaux rivetés. Des semaines de travail pour une pièce très chère, qu’on réparait plutôt que de la remplacer.',
+  'Écuyère': 'L’écuyer servait un chevalier : il portait ses armes, soignait son cheval, l’aidait à s’armer. Pour un jeune noble, c’était l’apprentissage avant d’être adoubé.',
+  'Peintre de cour': 'Attaché au service d’un prince, il peignait portraits, décors et bannières pour les fêtes. Une place très recherchée, avec gages et habits : Jan van Eyck l’occupa chez le duc de Bourgogne.',
+  'Souillard': 'Le plus humble de la cuisine : il récurait chaudrons, broches et écuelles à la cendre et au sable. Une place de jeune garçon, première marche vers le métier de cuisinier.',
+  'Acrobate': 'Bateleurs et jongleurs allaient de foire en château, mêlant acrobaties, musique et tours d’adresse. Applaudis du public mais mal vus de l’Église, ils vivaient de sa générosité.',
+};
