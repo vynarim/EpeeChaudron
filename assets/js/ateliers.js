@@ -92,9 +92,9 @@ window.EC_ATELIERS = [
     resume: 'Tentes, mobilier, tables, costumes et interactions continues.',
     texte: [
       'La vie de camp relie tous les autres modules. Tentes, mobilier, vêtements, repas et activités composent un espace habité dans lequel le public peut circuler et échanger avec les membres de la mesnie.',
-      'Plutôt qu’un décor figé, le camp évolue au fil de la journée : préparation des repas, entretien du matériel, artisanat et présentations ponctuelles. Cette présence continue crée un point d’attraction visible dans l’événement.'
+      'Plutôt qu’un décor figé, le camp évolue au fil de la journée : allumage du feu au briquet et à l’amadou, préparation des repas, entretien du matériel, artisanat et présentations ponctuelles. Cette présence continue crée un point d’attraction visible dans l’événement.'
     ],
-    points: ['Installation et organisation du camp', 'Mobilier, costumes et objets quotidiens', 'Échanges continus avec les visiteurs']
+    points: ['Installation et organisation du camp', 'Allumer un feu : briquet, silex et amadou', 'Mobilier, costumes et objets quotidiens', 'Échanges continus avec les visiteurs']
   },
   {
     id: 'bourreau',
