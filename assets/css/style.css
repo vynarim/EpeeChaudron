@@ -395,6 +395,8 @@ h2{
   /* Les fiches prennent la largeur du corps de page (--max, comme .container),
      jamais plus, et au plus 95 % de la hauteur de la fenêtre. */
   .module-modal{overflow:hidden;display:flex;align-items:center;padding:2.5vh 16px;padding:2.5dvh 16px}
+  /* Part de la largeur du corps de page que prennent les fiches : un seul réglage. */
+  .module-modal{--part-fiche:.85}
   /* Fiches d'atelier et de personnage : même largeur, même hauteur. */
   /* Hauteur : celle qui laisse au portrait, sur la moitié de la largeur, son
      format 3/4 (largeur × 2/3), dans la limite de la fenêtre. Les fiches
@@ -404,7 +406,7 @@ h2{
     --largeur-fiche:min(var(--max),100vw - 32px);
     width:var(--largeur-fiche);height:min(var(--largeur-fiche) * 2 / 3,95vh);height:min(var(--largeur-fiche) * 2 / 3,95dvh);min-height:0
   }
-  .persona-modal-panel{grid-template-columns:50% 50%;--largeur-fiche:calc(min(var(--max),100vw - 32px) * .9)}
+  .persona-modal-panel{grid-template-columns:50% 50%;--largeur-fiche:calc(min(var(--max),100vw - 32px) * var(--part-fiche))}
   /* Colonne de texte en trois temps : le métier en haut, le nom, l'accroche
      et l'époque au milieu, les ateliers en bas. */
   .persona-modal-content{justify-content:flex-start}
@@ -417,7 +419,7 @@ h2{
   /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
      pour montrer le plus de texte possible ; 90 % de la largeur du corps. */
   [data-module-modal] .module-modal-panel,
-  [data-module-modal] .module-modal-panel.is-paysage{width:calc(var(--largeur-fiche) * .9);height:95vh;height:95dvh}
+  [data-module-modal] .module-modal-panel.is-paysage{width:calc(var(--largeur-fiche) * var(--part-fiche));height:95vh;height:95dvh}
   .module-modal-panel{grid-template-rows:minmax(0,1fr)}
   /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
      une photo en largeur, il forme une colonne centrée. */
@@ -431,7 +433,7 @@ h2{
      comme une feuille qu'on tire. Sur un écran bas, la photo se limite aux
      trois quarts de la fiche, centrée sur un fond bleu nuit. */
   [data-module-modal] .module-modal-panel.is-paysage{
-    --l-fiche:calc(min(var(--max),100vw - 32px) * .9);
+    --l-fiche:calc(min(var(--max),100vw - 32px) * var(--part-fiche));
     --haut-photo:min(75%,var(--l-fiche) * 520 / 720);
     display:block;overflow-y:auto;overscroll-behavior:contain;
     background:linear-gradient(var(--blue-dark),var(--blue-dark)) top/100% var(--haut-photo) no-repeat,var(--paper-2)
