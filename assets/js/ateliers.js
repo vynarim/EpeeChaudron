@@ -189,15 +189,15 @@ window.EC_ATELIERS = [
     categorie: 'armes',
     img: 'assets/img/ateliers/ateliers-archerie.webp',
     alt: 'Une ligne d’archers en costume sous les arbres : l’un bande son arc long, un autre attend son tour, flèches en main',
-    titre: 'Archerie',
-    resume: 'L’arc, les flèches et la puissance d’une arme simple en apparence.',
+    titre: 'Arc et arbalète',
+    resume: 'Les armes de trait : l’arc et ses flèches, l’arbalète et ses carreaux.',
     texte: [
-      'De l’arc à double courbure au long bow anglais, l’animation compare les matériaux, les formes et les usages, et explique pourquoi tant d’armées ont plié face aux archers. Le public découvre les différents types de flèches : pour chasser, percer une armure, ralentir un navire ou incendier un engin de siège.',
-      'Selon le lieu et l’espace disponible, la présentation se prolonge par des tirs sur cible commentés par nos archers.'
+      'Au Moyen Âge, on parlait du « trait » : tout ce qui se tire, et les gens qui le tirent. De l’arc à double courbure au long bow anglais, puis à l’arbalète qu’on arme au pied de biche ou au cranequin, l’animation compare les matériaux, la puissance et la cadence, et explique pourquoi tant d’armées ont plié face aux archers et aux arbalétriers.',
+      'Le public découvre les différents projectiles : flèches pour chasser, percer une armure ou incendier un engin de siège, carreaux d’arbalète. Selon le lieu et l’espace disponible, la présentation se prolonge par des tirs sur cible commentés.'
     ],
     espace: 'dédié et sécurisé, de la taille d’une lice de combat.',
-    option: 'avec supplément, pour les flèches et les cibles.',
-    points: ['Arcs et flèches : matériaux, formes, usages', 'La place de l’archer dans les batailles', 'Tirs sur cible commentés, selon le lieu']
+    option: 'avec supplément, pour les flèches, les carreaux et les cibles.',
+    points: ['Arc et arbalète : matériaux, puissance, cadence', 'Flèches et carreaux selon l’usage', 'Archers et arbalétriers dans les batailles', 'Tirs sur cible commentés, selon le lieu']
   },
   {
     id: 'forge',

@@ -304,7 +304,7 @@ h2{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(920px,100vw - 36px) * .361)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,95vw * .361)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -393,9 +393,16 @@ h2{
    (portable, barre d'adresse et onglets déduits). La photo se réduit, le
    texte défile dans sa colonne ; la page derrière ne bouge pas. */
 @media (min-width:621px){
-  .module-modal{overflow:hidden;display:flex;align-items:center}
+  /* Les fiches occupent 95 % de la fenêtre, en largeur comme en hauteur. */
+  .module-modal{overflow:hidden;display:flex;align-items:center;padding:2.5vh 2.5vw;padding:2.5dvh 2.5vw}
   /* Fiches d'atelier et de personnage : même largeur, même hauteur. */
-  .module-modal-panel{grid-template-rows:minmax(0,1fr);height:min(860px,calc(100vh - 36px));height:min(860px,calc(100dvh - 36px));min-height:0}
+  .module-modal-panel,.persona-modal-panel,
+  [data-module-modal] .module-modal-panel.is-paysage{width:100%;height:100%;min-height:0}
+  .module-modal-panel{grid-template-rows:minmax(0,1fr)}
+  /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
+     une photo en largeur, il forme une colonne centrée. */
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{align-self:stretch}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content>*{width:100%;max-width:78ch;margin-left:auto;margin-right:auto}
   .module-modal-panel>img{height:100%;min-height:0}
   .module-modal-content{align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;
     display:flex;flex-direction:column;justify-content:safe center}
