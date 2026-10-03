@@ -322,16 +322,6 @@
         p.textContent = contenu;
         details.appendChild(p);
       });
-      // Mentions courtes pour l'organisateur : l'espace à prévoir, le supplément.
-      [['espace', 'Espace :'], ['option', 'Option :']].forEach(([champ, nom]) => {
-        if(!atelier[champ]) return;
-        const mention = document.createElement('p');
-        mention.className = 'module-mention';
-        const libelle = document.createElement('strong');
-        libelle.textContent = nom;
-        mention.append(libelle, ' ' + atelier[champ]);
-        details.appendChild(mention);
-      });
       if(atelier.points && atelier.points.length){
         const rubrique = document.createElement('h4');
         rubrique.textContent = 'Points abordés';
@@ -343,6 +333,16 @@
         });
         details.append(rubrique, liste);
       }
+      // Après les points abordés, mentions courtes pour l'organisateur : l'espace à prévoir, le supplément.
+      [['espace', 'Espace :'], ['option', 'Option :']].forEach(([champ, nom]) => {
+        if(!atelier[champ]) return;
+        const mention = document.createElement('p');
+        mention.className = 'module-mention';
+        const libelle = document.createElement('strong');
+        libelle.textContent = nom;
+        mention.append(libelle, ' ' + atelier[champ]);
+        details.appendChild(mention);
+      });
 
       card.append(img, corps, details);
       atelierGrid.appendChild(card);
