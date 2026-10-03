@@ -459,6 +459,14 @@ h2{
     top:calc(2.5vh + min(95vh * .75,var(--l-fiche) * 520 / 720) / 2);
     top:calc(2.5dvh + min(95dvh * .75,var(--l-fiche) * 520 / 720) / 2)
   }
+  /* Ascenseur discret : fin, translucide, sans flèches. */
+  .module-modal-panel,.module-modal-content{scrollbar-width:thin;scrollbar-color:rgba(7,26,68,.28) transparent}
+  .module-modal-panel::-webkit-scrollbar,.module-modal-content::-webkit-scrollbar{width:6px}
+  .module-modal-panel::-webkit-scrollbar-thumb,.module-modal-content::-webkit-scrollbar-thumb{background:rgba(7,26,68,.28);border-radius:6px}
+  .module-modal-panel::-webkit-scrollbar-button,.module-modal-content::-webkit-scrollbar-button{display:none}
+  /* Titre de l’atelier plus près de la photo et du texte. */
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{padding-top:22px}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-heading{margin-bottom:.5rem}
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-prev{left:calc((100vw - var(--l-fiche)) / 2 + 12px)}
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-next{right:calc((100vw - var(--l-fiche)) / 2 + 12px)}
 }
@@ -475,6 +483,9 @@ h2{
 .back-to-top.is-visible{opacity:1;visibility:visible;transform:none;pointer-events:auto}
 .back-to-top:hover{background:var(--blue)}
 .back-to-top:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+/* La même flèche, vers le bas, au pied d'une fiche dont le texte dépasse.
+   Sa place exacte est posée par main.js. */
+.fiche-suite{right:auto;bottom:auto;z-index:3}
 
 .wishlist-notification{
   position:fixed;z-index:1200;right:18px;bottom:18px;width:min(390px,calc(100% - 36px));

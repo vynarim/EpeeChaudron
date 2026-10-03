@@ -631,7 +631,50 @@
   function orienterModuleModal(){
     if(!moduleModalPanel || !moduleModalImage.naturalWidth) return;
     moduleModalPanel.classList.toggle('is-paysage', moduleModalImage.naturalWidth > moduleModalImage.naturalHeight);
+    majSuiteAtelier();
   }
+
+  // « Lire la suite » : quand une fiche a du texte caché sous le bord, une
+  // flèche vers le bas l'indique, au pied de la fiche ; un clic descend
+  // jusqu'en bas. Ce qui défile dépend de l'écran : toute la fiche (atelier
+  // sur ordinateur) ou sa colonne de texte.
+  const moinsDeMouvement = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function suiteDeFiche(panel){
+    if(!panel) return () => {};
+    const bouton = document.createElement('button');
+    bouton.type = 'button';
+    bouton.className = 'back-to-top fiche-suite';
+    bouton.setAttribute('aria-label', 'Faire défiler la fiche jusqu’en bas');
+    bouton.title = 'Lire la suite';
+    bouton.textContent = '↓';
+    panel.appendChild(bouton);
+    const defileur = () => [panel, ...panel.querySelectorAll('.module-modal-content')]
+      .find(el => el.scrollHeight - el.clientHeight > 4 && /auto|scroll/.test(getComputedStyle(el).overflowY));
+    const maj = () => {
+      const el = defileur();
+      const reste = el ? el.scrollHeight - el.clientHeight - el.scrollTop : 0;
+      bouton.classList.toggle('is-visible', reste > 8);
+      // Posée sur la fenêtre (la fiche elle-même peut défiler), au milieu du
+      // bas de la fiche.
+      const cadre = panel.getBoundingClientRect();
+      bouton.style.left = Math.round(cadre.left + cadre.width / 2 - bouton.offsetWidth / 2) + 'px';
+      bouton.style.top = Math.round(cadre.bottom - bouton.offsetHeight - 14) + 'px';
+    };
+    bouton.addEventListener('click', () => {
+      const el = defileur();
+      if(el) el.scrollTo({top: el.scrollHeight, behavior: moinsDeMouvement.matches ? 'auto' : 'smooth'});
+    });
+    // scroll ne remonte pas : on l'écoute à la capture, pour la fiche comme
+    // pour sa colonne de texte.
+    panel.addEventListener('scroll', maj, {capture: true, passive: true});
+    window.addEventListener('resize', maj);
+    panel.querySelectorAll('img').forEach(img => img.addEventListener('load', maj));
+    return () => {
+      [panel, ...panel.querySelectorAll('.module-modal-content')].forEach(el => { el.scrollTop = 0; });
+      window.requestAnimationFrame(maj);
+    };
+  }
+  const majSuiteAtelier = suiteDeFiche(moduleModalPanel);
   if(moduleModalImage) moduleModalImage.addEventListener('load', orienterModuleModal);
 
   function openModuleModal(card, sansHistorique){
@@ -671,6 +714,7 @@
     document.body.style.overflow = 'hidden';
     if(!sansHistorique) overlayHistory.opened(closeModuleModal);
     moduleModalClose.focus();
+    majSuiteAtelier();
   }
 
   function showRelativeModule(offset){
@@ -969,6 +1013,7 @@
     const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
     const personaModalNext = personaModal.querySelector('[data-persona-modal-next]');
     let personaIndex = 0;
+    const majSuitePersona = suiteDeFiche(personaModal.querySelector('.module-modal-panel'));
 
     // Les flèches de la fiche ne parcourent que les costumes du siècle choisi.
     const fichesVisibles = () => fiches.map((f, i) => i).filter(i => correspond(fiches[i]));
@@ -1042,6 +1087,7 @@
           personaModalDetails.appendChild(p);
         });
       }
+      majSuitePersona();
       const visibles = fichesVisibles();
       personaModalCounter.textContent = (visibles.indexOf(personaIndex) + 1) + ' / ' + visibles.length;
     }
@@ -1070,6 +1116,7 @@
       document.body.classList.add('is-modal-open');
       document.body.style.overflow = 'hidden';
       personaModalClose.focus();
+      majSuitePersona();
     }
 
     function openPersonaModal(index){
