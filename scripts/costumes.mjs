@@ -162,8 +162,10 @@ export function etatCostumes() {
   const personnages = lirePersonnages();
   const archive = lireArchive();
   const fiches = new Map(archive.personnages.map(f => [f.nom, f]));
-  const etat = { total: personnages.length, aJour: [], aAnalyser: [], incompletes: [], ecarts: [], orphelines: [] };
+  const etat = { total: personnages.length, aJour: [], aAnalyser: [], incompletes: [], ecarts: [], orphelines: [], enAttente: [] };
   for (const p of personnages) {
+    // Portrait pas encore fourni : rien à analyser tant que la photo manque.
+    if (p.img.includes('portrait-a-venir')) { etat.enAttente.push(p.cle); continue; }
     const f = fiches.get(p.cle);
     if (!f) { etat.aAnalyser.push({ nom: p.cle, raison: 'jamais analysé' }); continue; }
     if (!f.verdict) { etat.aAnalyser.push({ nom: p.cle, raison: 'fiche ouverte, à remplir' }); continue; }
@@ -202,6 +204,7 @@ function afficherEtat() {
   bloc('Écarts avec le site, à corriger par « npm run costumes -- appliquer »',
     etat.ecarts.flatMap(x => x.ecarts.map(e => `${x.nom}, ${e}`)));
   bloc('Analyses sans personnage', etat.orphelines.map(x => `${x.nom} : ${x.indice}`));
+  bloc('Portrait attendu, analyse à faire à son arrivée', etat.enAttente);
   if (!etat.aAnalyser.length && !etat.incompletes.length && !etat.ecarts.length && !etat.orphelines.length) {
     console.log('Tout est à jour.');
   }
