@@ -72,6 +72,7 @@ l'archive.
 | `pourquoi` | Pourquoi rien n'est affiché. Obligatoire pour `rien`. |
 | `piste` | Facultatif : ce qui suffirait à corriger. |
 | `arbitrage` | Facultatif, interne, absent de la page : une décision de la troupe et sa raison. |
+| `metier` | L’adéquation au rôle : appréciation (Très raccord, Raccord, À compléter) puis remarque. Sans effet sur le verdict. |
 | `photo` | Facultatif : objet du quotidien visible sur le portrait, et le conseil de retoucher la photo. |
 | `historique` | Les analyses précédentes. Ne pas y toucher. |
 
@@ -98,10 +99,13 @@ la personne, et chacun doit en ressortir avec une idée, pas avec une note.
   l'univers fantastique ») plutôt que la condamner (« moderne », « n'a
   jamais existé », « fantaisie », « à retirer »). Pas de comparaison
   moqueuse (bicorne napoléonien, lutin) quand une date suffit.
-- Juger l'accord du costume avec le siècle affiché, jamais avec le rôle ou
-  le métier : chaque membre anime des ateliers très différents sans changer
-  de costume. Pas de verdict, de pièce à revoir ni de conseil fondé sur le
-  métier (« irait avec le rôle », « pour un cuisinier… »).
+- Séparer les deux analyses. Le verdict, `tient`, `details`, `denote`,
+  `pourquoi` et `piste` ne parlent que de l'accord avec le siècle. L'accord
+  avec le rôle va dans `metier` (« Adéquation au métier » sur la page) :
+  une appréciation en tête (« Très raccord. », « Raccord. », « À
+  compléter. ») puis une remarque et, au besoin, l'accessoire qui montrerait
+  le métier. Chaque membre anime des ateliers très différents sans changer
+  de costume : le métier ne change jamais le verdict ni l'époque affichée.
 - Objet du quotidien visible sur le portrait (téléphone, lunettes de vue
   modernes, bracelet de festival) : ce n'est pas le costume, c'est la photo
   qui n'a pas été prise au bon moment. Le dire dans le champ `photo`

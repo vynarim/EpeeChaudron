@@ -42,9 +42,9 @@ const GROUPES = [
     intro: 'Sur la photo, ces costumes ne se rattachent pas encore à une époque précise entre le XIe et le XVe siècle : le site n’en affiche donc aucune, sans rien enlever au personnage. Le conseil indique la pièce qui suffirait à en faire apparaître une.' },
 ];
 const VERDICTS = GROUPES.map(g => g.verdict);
-const NOTES = [['tient', 'Les points forts'], ['details', 'Pour peaufiner'], ['denote', 'À faire évoluer'], ['pourquoi', 'Où en est le costume'], ['piste', 'Conseil'], ['photo', 'La photo']];
+const NOTES = [['tient', 'Les points forts'], ['details', 'Pour peaufiner'], ['denote', 'À faire évoluer'], ['pourquoi', 'Où en est le costume'], ['piste', 'Conseil'], ['metier', 'Adéquation au métier'], ['photo', 'La photo']];
 const ORDRE_CHAMPS = ['nom', 'date', 'empreinte', 'verdict', 'siecle', 'epoque', 'lieu', 'alt',
-  'tient', 'details', 'denote', 'pourquoi', 'piste', 'photo', 'arbitrage', 'historique'];
+  'tient', 'details', 'denote', 'pourquoi', 'piste', 'metier', 'photo', 'arbitrage', 'historique'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
 // --- Lecture et écriture ------------------------------------------------------
@@ -327,7 +327,7 @@ function carte({ p, f, fichier }) {
     ? '<span class="vide">Pas encore d’époque affichée</span>'
     : `<span>${texte(f.epoque || SIECLES[f.siecle])}</span><span>${texte(f.lieu)}</span>`;
   const notes = NOTES.filter(([k]) => f[k])
-    .map(([k, libelle]) => `<div><dt${k === 'denote' || k === 'photo' ? ` class="${k}"` : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
+    .map(([k, libelle]) => `<div${k === 'metier' ? ' class="metier"' : ''}><dt${k === 'denote' || k === 'photo' ? ` class="${k}"` : ''}>${libelle}</dt><dd>${texte(f[k])}</dd></div>`)
     .join('\n          ');
   return `
       <article class="fiche" id="${slug(p.cle)}">
@@ -379,7 +379,7 @@ ${STYLE}</style>
     <ul>
       <li>${texte('Cette page n’est pas un classement. Elle est là pour donner des idées pour la prochaine pièce à coudre ou à acheter, à son rythme : un costume se construit sur des années, et on joue d’abord pour le plaisir de partager.')}</li>
       <li>${texte('Chaque fiche part du portrait publié sur le site. Une seule photo ne montre pas tout : jambes et chaussures sont souvent hors cadre.')}</li>
-      <li>${texte('Seul compte l’accord du costume avec le siècle affiché, pas avec le rôle : chacun anime des ateliers très différents sans changer de costume à chaque fois. Un costume qui ne colle pas au métier de l’atelier n’est donc pas un écart.')}</li>
+      <li>${texte('L’époque affichée ne dépend que de l’accord du costume avec le siècle. L’adéquation au métier est notée à part, en fin de fiche : chacun anime des ateliers très différents sans changer de costume, et un costume peu raccord avec le métier n’enlève rien à l’époque affichée.')}</li>
       <li>${texte('Le siècle est celui que désignent les pièces les plus datantes : coiffure, coupe, fermetures, armement. La région n’est précisée que lorsque le costume la désigne, sinon la ligne indique « Europe ».')}</li>
       <li>${texte('Une pièce « à faire évoluer » vient d’une autre époque, ou de l’imaginaire médiéval-fantastique, très présent sur les fêtes. Quand la base du costume est juste, l’époque s’affiche quand même.')}</li>
       <li>${texte('Une source contredit une fiche (enluminure, fouille, pièce de musée) ? Signalez-la, et la fiche comme la ligne du site seront corrigées.')}</li>
@@ -620,6 +620,7 @@ h1{
 .notes dt{font-weight:700;color:var(--ink);font-size:.86rem}
 .notes dt.denote{color:var(--blue)}
 .notes dt.photo{color:var(--fire)}
+.notes div.metier{padding-top:8px;border-top:1px dashed var(--line)}
 .notes dd{margin:0;color:var(--text)}
 
 /* --- Décor et pied de page --- */
