@@ -304,7 +304,7 @@ h2{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(1120px,100vw - 32px) * .95 * .361)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:calc(var(--haut-photo) / 2)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -431,7 +431,15 @@ h2{
   [data-module-modal] .module-modal-panel.is-paysage{
     display:flex;flex-direction:column
   }
-  [data-module-modal] .module-modal-panel.is-paysage>img{flex:0 1 auto;height:auto;min-height:120px;max-height:52vh;max-height:min(52vh,52dvh)}
+  /* La photo garde toujours son format, jamais rognée : toute la largeur de
+     la fiche si la hauteur le permet ; sinon, sur un écran bas, elle se limite
+     aux deux tiers de la fiche et se centre sur un fond sombre. */
+  [data-module-modal] .module-modal-panel.is-paysage{background:linear-gradient(var(--blue-dark),var(--blue-dark)) top/100% var(--haut-photo) no-repeat,var(--paper-2)}
+  [data-module-modal] .module-modal-panel.is-paysage{--haut-photo:min(64%,var(--largeur-fiche) * .95 * 520 / 720)}
+  [data-module-modal] .module-modal-panel.is-paysage>img{
+    flex:0 0 auto;align-self:center;width:auto;max-width:100%;
+    height:var(--haut-photo);min-height:0;max-height:none;aspect-ratio:720/520;object-fit:cover
+  }
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{flex:1 1 auto;justify-content:flex-start}
 }
 
