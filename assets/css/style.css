@@ -304,7 +304,7 @@ h2{
     align-self:start;padding:clamp(24px,4vw,44px) clamp(28px,5vw,58px)
   }
   /* Les flèches restent au milieu de la photo, pas au milieu de la fiche */
-  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(1120px,100vw - 32px) * .361)}
+  [data-module-modal] .module-modal-panel.is-paysage .module-modal-nav{top:min(26vh,min(1120px,100vw - 32px) * .95 * .361)}
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
@@ -416,7 +416,7 @@ h2{
   /* La fiche d’atelier, photo au-dessus du texte, monte à 95 % de la fenêtre
      pour montrer le plus de texte possible. */
   [data-module-modal] .module-modal-panel,
-  [data-module-modal] .module-modal-panel.is-paysage{height:95vh;height:95dvh}
+  [data-module-modal] .module-modal-panel.is-paysage{width:calc(var(--largeur-fiche) * .95);height:95vh;height:95dvh}
   .module-modal-panel{grid-template-rows:minmax(0,1fr)}
   /* Sur grand écran, le texte garde une longueur de ligne lisible : sous
      une photo en largeur, il forme une colonne centrée. */
