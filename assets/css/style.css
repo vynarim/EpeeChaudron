@@ -307,6 +307,8 @@ h2{
 }
 .module-modal-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:1rem}
 .module-modal-heading h2{margin:0;flex:1 1 auto}
+/* Titre de la fiche d'atelier : un cran sous les titres de section. */
+@media (min-width:621px){.module-modal-heading h2{font-size:clamp(1.5rem,2vw,1.8rem)}}
 .module-modal-details p{color:var(--muted)}
 .module-modal-details h4{margin:1.3rem 0 .45rem;color:var(--blue-dark);font-family:inherit;font-size:inherit;line-height:inherit;font-weight:700}
 .module-modal-details ul{margin:0 0 1.5rem;padding-left:1.2rem;font-family:inherit;font-size:inherit;line-height:inherit}
