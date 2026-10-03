@@ -98,6 +98,10 @@ la personne, et chacun doit en ressortir avec une idée, pas avec une note.
   l'univers fantastique ») plutôt que la condamner (« moderne », « n'a
   jamais existé », « fantaisie », « à retirer »). Pas de comparaison
   moqueuse (bicorne napoléonien, lutin) quand une date suffit.
+- Juger l'accord du costume avec le siècle affiché, jamais avec le rôle ou
+  le métier : chaque membre anime des ateliers très différents sans changer
+  de costume. Pas de verdict, de pièce à revoir ni de conseil fondé sur le
+  métier (« irait avec le rôle », « pour un cuisinier… »).
 - Objet du quotidien visible sur le portrait (téléphone, lunettes de vue
   modernes, bracelet de festival) : ce n'est pas le costume, c'est la photo
   qui n'a pas été prise au bon moment. Le dire dans le champ `photo`

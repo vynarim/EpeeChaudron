@@ -93,7 +93,7 @@
       "lieu": "Europe",
       "alt": "Childéric en archer : chaperon bleu à bord découpé, lunettes à rivet, cotte boutonnée, ceinture à plaques, flèches à la ceinture",
       "tient": "Le chaperon bleu au bord découpé en dents, doublé de violet. La cotte ajustée, fermée du col à l’ourlet par une rangée serrée de boutons de tissu, à manches étroites : la mode des années 1350–1400. La ceinture d’orfèvrerie à plaques portée bas, la bourse de cuir, les flèches passées à la ceinture, les lunettes à rivet.",
-      "details": "Un gant ou une palette d’archer en cuir naturel remplacerait avantageusement le gant jaune, qui rappelle un gant de travail. Pour le pendentif en étoile, comme sur son autre costume, une enseigne de pèlerinage ferait le même effet.",
+      "details": "Le gant jaune rappelle un gant de travail d’aujourd’hui : en cuir naturel, il serait plus d’époque. Pour le pendentif en étoile, comme sur son autre costume, une enseigne de pèlerinage ferait le même effet.",
       "historique": []
     },
     {
@@ -105,7 +105,7 @@
       "lieu": "Europe",
       "alt": "Guillaume : cotte verte, attablé devant sa vaisselle de bois",
       "tient": "La cotte verte simple, la vaisselle de bois et de terre.",
-      "details": "Peu de pièces datantes sur la photo : l’ensemble irait du XIIe au XIVe siècle. Pour peaufiner : une cale de lin nouée sous le menton, que portent la plupart des hommes au travail dans les enluminures du XIIIe, et les cuisiniers en particulier. Elle préciserait l’époque et irait très bien avec le rôle.",
+      "details": "Peu de pièces datantes sur la photo : l’ensemble irait du XIIe au XIVe siècle. Pour peaufiner : une cale de lin nouée sous le menton, que portent la plupart des hommes dans les enluminures du XIIIe. Elle suffirait à préciser l’époque.",
       "historique": []
     },
     {
@@ -173,7 +173,7 @@
       "tient": "Le linge de tête, la pèlerine de laine boutonnée, la cotte sarcelle, le col de chemise.",
       "denote": "La peau de bête et la corne à boire pendues à la ceinture viennent plutôt de l’imagerie viking ou médiévale-fantastique.",
       "historique": [],
-      "piste": "Une escarcelle de cuir ou une trousse de médecin à la ceinture irait parfaitement avec le rôle."
+      "piste": "Une escarcelle de cuir ou une bourse de toile à la ceinture, à la place de la peau et de la corne."
     },
     {
       "nom": "Eric",
@@ -197,7 +197,7 @@
       "epoque": "Fin XVe siècle",
       "lieu": "Europe",
       "alt": "Morgane : chapeau de paille, chemise blanche, corsage gris lacé, jupe sombre",
-      "tient": "Le chapeau de paille, qu’on voit aux travaux des champs dans les calendriers enluminés du XVe. La chemise blanche, la jupe de laine sombre, l’escarcelle. Les cheveux libres conviennent à une jeune fille, donc à la fille du bourreau.",
+      "tient": "Le chapeau de paille, qu’on voit aux travaux des champs dans les calendriers enluminés du XVe. La chemise blanche, la jupe de laine sombre, l’escarcelle. Les cheveux libres, portés par les jeunes filles non mariées.",
       "denote": "Le corsage gris lacé, séparé de la jupe, a une coupe plutôt Renaissance.",
       "historique": [],
       "piste": "Une cotte d’une seule pièce, lacée devant, comme on la portait au XVe."
@@ -225,7 +225,7 @@
       "verdict": "rien",
       "alt": "Benoît : gilet noir matelassé sur chemise blanche lacée",
       "pourquoi": "Le gilet matelassé et la chemise lacée sont des vêtements d’aujourd’hui : l’ensemble ne se rattache pas encore à une époque.",
-      "piste": "Une cotte longue ou un pourpoint de laine à la place du gilet, et l’enlumineur trouverait son siècle.",
+      "piste": "Une cotte longue ou un pourpoint de laine à la place du gilet, et le costume trouverait son siècle.",
       "historique": []
     },
     {
@@ -247,7 +247,7 @@
       "alt": "Denis : tabard blanc à croix rouge, chaperon, béret noir, pantalon blanc",
       "tient": "Le tabard à croix et le chaperon, qui renvoient aux XIIe–XIIIe siècles.",
       "pourquoi": "Le béret de velours noir appartient au XVIe ; le pantalon blanc ample et les bottes de daim sont plus récents encore.",
-      "piste": "Sans le béret, avec des chausses, on pourrait afficher « XIIe – XIIIe siècle ». Un détail d’histoire, pour un haubergier : le manteau blanc à croix rouge était réservé aux chevaliers du Temple, les sergents et frères de métier portaient du noir ou du brun.",
+      "piste": "Sans le béret, avec des chausses, on pourrait afficher « XIIe – XIIIe siècle ». Un détail d’histoire : le manteau blanc à croix rouge était réservé aux chevaliers du Temple, les sergents et frères de métier portaient du noir ou du brun.",
       "photo": "Un téléphone en main se voit sur le portrait : la photo n’a pas été prise au bon moment. Retoucher la photo pour l’effacer, ou en reprendre une, est fortement conseillé.",
       "historique": []
     },
@@ -268,7 +268,7 @@
       "verdict": "rien",
       "alt": "Joshua : chemise lacée à œillets, brassards noirs, large ceinture de cuir",
       "pourquoi": "La chemise lacée sur œillets métalliques, les brassards ornés de triskèles et la large ceinture gaufrée viennent plutôt de l’univers fantastique.",
-      "piste": "Une cotte de laine ou de lin à encolure simple et une ceinture étroite à boucle suffiraient à ancrer le peintre de cour dans son siècle.",
+      "piste": "Une cotte de laine ou de lin à encolure simple et une ceinture étroite à boucle suffiraient à ancrer le costume dans son siècle.",
       "historique": []
     },
     {
@@ -277,8 +277,8 @@
       "empreinte": "fb5383ecb54154c3",
       "verdict": "rien",
       "alt": "Ambre : bonnet pointu de feutre, col de fourrure, cape sombre",
-      "pourquoi": "Le bonnet pointu façon lutin, le col de fourrure et l’orange vif tirent vers le conte : un bel effet pour une acrobate, mais pas encore une époque précise.",
-      "piste": "Un chaperon de laine à la place du bonnet pointu. Les couleurs vives, elles, peuvent rester : les jongleurs et acrobates du Moyen Âge en portaient volontiers.",
+      "pourquoi": "Le bonnet pointu façon lutin et le col de fourrure tirent vers le conte plutôt que vers une époque précise.",
+      "piste": "Un chaperon de laine à la place du bonnet pointu. Les couleurs vives, elles, peuvent rester : on en portait volontiers au Moyen Âge.",
       "historique": []
     }
   ]

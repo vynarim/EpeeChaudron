@@ -379,6 +379,7 @@ ${STYLE}</style>
     <ul>
       <li>${texte('Cette page n’est pas un classement. Elle est là pour donner des idées pour la prochaine pièce à coudre ou à acheter, à son rythme : un costume se construit sur des années, et on joue d’abord pour le plaisir de partager.')}</li>
       <li>${texte('Chaque fiche part du portrait publié sur le site. Une seule photo ne montre pas tout : jambes et chaussures sont souvent hors cadre.')}</li>
+      <li>${texte('Seul compte l’accord du costume avec le siècle affiché, pas avec le rôle : chacun anime des ateliers très différents sans changer de costume à chaque fois. Un costume qui ne colle pas au métier de l’atelier n’est donc pas un écart.')}</li>
       <li>${texte('Le siècle est celui que désignent les pièces les plus datantes : coiffure, coupe, fermetures, armement. La région n’est précisée que lorsque le costume la désigne, sinon la ligne indique « Europe ».')}</li>
       <li>${texte('Une pièce « à faire évoluer » vient d’une autre époque, ou de l’imaginaire médiéval-fantastique, très présent sur les fêtes. Quand la base du costume est juste, l’époque s’affiche quand même.')}</li>
       <li>${texte('Une source contredit une fiche (enluminure, fouille, pièce de musée) ? Signalez-la, et la fiche comme la ligne du site seront corrigées.')}</li>
