@@ -347,7 +347,9 @@ h2{
 .persona-modal-details p{margin:0 0 1rem;color:var(--muted);font-style:italic;font-size:1.06rem;line-height:1.5}
 /* L'accroche est en italique ; l'atelier et le texte qui la suivent restent droits. */
 .persona-modal-details p ~ p{font-style:normal;font-size:1rem}
-.persona-modal-details .persona-modal-contexte{font-style:normal;font-size:.9rem;line-height:1.4}
+.persona-modal-details .persona-modal-contexte{display:flex;flex-wrap:wrap;gap:6px;font-style:normal;font-size:.8rem;line-height:1.2}
+/* Époque et région en pastilles discrètes : des repères, pas un titre. */
+.persona-modal-contexte span{padding:.3rem .65rem;border-radius:999px;background:rgba(18,61,145,.07);color:var(--blue-dark);font-weight:600}
 .persona-modal-atelier strong{color:var(--ink);font-weight:800}
 /* Les liens suivent le fil du texte (plusieurs ateliers s'enchaînent) ; la
    ligne fait 44 px, la hauteur tactile minimale, sans zones qui se chevauchent
@@ -582,10 +584,7 @@ h2{
   .persona-modal-counter{order:2;position:static;margin-left:auto}
   .persona-modal-details{order:3;flex-basis:100%;margin-top:.3rem}
   .persona-modal-details p,.persona-modal-details p ~ p{margin-bottom:.25rem;font-size:.94rem;line-height:1.35}
-  .persona-modal-details .persona-modal-contexte{font-size:.94rem;line-height:1.35}
-  /* Époque et région sur une ligne : « XIVe siècle · Europe ». */
-  .persona-modal-details .persona-modal-contexte span{display:inline}
-  .persona-modal-details .persona-modal-contexte span + span::before{content:" · "}
+  .persona-modal-details .persona-modal-contexte{font-size:.8rem;line-height:1.2;margin:.15rem 0 .45rem}
   .persona-modal .module-modal-nav{top:30%}
   .module-modal-prev{left:10px}
   .module-modal-next{right:10px}
@@ -724,11 +723,8 @@ h2{
 .persona-body{padding:14px 14px 16px}
 .persona h3{margin:0;color:var(--blue-dark);font-size:1.07rem;line-height:1.18}
 .persona-role{margin:2px 0 .5rem;color:var(--blue);font-weight:700;font-size:.86rem}
-/* Relais des costumes d'un même membre : fondu entre deux portraits. */
-/* Fiche d'un membre à plusieurs costumes : un bouton par costume. */
-.persona-modal-costumes{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
-.persona-modal-costumes .module-filter{min-height:44px}
-.persona-figure img,.persona-body,.persona-modal-panel>img,.persona-modal-role,.persona-modal-hook{transition:opacity .35s ease}
+/* Relais des costumes d'un même membre sur sa carte : fondu entre deux portraits. */
+.persona-figure img,.persona-body{transition:opacity .35s ease}
 .is-fondu{opacity:0}
 .persona-hook{margin:0;color:var(--muted);font-size:.9rem;line-height:1.45;font-style:italic}
 /* D'où vient le costume : un repère discret sous l'accroche, pas un titre. */
@@ -736,7 +732,7 @@ h2{
   margin:.6rem 0 0;padding-top:.5rem;border-top:1px solid var(--line);
   color:var(--muted);font-size:.8rem;line-height:1.35;
 }
-.persona-contexte span,.persona-modal-contexte span{display:block}
+.persona-contexte span{display:block}
 
 /* Grand écran en paysage : deux rangées de quatre, qui défilent ensemble.
    La hauteur des photos suit celle de l'écran pour que les deux rangées

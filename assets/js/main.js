@@ -762,9 +762,11 @@
   // galerie l'est depuis photos.js — on ajoute un personnage sans toucher au HTML.
   const personaTrack = document.querySelector('[data-persona-track]');
   // Un membre qui porte deux costumes d'époques différentes a deux entrées du
-  // même nom dans personnages.js, mais une seule carte et une seule fiche : ses
-  // costumes s'y relaient (photo, rôle, accroche, époque). Ses ateliers sont
-  // ceux des deux entrées réunis : c'est la même personne qui les anime.
+  // même nom dans personnages.js : une seule carte dans le carrousel, où ses
+  // costumes se relaient (photo, rôle, accroche, époque), mais une fiche
+  // complète par costume. Les fiches suivent les entrées, les cartes les membres.
+  const fiches = window.EC_PERSONNAGES || [];
+  const ficheVersCarte = [];
   const personas = [];
   (window.EC_PERSONNAGES || []).forEach(entree => {
     let persona = personas.find(p => p.name === entree.name);
@@ -812,7 +814,6 @@
       card.setAttribute('aria-haspopup', 'dialog');
       card.setAttribute('aria-label', 'Voir la fiche de ' + persona.name + ', '
         + [...new Set(persona.costumes.map(c => c.role))].join(' et '));
-      card.dataset.personaIndex = String(index);
       const figure = document.createElement('figure');
       figure.className = 'persona-figure';
       const img = document.createElement('img');
@@ -832,6 +833,8 @@
       body.append(name, role, hook);
       let contexte = null;
       const afficher = costume => {
+        // La carte ouvre la fiche du costume qu'elle montre.
+        card.dataset.fiche = String(fiches.indexOf(costume));
         img.src = costume.img;
         img.alt = costume.alt || persona.name;
         role.textContent = costume.role;
@@ -844,6 +847,7 @@
       relayerCostumes(persona, costume => fondu([img, body], () => afficher(costume)));
       // Le carrousel attend que tous les costumes aient été vus avant d'avancer.
       if(persona.costumes.length > 1) card.dataset.dureeMin = String(persona.costumes.length * RELAIS_COSTUMES);
+      persona.costumes.forEach(costume => { ficheVersCarte[fiches.indexOf(costume)] = card; });
       card.append(figure, body);
       personaTrack.appendChild(card);
       personaCards.push(card);
@@ -852,7 +856,7 @@
 
   // Fiche personnage en plein écran, sur le modèle de la fiche animation.
   const personaModal = document.querySelector('[data-persona-modal]');
-  if(personaModal && personas.length){
+  if(personaModal && fiches.length){
     const personaModalImage = personaModal.querySelector('[data-persona-modal-image]');
     const personaModalRole = personaModal.querySelector('[data-persona-modal-role]');
     const personaModalTitle = personaModal.querySelector('[data-persona-modal-title]');
@@ -862,68 +866,23 @@
     const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
     const personaModalNext = personaModal.querySelector('[data-persona-modal-next]');
     let personaIndex = 0;
-    let arreterRelais = () => {};
 
     function showPersona(index){
-      const total = personas.length;
+      const total = fiches.length;
       personaIndex = ((index % total) + total) % total;
-      const persona = personas[personaIndex];
-      arreterRelais();
+      const persona = fiches[personaIndex];
+      personaModalImage.src = persona.img;
+      personaModalImage.alt = persona.alt || persona.name;
+      personaModalRole.textContent = persona.role;
       personaModalTitle.textContent = persona.name;
       personaModalDetails.innerHTML = '';
       const hook = document.createElement('p');
       hook.className = 'persona-modal-hook';
+      hook.textContent = persona.hook;
       personaModalDetails.appendChild(hook);
-      let contexte = null;
-      // Ce qui change d'un costume à l'autre ; les ateliers, dessous, restent.
-      const afficher = costume => {
-        personaModalImage.src = costume.img;
-        personaModalImage.alt = costume.alt || persona.name;
-        personaModalRole.textContent = costume.role;
-        hook.textContent = costume.hook;
-        if(contexte) contexte.remove();
-        contexte = personaContexte(costume, 'persona-modal-contexte');
-        if(contexte) hook.after(contexte);
-      };
-      afficher(persona.costumes[0]);
-      // Plusieurs costumes : un bouton par costume, au-dessus de l'accroche. Ils
-      // suivent le relais automatique ; un choix du visiteur l'arrête.
-      const choix = [];
-      const marquer = costume => choix.forEach(b => {
-        b.classList.toggle('is-active', b.costume === costume);
-        b.setAttribute('aria-pressed', String(b.costume === costume));
-      });
-      if(persona.costumes.length > 1){
-        const roles = new Set(persona.costumes.map(c => c.role));
-        const barre = document.createElement('div');
-        barre.className = 'persona-modal-costumes';
-        barre.setAttribute('role', 'group');
-        barre.setAttribute('aria-label', 'Costumes de ' + persona.name);
-        persona.costumes.forEach(costume => {
-          const bouton = document.createElement('button');
-          bouton.type = 'button';
-          bouton.className = 'module-filter';
-          bouton.costume = costume;
-          // Le rôle quand il distingue les costumes, sinon l'époque.
-          bouton.textContent = roles.size === persona.costumes.length ? costume.role
-            : (costume.epoqueAffichee && (costume.epoque || SIECLES[costume.siecle])) || costume.role;
-          bouton.addEventListener('click', () => {
-            arreterRelais();
-            arreterRelais = () => {};
-            marquer(costume);
-            fondu([personaModalImage, personaModalRole, hook], () => afficher(costume));
-          });
-          choix.push(bouton);
-          barre.append(bouton);
-        });
-        personaModalDetails.prepend(barre);
-        marquer(persona.costumes[0]);
-      }
-      arreterRelais = relayerCostumes(persona, costume => {
-        marquer(costume);
-        fondu([personaModalImage, personaModalRole, hook], () => afficher(costume));
-      });
-      if(persona.atelier.length){
+      const contexte = personaContexte(persona, 'persona-modal-contexte');
+      if(contexte) personaModalDetails.appendChild(contexte);
+      if(persona.atelier){
         // Un nom, ou une liste de noms pour qui anime plusieurs ateliers. Un
         // atelier désactivé dans ateliers.js n'est plus mentionné.
         const noms = (Array.isArray(persona.atelier) ? persona.atelier : [persona.atelier])
@@ -965,9 +924,12 @@
 
     animateursDe = titre => {
       const cle = titre.trim().toLowerCase();
-      return personas
-        .map((persona, index) => ({nom: persona.name, index, ateliers: persona.atelier}))
-        .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle));
+      const vus = new Set();
+      return fiches
+        .map((fiche, index) => ({nom: fiche.name, index, ateliers: [].concat(fiche.atelier || [])}))
+        .filter(p => p.ateliers.some(a => String(a).trim().toLowerCase() === cle))
+        // Un membre à deux costumes n'est cité qu'une fois, vers sa première fiche.
+        .filter(p => !vus.has(p.nom) && vus.add(p.nom));
     };
     // Depuis la fiche d'un atelier : la fiche du personnage s'ouvre par-dessus,
     // celle de l'atelier reste dans l'historique et revient à la fermeture.
@@ -1013,7 +975,6 @@
     function closePersonaModal(){
       if(personaModal.hidden) return;
       personaModal.hidden = true;
-      arreterRelais();
       overlayHistory.closed(closePersonaModal);
       personaModalImage.removeAttribute('src');
       personaModalDetails.innerHTML = '';
@@ -1028,13 +989,14 @@
       }
       // Rendre la main sur le personnage affiché en dernier : le carrousel
       // se replace dessus, on ne repart pas d'où on était parti.
-      const back = personaCards[personaIndex];
+      const back = ficheVersCarte[personaIndex];
       if(back) back.focus();
     }
 
     // Les cartes vivent dans un carrousel : n'ouvrir la fiche que si le doigt
     // n'a pas glissé, sinon chaque swipe ouvrirait une fiche.
-    personaCards.forEach((card, index) => {
+    personaCards.forEach(card => {
+      const index = () => Number(card.dataset.fiche);
       let startX = 0;
       let startY = 0;
       let moved = false;
@@ -1047,11 +1009,11 @@
         if(Math.abs(event.clientX - startX) > 10 || Math.abs(event.clientY - startY) > 10) moved = true;
       });
       card.addEventListener('pointercancel', () => { moved = true; });
-      card.addEventListener('click', () => { if(!moved) openPersonaModal(index); });
+      card.addEventListener('click', () => { if(!moved) openPersonaModal(index()); });
       card.addEventListener('keydown', event => {
         if(event.key === 'Enter' || event.key === ' '){
           event.preventDefault();
-          openPersonaModal(index);
+          openPersonaModal(index());
         }
       });
     });

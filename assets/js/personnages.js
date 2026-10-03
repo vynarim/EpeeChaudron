@@ -26,9 +26,9 @@
 //                  epoque:'Fin XIVe – début XVe siècle', lieu:'Vallée du Rhône / Provence'
 //   Ces quatre champs viennent de l'analyse des costumes, costumes/analyse.json :
 //   corriger l'analyse, puis « npm run costumes -- appliquer » les recopie ici.
-//   Deux entrées du même nom : un membre, deux costumes. Le site n'en fait
-//   qu'une carte et qu'une fiche, où les costumes se relaient ; leur donner
-//   les mêmes ateliers.
+//   Deux entrées du même nom : un membre, deux costumes. Le carrousel n'en
+//   fait qu'une carte, où les costumes se relaient ; chaque costume garde sa
+//   fiche complète. Leur donner les mêmes ateliers.
 //   texte : FACULTATIF — ce qui s'ajoute encore sous l'atelier. Une phrase,
 //           ou un tableau de paragraphes :
 //           texte: ['Premier paragraphe.', 'Second paragraphe.']
