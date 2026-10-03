@@ -806,17 +806,36 @@
     }, 350);
   }
   // Fait tourner les costumes d'un membre ; renvoie de quoi arrêter.
-  function relayerCostumes(persona, afficher){
+  // costumes() rend la liste à faire tourner : tous les costumes, ou ceux du
+  // siècle choisi dans le filtre.
+  function relayerCostumes(persona, costumes, afficher){
     if(persona.costumes.length < 2) return () => {};
     // Portraits suivants chargés d'avance : le fondu ne montre pas un cadre vide.
     persona.costumes.slice(1).forEach(c => { const i = new Image(); i.src = c.img; });
     let rang = 0;
     const minuterie = window.setInterval(() => {
-      rang = (rang + 1) % persona.costumes.length;
-      afficher(persona.costumes[rang]);
+      const liste = costumes();
+      if(liste.length < 2) return;
+      rang = (rang + 1) % liste.length;
+      afficher(liste[rang]);
     }, RELAIS_COSTUMES);
     return () => window.clearInterval(minuterie);
   }
+  // Siècles que couvre un costume : son siècle, et ceux que nomme son époque
+  // (« Fin XIVe – début XVe siècle » compte pour les deux). Un costume dont
+  // l'époque n'est pas affichée n'en a aucun.
+  const ROMAINS = {XI: 11, XII: 12, XIII: 13, XIV: 14, XV: 15};
+  function sieclesDe(costume){
+    if(costume.epoqueAffichee !== true) return [];
+    const siecles = new Set(costume.siecle ? [costume.siecle] : []);
+    String(costume.epoque || '').replace(/\b([XVI]+)e\b/g, (_, romain) => {
+      if(ROMAINS[romain]) siecles.add(ROMAINS[romain]);
+      return _;
+    });
+    return [...siecles];
+  }
+  const siecleChoisi = new Set();
+  const correspond = costume => !siecleChoisi.size || sieclesDe(costume).some(s => siecleChoisi.has(s));
   const personaCards = [];
   if(personaTrack){
     personas.forEach((persona, index) => {
@@ -851,19 +870,62 @@
         img.src = costume.img;
         img.alt = costume.alt || persona.name;
         role.textContent = costume.role;
-        hook.textContent = costume.hook;
+        hook.textContent = insecables(costume.hook);
         if(contexte) contexte.remove();
         contexte = personaContexte(costume, 'persona-contexte');
         if(contexte) body.append(contexte);
       };
       afficher(persona.costumes[0]);
-      relayerCostumes(persona, costume => fondu([img, body], () => afficher(costume)));
+      card.costumes = persona.costumes;
+      card.afficher = afficher;
+      relayerCostumes(persona, () => card.costumes, costume => fondu([img, body], () => afficher(costume)));
       // Le carrousel attend que tous les costumes aient été vus avant d'avancer.
       if(persona.costumes.length > 1) card.dataset.dureeMin = String(persona.costumes.length * RELAIS_COSTUMES);
       persona.costumes.forEach(costume => { ficheVersCarte[fiches.indexOf(costume)] = card; });
       card.append(figure, body);
       personaTrack.appendChild(card);
       personaCards.push(card);
+    });
+  }
+
+  // Filtre par siècle (ordinateur seulement, voir le CSS) : rien de choisi,
+  // tout le monde ; un ou plusieurs siècles, les costumes qui en relèvent. Un
+  // costume à cheval sur deux siècles répond aux deux. La carte d'un membre à
+  // deux costumes ne fait plus tourner que ceux du siècle choisi.
+  const filtresSiecle = document.querySelector('[data-siecle-filtres]');
+  if(filtresSiecle && personaCards.length){
+    const presents = new Set(fiches.flatMap(sieclesDe));
+    const filtrer = () => {
+      personaCards.forEach(card => {
+        const visibles = card.costumes = personas[personaCards.indexOf(card)].costumes.filter(correspond);
+        card.hidden = !visibles.length;
+        if(visibles.length && !visibles.includes(fiches[Number(card.dataset.fiche)])) card.afficher(visibles[0]);
+        if(visibles.length > 1) card.dataset.dureeMin = String(visibles.length * RELAIS_COSTUMES);
+        else delete card.dataset.dureeMin;
+      });
+      const carrousel = personaTrack.closest('[data-carousel]');
+      if(carrousel) carrousel.dispatchEvent(new CustomEvent('carousel:refresh'));
+    };
+    Object.entries(SIECLES).forEach(([siecle, nom]) => {
+      const n = Number(siecle);
+      const bouton = document.createElement('button');
+      bouton.type = 'button';
+      bouton.className = 'module-filter';
+      bouton.textContent = nom.replace(' siècle', '');
+      bouton.setAttribute('aria-label', nom);
+      bouton.setAttribute('aria-pressed', 'false');
+      // Aucun costume de ce siècle pour l'instant : le bouton reste, grisé.
+      if(!presents.has(n)){
+        bouton.disabled = true;
+        bouton.title = 'Aucun personnage de ce siècle pour l’instant';
+      }
+      bouton.addEventListener('click', () => {
+        if(siecleChoisi.has(n)) siecleChoisi.delete(n); else siecleChoisi.add(n);
+        bouton.classList.toggle('is-active', siecleChoisi.has(n));
+        bouton.setAttribute('aria-pressed', String(siecleChoisi.has(n)));
+        filtrer();
+      });
+      filtresSiecle.appendChild(bouton);
     });
   }
 
@@ -880,6 +942,14 @@
     const personaModalPrev = personaModal.querySelector('[data-persona-modal-prev]');
     const personaModalNext = personaModal.querySelector('[data-persona-modal-next]');
     let personaIndex = 0;
+
+    // Les flèches de la fiche ne parcourent que les costumes du siècle choisi.
+    const fichesVisibles = () => fiches.map((f, i) => i).filter(i => correspond(fiches[i]));
+    function pas(delta){
+      const liste = fichesVisibles();
+      const rang = liste.indexOf(personaIndex);
+      showPersona(liste[((rang + delta) % liste.length + liste.length) % liste.length]);
+    }
 
     function showPersona(index){
       const total = fiches.length;
@@ -939,7 +1009,8 @@
           personaModalDetails.appendChild(p);
         });
       }
-      personaModalCounter.textContent = (personaIndex + 1) + ' / ' + total;
+      const visibles = fichesVisibles();
+      personaModalCounter.textContent = (visibles.indexOf(personaIndex) + 1) + ' / ' + visibles.length;
     }
 
     animateursDe = titre => {
@@ -1039,10 +1110,9 @@
     });
 
     personaModalClose.addEventListener('click', closePersonaModal);
-    personaModalPrev.addEventListener('click', () => showPersona(personaIndex - 1));
-    personaModalNext.addEventListener('click', () => showPersona(personaIndex + 1));
-    enableSwipe(personaModal.querySelector('.module-modal-panel'),
-      () => showPersona(personaIndex - 1), () => showPersona(personaIndex + 1));
+    personaModalPrev.addEventListener('click', () => pas(-1));
+    personaModalNext.addEventListener('click', () => pas(1));
+    enableSwipe(personaModal.querySelector('.module-modal-panel'), () => pas(-1), () => pas(1));
     personaModal.addEventListener('click', event => {
       if(event.target === personaModal) closePersonaModal();
     });
@@ -1053,11 +1123,11 @@
         return;
       }
       if(event.key === 'ArrowLeft'){
-        showPersona(personaIndex - 1);
+        pas(-1);
         return;
       }
       if(event.key === 'ArrowRight'){
-        showPersona(personaIndex + 1);
+        pas(1);
         return;
       }
       if(event.key !== 'Tab') return;
@@ -1183,8 +1253,9 @@
         return dot;
       });
     };
+    // Une carte masquée (filtre par siècle) ne compte pas.
     const refresh = () => {
-      items = Array.from(track.children);
+      items = Array.from(track.children).filter(item => !item.hidden);
       computeStops();
       buildDots();
       update();
@@ -1213,6 +1284,12 @@
     window.addEventListener('resize', () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(refresh, 120);
+    });
+    // Le contenu a changé (filtre) : recalculer et repartir du début.
+    root.addEventListener('carousel:refresh', () => {
+      refresh();
+      goTo(0, false);
+      restart();
     });
 
     if('IntersectionObserver' in window){

@@ -126,6 +126,17 @@ h2{
 /* Titres et chapeaux de section sur toute la largeur du corps de page,
    alignés sur les cartes qu'ils annoncent. */
 .section-title{margin-bottom:24px}
+/* Titre des personnages et filtre par siècle, sur la même ligne. */
+.titre-et-filtres{display:flex;align-items:center;flex-wrap:wrap;gap:8px 18px}
+.titre-et-filtres h2{margin:0}
+.titre-et-filtres + p{margin-top:.5rem}
+.siecle-filtres{display:flex;gap:6px;flex-wrap:wrap}
+.siecle-filtres .module-filter{padding:.35rem .65rem;font-size:.8rem;min-width:44px;min-height:36px}
+.siecle-filtres .module-filter:disabled{opacity:.4;cursor:default}
+/* Carte écartée par le filtre : .persona fixe son display, [hidden] doit l'emporter. */
+.persona[hidden]{display:none}
+/* Sur téléphone, le carrousel se parcourt au doigt : pas de filtre. */
+@media (max-width:620px){.siecle-filtres{display:none}}
 .intro-text p,.section-title p{color:var(--muted)}
 .organisers p{color:var(--muted);max-width:620px}
 
@@ -350,7 +361,7 @@ h2{
 .persona-modal-panel>img{min-height:0;object-position:50% 12%}
 .persona-modal-role{margin:0 0 .25rem;color:var(--blue);font-weight:800;font-size:.95rem}
 /* Le métier à l'époque : une remise en contexte discrète, sous le rôle. */
-.persona-modal-metier{margin:0 0 .6rem;color:var(--muted);font-size:.88rem;line-height:1.45}
+.persona-modal-metier{margin:.15rem 0 1.15rem;color:var(--muted);font-size:.88rem;line-height:1.45}
 .persona-modal-details p{margin:0 0 1rem;color:var(--muted);font-style:italic;font-size:1.06rem;line-height:1.5}
 /* L'accroche est en italique ; l'atelier et le texte qui la suivent restent droits. */
 .persona-modal-details p ~ p{font-style:normal;font-size:1rem}
@@ -589,7 +600,7 @@ h2{
   .persona-modal-content h2{order:0;margin:0;font-size:1.22rem}
   .persona-modal-role{order:1;margin:0;font-size:.94rem}
   .persona-modal-counter{order:2;position:static;margin-left:auto}
-  .persona-modal-metier{order:3;flex-basis:100%;margin:.3rem 0 0;font-size:.84rem;line-height:1.38}
+  .persona-modal-metier{order:3;flex-basis:100%;margin:.5rem 0 .25rem;font-size:.84rem;line-height:1.38}
   .persona-modal-details{order:4;flex-basis:100%;margin-top:.3rem}
   .persona-modal-details p,.persona-modal-details p ~ p{margin-bottom:.25rem;font-size:.94rem;line-height:1.35}
   .persona-modal-details .persona-modal-contexte{font-size:.8rem;line-height:1.2;margin:.15rem 0 .45rem}
