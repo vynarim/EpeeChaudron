@@ -431,12 +431,12 @@ h2{
   /* Fiche d'atelier, photo en largeur : toute la fiche défile d'un bloc. La
      photo, entière et à son format, reste en haut ; le texte monte par-dessus
      comme une feuille qu'on tire. Sur un écran bas, la photo se limite aux
-     trois quarts de la fiche, centrée sur un fond bleu nuit. */
+     trois quarts de la fiche, centrée sur un fond gris anthracite. */
   [data-module-modal] .module-modal-panel.is-paysage{
     --l-fiche:calc(min(var(--max),100vw - 32px) * var(--part-fiche));
     --haut-photo:min(75%,var(--l-fiche) * 520 / 720);
     display:block;overflow-y:auto;overscroll-behavior:contain;
-    background:linear-gradient(var(--blue-dark),var(--blue-dark)) top/100% var(--haut-photo) no-repeat,var(--paper-2)
+    background:linear-gradient(#2b2d31,#2b2d31) top/100% var(--haut-photo) no-repeat,var(--paper-2)
   }
   [data-module-modal] .module-modal-panel.is-paysage>img{
     position:sticky;top:0;display:block;margin:0 auto;
@@ -460,9 +460,9 @@ h2{
     top:calc(2.5dvh + min(95dvh * .75,var(--l-fiche) * 520 / 720) / 2)
   }
   /* Ascenseur discret : fin, translucide, sans flèches. */
-  .module-modal-panel,.module-modal-content{scrollbar-width:thin;scrollbar-color:rgba(7,26,68,.28) transparent}
+  .module-modal-panel,.module-modal-content{scrollbar-width:thin;scrollbar-color:rgba(43,45,49,.45) transparent}
   .module-modal-panel::-webkit-scrollbar,.module-modal-content::-webkit-scrollbar{width:6px}
-  .module-modal-panel::-webkit-scrollbar-thumb,.module-modal-content::-webkit-scrollbar-thumb{background:rgba(7,26,68,.28);border-radius:6px}
+  .module-modal-panel::-webkit-scrollbar-thumb,.module-modal-content::-webkit-scrollbar-thumb{background:rgba(43,45,49,.45);border-radius:6px}
   .module-modal-panel::-webkit-scrollbar-button,.module-modal-content::-webkit-scrollbar-button{display:none}
   /* Titre de l’atelier plus près de la photo et du texte. */
   [data-module-modal] .module-modal-panel.is-paysage .module-modal-content{padding-top:22px}
@@ -577,7 +577,7 @@ h2{
   .topbar .nav-label{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .topbar .nav-long{display:none}
   .topbar .nav-short{display:inline}
-  .topbar .nav a[aria-current="page"]{background:var(--blue-dark)!important;color:var(--gold)!important;box-shadow:inset 0 0 0 1px rgba(242,204,40,.55),0 3px 10px rgba(7,26,68,.28)}
+  .topbar .nav a[aria-current="page"]{background:var(--blue-dark)!important;color:var(--gold)!important;box-shadow:inset 0 0 0 1px rgba(242,204,40,.55),0 3px 10px rgba(43,45,49,.45)}
 
   /* Hero */
   .hero-image{height:285px;min-height:285px}
