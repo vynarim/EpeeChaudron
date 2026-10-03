@@ -57,8 +57,15 @@ export function lirePersonnages() {
   new Function('window', fs.readFileSync(PERSONNAGES, 'utf8'))(bac);
   const liste = bac.EC_PERSONNAGES || [];
   const compte = {};
-  for (const p of liste) compte[p.name] = (compte[p.name] || 0) + 1;
-  for (const p of liste) p.cle = compte[p.name] > 1 ? `${p.name} — ${p.role}` : p.name;
+  const ajouter = k => { compte[k] = (compte[k] || 0) + 1; };
+  for (const p of liste) { ajouter(p.name); ajouter(p.name + ' | ' + p.role); }
+  // Même nom et même rôle (deux costumes de forgeron) : le portrait départage.
+  const portrait = p => path.basename(p.img, path.extname(p.img)).replace(/^personnages-/, '');
+  for (const p of liste) {
+    p.cle = compte[p.name] < 2 ? p.name
+      : compte[p.name + ' | ' + p.role] < 2 ? `${p.name} — ${p.role}`
+      : `${p.name} — ${p.role} (${portrait(p)})`;
+  }
   return liste;
 }
 
@@ -297,7 +304,8 @@ function appliquer() {
     if (manques(f).length) continue;
     const p = personnages.find(x => x.cle === f.nom);
     if (!p || !ecarts(f, p).length) continue;
-    const i = lignes.findIndex(l => l.includes(`name:${js(p.name)}`) && l.includes(`role:${js(p.role)}`));
+    // Le portrait désigne la ligne sans ambiguïté, même à nom et rôle égaux.
+    const i = lignes.findIndex(l => l.includes(`img:${js(p.img)}`));
     if (i < 0) { console.warn(`${f.nom} : ligne introuvable dans personnages.js, à corriger à la main.`); continue; }
     lignes[i] = reecrire(lignes[i], f);
     faits.push(f.nom);

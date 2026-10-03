@@ -21,7 +21,7 @@
       "historique": []
     },
     {
-      "nom": "Frédéric",
+      "nom": "Frédéric — Forgeron (frederic)",
       "date": "2026-10-01",
       "empreinte": "0a96f08db385d258",
       "verdict": "affiche",
@@ -33,6 +33,19 @@
       "details": "Rien à signaler.",
       "metier": "Raccord. Le pourpoint ajusté est une tenue d’artisan aisé. À la forge, un tablier de cuir compléterait la tenue et protégerait des étincelles.",
       "historique": []
+    },
+    {
+      "nom": "Frédéric — Forgeron (frederic-forge)",
+      "date": "2026-10-03",
+      "empreinte": "b32f1e178c472e51",
+      "verdict": "affiche",
+      "historique": [],
+      "siecle": 13,
+      "lieu": "Europe",
+      "alt": "Frédéric en forgeron : chapeau de paille, cotte brune de laine, ceinture de cuir, chausses vertes, une rose de fer forgé à la main",
+      "tient": "La cotte de laine brune, droite, à encolure ronde et manches longues ajustées, qui s’arrête au genou : la coupe simple des hommes de métier au XIIIe. Le chapeau de paille à large bord, qu’on voit aux artisans et aux paysans dans les enluminures du milieu du XIIIe. La ceinture de cuir étroite à boucle, les chausses de laine verte.",
+      "details": "La bourse ronde en cuir noir, fermée par un bouton de métal, n’a pas de modèle précis à cette époque : une aumônière de cuir souple, à rabat, serait plus courante.",
+      "metier": "Très raccord. Cotte courte qui dégage les jambes, outil glissé à la ceinture, rose forgée en main, marteau et enclume. Pour peaufiner : un tablier de cuir contre les étincelles. L’enclume à longue bigorne et à talon carré est d’un modèle plus récent ; au XIIIe, on forgeait surtout sur un tas, un bloc de fer carré planté dans le billot."
     },
     {
       "nom": "Perrette",

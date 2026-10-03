@@ -811,7 +811,7 @@
       card.setAttribute('role', 'button');
       card.setAttribute('aria-haspopup', 'dialog');
       card.setAttribute('aria-label', 'Voir la fiche de ' + persona.name + ', '
-        + persona.costumes.map(c => c.role).join(' et '));
+        + [...new Set(persona.costumes.map(c => c.role))].join(' et '));
       card.dataset.personaIndex = String(index);
       const figure = document.createElement('figure');
       figure.className = 'persona-figure';
