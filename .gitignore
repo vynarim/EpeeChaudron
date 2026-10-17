@@ -26,3 +26,9 @@ assets/img/ateliers/*.JPEG
 
 # Page à partager fabriquée par scripts/costumes.mjs : se refait à la demande
 costumes/page/
+
+# Devis : outil de poste (scripts/devis.mjs). Fiches et PDF vivent dans le
+# dossier Contrats de l'association, jamais dans ce dépôt public.
+Devis *.json
+Devis *.pdf
+Devis *.html

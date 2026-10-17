@@ -60,6 +60,10 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `costumes/analyse.json` — analyse des costumes, portrait par portrait
   (siècle, région, pièces qui dénotent). Jamais mise en ligne. Procédure :
   skill `costumes` (`.claude/skills/costumes/`), outil `scripts/costumes.mjs`.
+- `scripts/devis.mjs`, `scripts/devis.css` — devis PDF pour un organisateur,
+  outil de poste jamais mis en ligne. Skill `devis` (`.claude/skills/devis/`).
+  Le dépôt est public : tarifs, adresse, téléphone, SIRET, signature et devis
+  restent dans le dossier Contrats de l'association, jamais dans le dépôt.
 - `assets/js/main.js` — interactions ; à ne toucher que si le comportement doit
   changer.
 - `manifest.webmanifest` — description de l'application installable.
@@ -108,6 +112,7 @@ npm install
 npm run dev                          # serveur local Vite
 npm run check                        # fichiers, chemins d'images, manifeste
 npm run costumes                     # costumes à analyser, écarts avec le site
+npm run devis -- nouveau "<Ville>"   # fiche de devis (hors dépôt), puis npm run devis -- <fiche>
 bash scripts/deploy.sh --dry-run     # ce qui partirait en ligne (site public)
 npm run verif-serveur                # le serveur est-il bien ce qu'on a envoyé ?
 ```
