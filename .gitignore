@@ -8,6 +8,7 @@ dist/
 # Identifiants : jamais dans le dépôt
 *.htpasswd
 *.pwd
+deploy/acces-sftp.local
 
 # Photos d'origine des personnages et des ateliers : converties en WebP,
 # jamais versionnées

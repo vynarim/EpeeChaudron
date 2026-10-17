@@ -5,24 +5,25 @@ compilation. Mettre en ligne = copier les fichiers sur l'hébergement.
 
 ## 1. Hébergement
 
-> Ne jamais écrire de mot de passe ici : ce fichier est dans le dépôt git
-> (privé aujourd'hui — retirer les identifiants s'il devient public).
+> Ce dépôt est public : n'écrire ici ni mot de passe, ni identifiant de
+> compte, ni login SFTP. L'hôte et le login SFTP sont dans
+> `deploy/acces-sftp.local` (ignoré par git), le mot de passe dans
+> `%USERPROFILE%\.epeechaudron-sftp`.
 
 | Élément | Valeur |
 | --- | --- |
-| Hébergeur | OVH — hébergement web mutualisé, offre **Free hosting** (100 Mo d'espace disque, le site en occupe ~7 Mo), datacentre `eu-west-gra`, cluster `[cluster retiré]` |
-| Compte client OVH | identifiant `[identifiant OVH retiré]` (titulaire : [titulaire]) — https://www.ovh.com/manager/ |
+| Hébergeur | OVH — hébergement web mutualisé, offre **Free hosting** (100 Mo d'espace disque, le site en occupe ~7 Mo), datacentre `eu-west-gra` |
+| Compte client OVH | identifiant connu du titulaire — https://www.ovh.com/manager/ |
 | Nom de domaine | `epee-chaudron.fr`, enregistré chez OVH le 4 nov. 2013, expire le 4 nov. 2027 |
 | Renouvellement | hébergement : automatique (prévu nov. 2027). Domaine : la fiche du domaine affiche **« Fréquence de renouvellement : aucune »** — à activer, ou renouveler à la main avant le 4 nov. 2027 |
 | Serveurs DNS | `ns106.ovh.net` / `dns106.ovh.net` — zone gérée chez OVH |
-| Adresse du serveur web | IPv4 `[IP retirée]`, IPv6 `[IP retirée]` |
-| Accès aux fichiers | hôte `[hôte SFTP retiré]` — SFTP port 22 (activé) ou FTP port 21 — login `LOGIN_SFTP`, répertoire home `/home/LOGIN_SFTP` |
-| Dossier racine du site | `www/` (site « Website-www », domaines associés : `epee-chaudron.fr`, `www.epee-chaudron.fr`, `[adresse technique retirée]`) |
+| Accès aux fichiers | SFTP port 22 (activé) ou FTP port 21 — hôte et login dans `deploy/acces-sftp.local`, répertoire home `/home/<login>` |
+| Dossier racine du site | `www/` (site « Website-www », domaines associés : `epee-chaudron.fr`, `www.epee-chaudron.fr`) |
 | Où sont conservés les mots de passe | _(à compléter : gestionnaire de mots de passe de …)_ |
 | Certificat HTTPS | Let's Encrypt actif sur `epee-chaudron.fr` et `www.epee-chaudron.fr` (émis le 15/11/2025, renouvelé automatiquement par OVH) |
 | Adresse mail de contact | `contact@epee-chaudron.fr` — adresses e-mail OVH incluses dans l'offre (actives) |
-| Dépôt de code | https://github.com/vynarim/EpeeChaudron (privé) — branche `main` |
-| Personne référente | [titulaire], titulaire du domaine et de l'hébergement |
+| Dépôt de code | https://github.com/vynarim/EpeeChaudron (public) — branche `main` |
+| Personne référente | le titulaire du domaine et de l'hébergement |
 
 ## 2. Contenu du dossier à envoyer
 
@@ -53,8 +54,8 @@ assets/img/logo-square.webp
    s'affiche : la page, une photo en plein écran, une fiche animation.
 2. Lancer `npm run check` : il doit répondre « Vérification OK ».
 3. Lancer `bash scripts/deploy.sh` (voir 3 bis). À défaut de script, se
-   connecter en SFTP à `[hôte SFTP retiré]` (port 22, login
-   `LOGIN_SFTP`, par exemple avec FileZilla ou WinSCP) et envoyer dans `www/`
+   connecter en SFTP (port 22, hôte et login dans `deploy/acces-sftp.local`,
+   par exemple avec FileZilla ou WinSCP) et envoyer dans `www/`
    `index.html`, `manifest.webmanifest`, `sw.js`, `robots.txt`, le fichier
    `google*.html` et le dossier `assets/`, plus `deploy/prod.htaccess` renommé
    en `.htaccess`, en **écrasant** les fichiers existants.
@@ -68,9 +69,12 @@ Depuis le 29/09/2026, le site est servi à la racine : https://epee-chaudron.fr/
 Il n'y a plus de répertoire de recette ni de mot de passe — **chaque envoi part
 directement chez les visiteurs**.
 
-1. Écrire le mot de passe SFTP du compte `LOGIN_SFTP` sur une seule ligne dans
+1. Écrire le mot de passe SFTP sur une seule ligne dans
    `%USERPROFILE%\.epeechaudron-sftp` — **hors du dépôt**, donc impossible à
    committer par accident. (Ou renseigner la variable `OVH_SFTP_PASSWORD`.)
+   Écrire l'hôte et le login dans `deploy/acces-sftp.local`, ignoré par git :
+   deux lignes `HOST=…` et `USER=…` (ou les variables `OVH_SFTP_HOST` et
+   `OVH_SFTP_USER`).
 2. Lancer :
 
 ```bash

@@ -5,10 +5,23 @@
 # depuis la variable OVH_SFTP_PASSWORD, ou depuis le fichier désigné par
 # OVH_SFTP_PASSWORD_FILE (par défaut ~/.epeechaudron-sftp), et transmis à curl
 # par son entrée standard.
+#
+# L'hôte et le login ne sont pas dans le dépôt, qui est public : ils sont lus
+# dans deploy/acces-sftp.local (ignoré par git, deux lignes HOST=… et USER=…),
+# ou dans les variables OVH_SFTP_HOST et OVH_SFTP_USER.
 
-HOST="[hôte SFTP retiré]"
-USER="LOGIN_SFTP"
-REMOTE_DIR="/home/LOGIN_SFTP/www"
+ACCES="deploy/acces-sftp.local"
+HOST="${OVH_SFTP_HOST:-}"
+USER="${OVH_SFTP_USER:-}"
+if [ -z "$HOST" ] || [ -z "$USER" ]; then
+  if [ ! -f "$ACCES" ]; then
+    echo "Accès SFTP introuvable : ni OVH_SFTP_HOST/OVH_SFTP_USER, ni $ACCES" >&2
+    exit 1
+  fi
+  HOST="${HOST:-$(sed -n 's/^HOST=//p' "$ACCES" | tr -d '')}"
+  USER="${USER:-$(sed -n 's/^USER=//p' "$ACCES" | tr -d '')}"
+fi
+REMOTE_DIR="/home/$USER/www"
 
 # Ce qui est en ligne d'après le dernier envoi : taille, empreinte SHA-256 et
 # chemin de chaque fichier. Écrit par deploy.sh, relu par verif-serveur.sh.
