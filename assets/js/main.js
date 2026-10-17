@@ -318,6 +318,14 @@
       const resume = document.createElement('p');
       resume.textContent = atelier.resume;
       corps.append(titre, resume);
+      // Animation à supplément : un petit badge sur la photo l'annonce dès la
+      // carte. Hors du titre, que la fiche et la liste de souhaits relisent.
+      if(atelier.option){
+        const badge = document.createElement('span');
+        badge.className = 'module-badge-option';
+        badge.textContent = 'Option';
+        card.appendChild(badge);
+      }
 
       const details = document.createElement('div');
       details.className = 'module-details';

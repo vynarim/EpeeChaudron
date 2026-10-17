@@ -73,7 +73,8 @@ h2{
   border-bottom:1px solid var(--line);
 }
 .brand{display:flex;align-items:center;gap:10px;min-width:0;min-height:44px}
-.brand img{width:38px;height:38px;border-radius:10px;object-fit:cover;border:2px solid var(--gold);background:var(--blue)}
+/* L'écusson a son propre cadre brodé : pas de coins arrondis qui le rogneraient. */
+.brand img{width:38px;height:38px}
 .brand span{display:grid;min-width:0}
 .brand strong{font-size:1rem;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .brand small{font-size:.72rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -189,6 +190,12 @@ h2{
   background:rgba(7,26,68,.62);color:#fff;border-radius:999px;
   padding:.28rem .55rem;font-size:.7rem;font-weight:700;letter-spacing:.01em;
   box-shadow:0 1px 4px rgba(0,0,0,.08);pointer-events:none;
+}
+.module-badge-option{
+  position:absolute;left:10px;top:10px;pointer-events:none;
+  background:rgba(255,250,240,.9);color:var(--ink);border-radius:999px;
+  padding:.18rem .5rem;font-size:.66rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 1px 4px rgba(0,0,0,.1);
 }
 .module-wishlist{
   position:absolute;z-index:2;right:6px;bottom:6px;width:44px;height:44px;padding:0;

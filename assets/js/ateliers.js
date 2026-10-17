@@ -32,7 +32,7 @@ window.EC_ATELIERS = [
     categorie: 'ateliers',
     img: 'assets/img/ateliers/ateliers-cuisine.webp',
     alt: 'Deux marmites de fonte fumantes sur les braises, et des volailles qui rôtissent sur un gril suspendu à des chaînes',
-    titre: 'Cuisine au feu',
+    titre: 'Cuisine sur table à feu',
     resume: 'Feu, ustensiles, recettes, gestes quotidiens et arts de la table.',
     texte: [
       'Autour du foyer, le public découvre comment on préparait et partageait les repas au Moyen Âge. Les explications portent sur l’allumage et l’entretien du feu, les ustensiles, les modes de cuisson, les ingrédients disponibles et l’organisation quotidienne du camp.',
