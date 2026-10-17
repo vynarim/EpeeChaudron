@@ -109,6 +109,7 @@ h2 span {
   text-transform: uppercase;
 }
 .renvoi { font-size: 8.4pt; color: var(--muted); }
+.renvoi a, .note-intention a { color: var(--blue); text-decoration: none; }
 
 .puces, .conditions { margin: 0 0 2mm; padding-left: 5mm; }
 .puces li, .conditions li { margin-bottom: 1.2mm; }

@@ -527,7 +527,7 @@ ${d.brouillon ? '<div class="filigrane" aria-hidden="true">Projet · non contrac
 <p>Le camp vit en continu : on y cuisine, on y travaille, on y explique les gestes, et le public observe, questionne et participe. Voici ce que la mesnie présentera :</p>
 <ul class="ateliers">${presentes.map(x => carte(x, false)).join('')}${enOption.map(x => carte(x, true)).join('')}
 </ul>
-<p class="renvoi">Photos et fiches détaillées des animations : <strong>${h(a.site.replace(/^https?:\/\//, ''))}</strong></p>
+<p class="renvoi">Photos et fiches détaillées des animations : <a href="${h(a.site)}"><strong>${h(a.site.replace(/^https?:\/\//, ''))}</strong></a></p>
 ${multi ? `<div class="liste-formules">${F.map(f => `
   <div><p class="etiquette">Formule ${h(f.lettre)} · ${h(f.nom)}</p>
   <p>${h(f.resume || `${f.nbJours} jour${f.nbJours > 1 ? 's' : ''}${f.soiree ? ' et une soirée' : ''}.`)}</p></div>`).join('')}
@@ -676,7 +676,11 @@ function equipe(texte) {
 // #, ##, ###, paragraphes, listes « - », **gras** — mis en page avec
 // l'en-tête et le gabarit du devis.
 function markdown(texte) {
-  const enLigne = s => h(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+  // Une adresse web écrite dans le texte (epee-chaudron.fr, https://…) devient
+  // un lien cliquable ; une adresse mail reste du texte.
+  const liens = s => s.replace(/(?<![@\w.\/-])((?:https?:\/\/)?(?:[\w-]+\.)+(?:fr|com|org|net|eu)(?:\/[^\s<]*)?)(?<![.,;:])/g,
+    (m, url) => `<a href="${/^https?:/.test(url) ? url : `https://${url}`}">${url}</a>`);
+  const enLigne = s => liens(h(s)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
   const blocs = [];
   for (const bloc of texte.replace(/\r/g, '').split(/\n{2,}/)) {
     const lignes = bloc.split('\n').filter(l => l.trim());
