@@ -435,6 +435,7 @@ function page(d, c, asso, ateliers) {
     acc.bottesPaille ? `${acc.bottesPaille} bottes de paille pour délimiter le camp et la lice (nous apportons piquets et cordages).` : null,
     acc.sanitaires ? 'L’accès à des sanitaires à proximité du camp.' : null,
     acc.surveillanceNuit ? 'Une surveillance du camp la nuit, contre les vols et les incivilités.' : null,
+    acc.electricite ? 'Si possible, une prise électrique près du camp : en été, elle alimente nos glacières, cachées aux yeux du public.' : null,
     heb?.aLoger ? `Le logement de ${heb.aLoger} membres près du camp (gîte, chambres ou salle avec couchage), pour chaque nuit sur place, veille comprise.` : null,
     ...(acc.autres || [])
   ].filter(Boolean);
