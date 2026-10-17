@@ -111,6 +111,7 @@ sources/                   Écusson de l'association en pleine définition (jama
 scripts/costumes.mjs       Analyse des costumes : état, report sur le site, page à partager
 costumes/analyse.json      Analyse des costumes, portrait par portrait (jamais en ligne)
 scripts/devis.mjs          Devis PDF pour un organisateur (outil de poste ; devis et tarifs hors dépôt)
+scripts/devis.css          Mise en page A4 des devis
 scripts/deploy.sh          Mise en ligne du site sur https://epee-chaudron.fr/
 scripts/verif-serveur.sh   Contrôle que le serveur n'a rien reçu d'autre que nos envois
 scripts/sftp-commun.sh     Accès SFTP partagé par les deux scripts (hôte, login et mot de passe hors dépôt)
@@ -304,10 +305,64 @@ npm run costumes -- page                  # refaire la page à partager avec la 
 ```
 
 La procédure complète, et la grille de datation qui garde les analyses
-cohérentes d'une fois sur l'autre, sont dans `.claude/skills/costumes/`.
+cohérentes d'une fois sur l'autre, sont dans la skill `costumes`
+(`.claude/skills/costumes/`, voir [Skills de projet](#skills-de-projet)).
 
 Pour remplacer un portrait, déposer la nouvelle photo sous le même nom de
 fichier, puis faire analyser le costume de nouveau.
+
+## Skills de projet
+
+Deux procédures sont écrites pour Claude Code, dans `.claude/skills/`. Elles
+se lancent depuis une session ouverte sur ce dossier, par leur nom
+(`/costumes`, `/devis`) ou simplement en le demandant. Ni l'une ni l'autre
+n'est mise en ligne.
+
+| Skill | Sert à | Se lance par exemple avec |
+|---|---|---|
+| `costumes` | Dater le costume de chaque personnage (siècle, région, pièces qui dénotent), reporter le résultat sur le site et republier la page partagée avec la troupe. Voir [Analyse des costumes](#analyse-des-costumes). | « analyse le costume de … », « nouveau personnage » |
+| `devis` | Fabriquer le devis PDF d'une prestation pour une mairie ou un organisateur, à partir des animations du site. | « fais un devis pour la mairie de … », ou le mail de l'organisateur collé tel quel |
+
+### Faire un devis
+
+La skill `devis` pose un court questionnaire, ou part du mail de
+l'organisateur, et ne demande que ce qui manque. Le devis reprend les
+textes et les photos des animations de `assets/js/ateliers.js` : une
+animation renommée sur le site l'est aussi dans le devis suivant.
+
+- **Socle** : les animations que la troupe présente toujours figurent sur
+  chaque devis ; le reste s'ajoute à la demande, et les animations à
+  supplément (forge, arc et arbalète, taille de pierre) en option, avec
+  leur ligne au tableau.
+- **Équipe** : d'après les ateliers des personnages, l'outil dit ce que les
+  membres présents permettent de proposer, et refuse une animation que
+  personne parmi eux n'anime.
+- **Déplacement** : inclus près du siège, au-delà un forfait ferme calculé
+  pour le camion de la troupe, affiché même quand il est offert.
+- **Formules** : une mairie qui hésite reçoit plusieurs formules (une
+  journée, un week-end…) chiffrées côte à côte dans un seul devis, d'abord
+  en brouillon (filigrane, sans signature, sous réserve des membres).
+- **Note d'intention** : quand un cahier des charges en demande une, elle
+  s'écrit en Markdown à côté du devis et sort en PDF avec le même en-tête.
+- **Contrôles** : tous les montants sont calculés par le script ; il refuse
+  une fiche incomplète, une validité dépassée ou une image manquante.
+
+```bash
+npm run devis -- nouveau "<Ville>" [<année>]   # fiche du devis, numérotée
+npm run devis -- "<chemin de la fiche .json>"  # contrôle, montants, PDF
+npm run devis -- equipe "<Nom>, <Nom>"         # possible / impossible avec ces membres
+npm run devis -- liste                         # devis déjà faits
+npm run devis -- note "<chemin du .md>"        # note d'intention en PDF
+```
+
+Le dépôt étant public, il ne contient que la mécanique. Les tarifs, le
+barème de déplacement, l'adresse, le téléphone, le SIRET, la signature et
+les devis eux-mêmes restent dans le dossier Contrats de l'association, sur
+le poste (`Contrats/_devis/association.json`, puis
+`Contrats/<Ville>/<année>/Devis <Ville> <année>.json` et `.pdf`) ; la
+variable `EC_CONTRATS` permet d'en changer l'emplacement. Le script refuse
+d'écrire un devis dans le dépôt. Procédure complète :
+`.claude/skills/devis/`.
 
 ## Déploiement
 
