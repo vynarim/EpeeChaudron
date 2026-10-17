@@ -8,22 +8,43 @@ d'intervention, à destination des organisateurs de fêtes médiévales, de
 reconstitutions et de sites patrimoniaux. La troupe s'installe en herbe ou en
 terre, dans un cadre historique ou champêtre. Voir [`PRODUCT.md`](PRODUCT.md).
 
+**En ligne : https://epee-chaudron.fr/**
+
+<p align="center">
+  <img src="docs/captures/site-ordinateur.jpg" width="66%" alt="Page d'accueil sur ordinateur : photo de la troupe en costumes devant sa bannière et une tente médiévale, à côté du titre « La vie de camp d'une mesnie médiévale » et du bouton « Organiser une animation »">
+  <img src="docs/captures/site-telephone.jpg" width="24%" alt="La même page sur téléphone : photo de la troupe, carte de présentation, et barre de navigation fixe en bas de l'écran">
+</p>
+
 ## Fonctionnalités
 
-- page d'accueil responsive avec présentation rapide de l'association ;
-- catalogue de fiches animations ouvrables en plein écran ;
+### Animations et contact
+
+- catalogue de fiches animations ouvrables en plein écran, filtrable par
+  thème (camp, ateliers, armes) ; sur téléphone, les six premières seulement,
+  un bouton déplie le reste ;
 - navigation précédente/suivante entre les fiches, également au clavier ;
 - ajout d'animations à une liste de souhaits depuis une fiche ou une carte ;
 - conservation de cette liste dans le navigateur avec `localStorage` ;
 - génération d'un courriel de contact prérempli avec les animations choisies ;
-- présentation des formats court, journée et week-end sous forme d'onglets ;
+- présentation des formats sous forme d'onglets : en pratique, journée,
+  week-end, intervention ponctuelle.
+
+### Personnages et photos
+
 - galerie des personnages de la mesnie en carrousel horizontal (portrait,
-  rôle, accroche), chaque portrait ouvrant sa fiche en plein écran ;
+  rôle, accroche, siècle et région du costume), chaque portrait ouvrant sa
+  fiche en plein écran ; un membre à deux costumes les fait alterner sur sa
+  carte ;
+- filtre des personnages par siècle, sur ordinateur ;
 - passage d'une fiche à la suivante aux flèches, au clavier ou d'un
   glissement du doigt, sur les animations comme sur les personnages ;
 - galerie photo en carrousel horizontal : glissement au doigt, flèches,
-  défilement automatique qui s'arrête dès qu'on interagit, ouverture en
-  lightbox ;
+  ouverture en lightbox ;
+- défilement automatique des deux carrousels, qui s'arrête dès qu'on
+  interagit.
+
+### Navigation et application
+
 - navigation mobile fixe avec indication de la section en cours de lecture ;
 - bouton flottant de retour en haut après une hauteur d'écran ;
 - animations d'apparition progressives respectant `prefers-reduced-motion` ;
@@ -76,22 +97,30 @@ assets/js/personnages.js   Données des personnages
 assets/img/full/           Images en grand format
 assets/img/thumbs/         Miniatures de la galerie photo
 assets/img/ateliers/       Photos des ateliers (720×520)
-assets/img/personnages/    Portraits des personnages (300×400)
+assets/img/personnages/    Portraits des personnages (900×1200)
 assets/img/icons/          Icônes d'application et captures d'installation
 deploy/prod.htaccess       Configuration Apache de la racine (HTTPS, redirections)
 deploy/v2-sw.js            Désinscrit le service worker de l'ancienne recette /v2/
+deploy/costumes/           Adresse courte de la page des costumes, pour les membres
+robots.txt                 Consignes aux moteurs de recherche
+google*.html               Validation de la Google Search Console (ne pas supprimer)
 scripts/check-project.mjs  Contrôle des fichiers, du manifeste et des chemins
 scripts/portrait.mjs       Recadrage et conversion des portraits de personnages
+scripts/icones.mjs         Logo, favicons et icônes d'application, tirés de l'écusson
+sources/                   Écusson de l'association en pleine définition (jamais en ligne)
 scripts/costumes.mjs       Analyse des costumes : état, report sur le site, page à partager
 costumes/analyse.json      Analyse des costumes, portrait par portrait (jamais en ligne)
+scripts/devis.mjs          Devis PDF pour un organisateur (outil de poste ; devis et tarifs hors dépôt)
 scripts/deploy.sh          Mise en ligne du site sur https://epee-chaudron.fr/
 scripts/verif-serveur.sh   Contrôle que le serveur n'a rien reçu d'autre que nos envois
-scripts/sftp-commun.sh     Accès SFTP partagé par les deux scripts
+scripts/sftp-commun.sh     Accès SFTP partagé par les deux scripts (hôte, login et mot de passe hors dépôt)
 deploy/etat-en-ligne.txt   Ce qui est en ligne d'après le dernier envoi (tailles, empreintes)
 README_DEPLOIEMENT.md      Procédure de déploiement et de mise à jour du contenu
 AGENTS.md                  Règles à respecter avant de modifier le site
 PRODUCT.md                 Cible, positionnement et intentions
 DESIGN.md                  Charte graphique et ses règles
+docs/captures/             Captures d'écran de ce README (jamais mises en ligne)
+.claude/skills/            Procédures pour les agents de code (costumes, devis)
 ```
 
 Les photos suivent la convention `section-sujet.webp`, par exemple
@@ -127,7 +156,13 @@ Cette commande contrôle notamment :
 - plusieurs éléments critiques de la structure HTML/CSS ;
 - la validité du manifeste, ses champs obligatoires, ses icônes 192 et 512,
   la présence d'une icône « maskable » et l'existence de chaque image
-  qu'il déclare.
+  qu'il déclare ;
+- les ateliers et les personnages (champs, doublons, photos), avec un rappel
+  des costumes restant à analyser.
+
+Une fois le site en ligne, `npm run verif-serveur` contrôle que le serveur
+ne contient rien d'autre que ce qui a été envoyé (voir
+[`README_DEPLOIEMENT.md`](README_DEPLOIEMENT.md)).
 
 ## Application installable
 
@@ -214,8 +249,8 @@ leur navigateur le retient. Ne jamais le changer une fois en ligne. Le titre,
 lui, n'est que de l'affichage : on peut le corriger ou le renommer librement.
 
 `npm run check` exécute le fichier et refuse un champ manquant, une catégorie
-qui ne correspond à aucun filtre, un titre ou un identifiant en double, et une
-photo absente.
+qui ne correspond à aucun filtre de thème, un titre ou un identifiant en
+double, et une photo absente.
 
 ## Modifier les personnages
 
@@ -271,13 +306,16 @@ npm run costumes -- page                  # refaire la page à partager avec la 
 La procédure complète, et la grille de datation qui garde les analyses
 cohérentes d'une fois sur l'autre, sont dans `.claude/skills/costumes/`.
 
-Les portraits actuels sont des reprises de l'ancien site en basse définition :
-remplacer le fichier par une photo HD du même nom suffit.
+Pour remplacer un portrait, déposer la nouvelle photo sous le même nom de
+fichier, puis faire analyser le costume de nouveau.
 
 ## Déploiement
 
-Le site ne nécessite aucune compilation pour être publié. Envoyer les fichiers
-du projet sur le serveur web en excluant `node_modules/`.
+Le site ne nécessite aucune compilation pour être publié.
+`bash scripts/deploy.sh` envoie sur le serveur la page, le manifeste, le
+service worker, `robots.txt`, le fichier de validation Google, `assets/` et le
+`.htaccess` — rien d'autre : ni la documentation, ni les scripts, ni
+`node_modules/`.
 
 Consulter [`README_DEPLOIEMENT.md`](README_DEPLOIEMENT.md) pour la procédure
 détaillée.
