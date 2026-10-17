@@ -54,8 +54,10 @@ const GABARIT = path.join(RACINE, 'scripts/devis.css');
 const ATELIERS = path.join(RACINE, 'assets/js/ateliers.js');
 const PERSONNAGES = path.join(RACINE, 'assets/js/personnages.js');
 
-// Photos du bandeau, dans l'ordre : le camp, la cuisine, le combat.
-const BANDEAU = ['accueil-troupe-camp', 'galerie-cuisine-foyer', 'galerie-armes-combattants'];
+// Photos du bandeau, dans l'ordre : le camp, la cuisine, les armes. Pas de
+// photo de plusieurs combattants en armure : la troupe en aligne rarement
+// autant, le devis ne doit pas le promettre.
+const BANDEAU = ['accueil-troupe-camp', 'galerie-cuisine-foyer', 'galerie-armes-ratelier'];
 const JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
 const MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
 
