@@ -144,9 +144,11 @@ h2{
 /* Bannière + texte sur une ligne, les trois points forts en rangée dessous :
    section compacte, sans colonne vide sur grand écran */
 .intro{background:var(--paper-2);padding:44px 0}
-.intro-grid{display:grid;grid-template-columns:170px 1fr;column-gap:36px;row-gap:22px;align-items:center}
-.intro-banner{background:#fff;border-radius:20px;padding:10px;box-shadow:var(--shadow);transform:rotate(-1deg)}
-.intro-banner img{border-radius:14px}
+.intro-grid{display:grid;grid-template-columns:120px 1fr;column-gap:36px;row-gap:22px;align-items:center}
+/* L'écusson a son propre cadre brodé : ni passe-partout, ni coins arrondis
+   qui le rogneraient. */
+.intro-banner{box-shadow:var(--shadow);transform:rotate(-1deg)}
+.intro-banner img{display:block}
 .intro-points{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .intro-points article{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
 .intro-points strong{display:block;color:var(--blue);font-size:.98rem}
@@ -594,7 +596,7 @@ h2{
 
   /* Intro : tout empilé, bannière centrée */
   .intro-grid{grid-template-columns:1fr;gap:18px}
-  .intro-banner{max-width:170px;margin-inline:auto}
+  .intro-banner{max-width:130px;margin-inline:auto}
   .intro-points{grid-template-columns:1fr}
   .intro-points article{padding:12px}
 

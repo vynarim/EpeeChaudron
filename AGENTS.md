@@ -66,6 +66,9 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `sw.js` — service worker, stratégie « réseau d'abord ». Lire l'en-tête du
   fichier avant d'y toucher.
 - `assets/img/icons/` — icônes d'application et captures d'installation.
+  Comme `assets/img/logo-square.webp`, elles sont fabriquées par
+  `npm run icones` à partir de `sources/ecusson-epee-chaudron.png` : ne pas
+  les retoucher à la main.
 
 Ajouter une photo, un atelier ou un personnage se fait dans les fichiers de
 données, sans modifier `index.html` ni le CSS. Un nouveau personnage, ou un

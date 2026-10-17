@@ -165,11 +165,20 @@ laisser. `npm run check` refuse de passer s'il disparaît.
 
 ### Refabriquer les icônes
 
-Toutes les icônes sont découpées dans la photo de bannière
-`assets/img/favicon.png` (512 × 512), sur **l'emblème seul** : le carré sous le
-bandeau de texte, x 60 → 430, y 90 → 460. Elles sont éclaircies au passage
-(`brightness(1.25) saturate(1.12) contrast(1.02)`) : la photo d'origine, prise à
-l'intérieur, rendait un bleu terne une fois réduite.
+Le logo et toutes les icônes sortent de l'écusson de l'association,
+`sources/ecusson-epee-chaudron.png` (1254 × 1254, hors du site en ligne). Une
+seule commande les refait tous :
+
+```bash
+npm run icones
+```
+
+L'écusson entier, nom compris, illustre la section « Voir, toucher,
+comprendre » (`assets/img/full/intro-ecusson-association.webp`). Tout le reste
+— icônes, favicons, logo de l'en-tête — est découpé sur **l'emblème seul** :
+le carré sous le bandeau du nom, x 55 → 1095, y 185 → 1225. Les zones sont en
+tête de `scripts/icones.mjs`. Pour un nouvel écusson, déposer le fichier sous
+le même nom, vérifier les zones, relancer la commande.
 
 Pourquoi l'emblème et pas la bannière entière, même en grand : **l'arrondi des
 coins d'une icône n'est pas décidé par le site mais par le téléphone** — iOS
@@ -194,8 +203,8 @@ Une même image sert aux usages `any` et `maskable` : comme elle remplit tout le
 carré, rien ne la distingue plus d'une version « avec marge », et la dupliquer
 ferait télécharger deux fois 500 Ko à l'installation.
 
-L'onglet du navigateur charge **1 Ko** (`favicon-16.png`), contre 359 Ko quand la
-photo de bannière servait telle quelle.
+L'onglet du navigateur charge **1 Ko** (`favicon-16.png`). `logo-square.webp`
+(96 × 96, l'emblème) est le logo de l'en-tête.
 
 Les deux captures `capture-mobile.jpg` (390 × 844) et `capture-desktop.jpg`
 (1280 × 800) s'affichent dans la fenêtre d'installation de Chrome. Les refaire

@@ -11,7 +11,7 @@
  * prévoir en échange un vrai numéro de version sur chaque fichier.
  */
 
-const VERSION = 'ec-2026-09-29';
+const VERSION = 'ec-2026-10-17';
 
 // Le strict nécessaire pour que la page s'affiche correctement hors ligne.
 // Les deux photos du haut de page en font partie : au tout premier chargement,
@@ -31,7 +31,7 @@ const COQUILLE = [
   './assets/img/icons/favicon-96.png',
   './assets/img/icons/icon-192.png',
   './assets/img/full/accueil-troupe-camp.webp',
-  './assets/img/full/intro-banniere-association.webp'
+  './assets/img/full/intro-ecusson-association.webp'
 ];
 
 self.addEventListener('install', event => {
