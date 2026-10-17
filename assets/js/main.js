@@ -974,7 +974,28 @@
       });
       const carrousel = personaTrack.closest('[data-carousel]');
       if(carrousel) carrousel.dispatchEvent(new CustomEvent('carousel:refresh'));
+      // La croix n'apparaît que lorsqu'il y a quelque chose à effacer.
+      reinitialiser.hidden = !siecleChoisi.size;
     };
+    // Croix de fin de rangée : tout désélectionner d'un geste.
+    const reinitialiser = document.createElement('button');
+    reinitialiser.type = 'button';
+    reinitialiser.className = 'siecle-reinitialiser';
+    reinitialiser.textContent = '×';
+    reinitialiser.setAttribute('aria-label', 'Afficher tous les siècles');
+    reinitialiser.title = 'Afficher tous les siècles';
+    reinitialiser.hidden = true;
+    reinitialiser.addEventListener('click', () => {
+      siecleChoisi.clear();
+      filtresSiecle.querySelectorAll('.module-filter').forEach(b => {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      filtrer();
+      // La croix vient de disparaître : le focus clavier ne doit pas se perdre.
+      const premier = filtresSiecle.querySelector('.module-filter:not(:disabled)');
+      if(premier) premier.focus();
+    });
     Object.entries(SIECLES).forEach(([siecle, nom]) => {
       const n = Number(siecle);
       const bouton = document.createElement('button');
@@ -996,6 +1017,7 @@
       });
       filtresSiecle.appendChild(bouton);
     });
+    filtresSiecle.appendChild(reinitialiser);
   }
 
   // Fiche personnage en plein écran, sur le modèle de la fiche animation.

@@ -133,6 +133,11 @@ h2{
 .siecle-filtres{display:flex;gap:6px;flex-wrap:wrap}
 .siecle-filtres .module-filter{padding:.35rem .65rem;font-size:.8rem;min-width:44px;min-height:36px}
 .siecle-filtres .module-filter:disabled{opacity:.4;cursor:default}
+/* Croix de réinitialisation : discrète, sans bordure, après les siècles. */
+.siecle-reinitialiser{min-width:36px;min-height:36px;padding:0;border:0;border-radius:999px;background:none;color:var(--muted);font-size:1.25rem;line-height:1;cursor:pointer}
+.siecle-reinitialiser[hidden]{display:none}
+.siecle-reinitialiser:hover{color:var(--ink);background:rgba(18,61,145,.06)}
+.siecle-reinitialiser:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 /* Carte écartée par le filtre : .persona fixe son display, [hidden] doit l'emporter. */
 .persona[hidden]{display:none}
 /* Sur téléphone, le carrousel se parcourt au doigt : pas de filtre. */
