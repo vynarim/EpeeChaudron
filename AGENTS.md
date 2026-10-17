@@ -70,9 +70,12 @@ exceptionnelles. Voir `PRODUCT.md`.
 - `sw.js` — service worker, stratégie « réseau d'abord ». Lire l'en-tête du
   fichier avant d'y toucher.
 - `assets/img/icons/` — icônes d'application et captures d'installation.
-  Comme `assets/img/logo-square.webp`, elles sont fabriquées par
-  `npm run icones` à partir de `sources/ecusson-epee-chaudron.png` : ne pas
-  les retoucher à la main.
+  Comme l'écusson `assets/img/ecusson-epee-chaudron.webp`, elles sont
+  fabriquées par `npm run icones` à partir de
+  `sources/ecusson-epee-chaudron.png` : ne pas les retoucher à la main.
+- Une image n'existe qu'une fois dans `assets/` : toutes les pages pointent
+  sur le même fichier, jamais sur une copie redimensionnée. L'écusson a son
+  propre cadre : ne pas lui arrondir les coins.
 
 Ajouter une photo, un atelier ou un personnage se fait dans les fichiers de
 données, sans modifier `index.html` ni le CSS. Un nouveau personnage, ou un

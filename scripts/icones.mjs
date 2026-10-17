@@ -8,13 +8,16 @@
 //   npm run icones
 //
 // Deux découpes :
-//   - l'écusson entier, nom compris, pour l'illustration de la section
-//     « Voir, toucher, comprendre » : à cette taille, le nom se lit ;
-//   - l'emblème seul (l'épée et le chaudron, sous le bandeau du nom) pour
-//     tout ce qui est petit ou arrondi par le téléphone : favicons, icônes
-//     d'application, logo de l'en-tête. Réduit à 32 px, le nom ne serait plus
-//     qu'un trait, et le masque rond d'Android le couperait. Voir
-//     « Refabriquer les icônes » dans README_DEPLOIEMENT.md.
+//   - l'écusson entier, nom compris, cadre brodé compris : un seul fichier,
+//     assets/img/ecusson-epee-chaudron.webp, pour toutes les pages (logo de
+//     l'en-tête, section « Voir, toucher, comprendre », devis). Ne jamais en
+//     faire de copie à une autre taille : toutes les pages pointent sur lui.
+//     Il s'affiche sans coins arrondis, qui rogneraient son cadre ;
+//   - l'emblème seul (l'épée et le chaudron, sous le bandeau du nom) pour les
+//     icônes, dont les tailles sont imposées par les navigateurs et les
+//     téléphones. Réduit à 32 px, le nom ne serait plus qu'un trait, et le
+//     masque rond d'Android le couperait. Voir « Refabriquer les icônes » dans
+//     README_DEPLOIEMENT.md.
 //
 // Les petites tailles sont réduites par paliers successifs de moitié : une
 // réduction directe de 1040 à 16 px donne une bouillie de pixels.
@@ -34,15 +37,11 @@ const ENTIER = [0, 0, 1254];
 const EMBLEME = [55, 185, 1040];
 
 const FICHIERS = [
-  { dst: 'assets/img/full/intro-ecusson-association.webp', zone: ENTIER, taille: 960, type: 'image/webp' },
-  { dst: 'assets/img/logo-square.webp', zone: EMBLEME, taille: 96, type: 'image/webp' },
+  { dst: 'assets/img/ecusson-epee-chaudron.webp', zone: ENTIER, taille: 512, type: 'image/webp' },
   { dst: 'assets/img/icons/icon-512.png', zone: EMBLEME, taille: 512, type: 'image/png' },
   { dst: 'assets/img/icons/icon-192.png', zone: EMBLEME, taille: 192, type: 'image/png' },
   { dst: 'assets/img/icons/apple-touch-icon.png', zone: EMBLEME, taille: 180, type: 'image/png' },
-  { dst: 'assets/img/icons/favicon-96.png', zone: EMBLEME, taille: 96, type: 'image/png' },
-  { dst: 'assets/img/icons/favicon-48.png', zone: EMBLEME, taille: 48, type: 'image/png' },
-  { dst: 'assets/img/icons/favicon-32.png', zone: EMBLEME, taille: 32, type: 'image/png' },
-  { dst: 'assets/img/icons/favicon-16.png', zone: EMBLEME, taille: 16, type: 'image/png' }
+  { dst: 'assets/img/icons/favicon-32.png', zone: EMBLEME, taille: 32, type: 'image/png' }
 ];
 
 async function navigateur() {

@@ -11,8 +11,8 @@ const required = [
   'assets/js/photos.js',
   'assets/js/personnages.js',
   'assets/js/ateliers.js',
-  'assets/img/logo-square.webp',
-  'assets/img/icons/favicon-96.png',
+  'assets/img/ecusson-epee-chaudron.webp',
+  'assets/img/icons/favicon-32.png',
   'assets/img/icons/apple-touch-icon.png',
   'assets/img/partage.jpg'
 ];

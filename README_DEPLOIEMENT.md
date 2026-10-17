@@ -41,7 +41,7 @@ assets/img/thumbs/         miniatures 720×520 de la galerie photo
 assets/img/ateliers/       photos 720×520 des ateliers
 assets/img/personnages/    portraits des personnages (format 3/4)
 assets/img/icons/          icônes d'application, icône iOS, favicon, captures
-assets/img/logo-square.webp
+assets/img/ecusson-epee-chaudron.webp   l'écusson : en-tête, section d'introduction, devis
 ```
 
 **Ne pas envoyer** : `node_modules/`, `.playwright-mcp/`, `.git/`, `.vscode/`,
@@ -173,9 +173,12 @@ seule commande les refait tous :
 npm run icones
 ```
 
-L'écusson entier, nom compris, illustre la section « Voir, toucher,
-comprendre » (`assets/img/full/intro-ecusson-association.webp`). Tout le reste
-— icônes, favicons, logo de l'en-tête — est découpé sur **l'emblème seul** :
+L'écusson entier, nom et cadre brodé compris, existe en **un seul fichier**,
+`assets/img/ecusson-epee-chaudron.webp` (512 × 512) : le logo de l'en-tête, la
+section « Voir, toucher, comprendre » et les devis pointent tous dessus. Ne pas
+en faire de copie à une autre taille, et ne pas lui arrondir les coins : ils
+rogneraient son cadre. Les icônes, dont les tailles sont imposées par les
+navigateurs et les téléphones, sont découpées sur **l'emblème seul** :
 le carré sous le bandeau du nom, x 55 → 1095, y 185 → 1225. Les zones sont en
 tête de `scripts/icones.mjs`. Pour un nouvel écusson, déposer le fichier sous
 le même nom, vérifier les zones, relancer la commande.
@@ -191,20 +194,18 @@ perdu pour autant : le téléphone l'écrit sous l'icône.
 
 | Fichier | Taille | Usage |
 | --- | --- | --- |
-| `icon-192.png` | 192 | icône d'application, déclarée deux fois dans le manifeste (`any` et `maskable`) |
+| `icon-192.png` | 192 | icône d'application, déclarée deux fois dans le manifeste (`any` et `maskable`) ; aussi favicon des écrans haute densité |
 | `icon-512.png` | 512 | idem, et écran de démarrage Android |
 | `apple-touch-icon.png` | 180 | écran d'accueil iOS |
-| `favicon-16.png` | 16 | onglet du navigateur |
-| `favicon-32.png` | 32 | onglet sur écran haute densité |
-| `favicon-48.png` | 48 | raccourcis Windows |
-| `favicon-96.png` | 96 | favoris, écrans haute densité |
+| `favicon-32.png` | 32 | onglet du navigateur (réduit par le navigateur en 16) |
 
 Une même image sert aux usages `any` et `maskable` : comme elle remplit tout le
 carré, rien ne la distingue plus d'une version « avec marge », et la dupliquer
 ferait télécharger deux fois 500 Ko à l'installation.
 
-L'onglet du navigateur charge **1 Ko** (`favicon-16.png`). `logo-square.webp`
-(96 × 96, l'emblème) est le logo de l'en-tête.
+L'onglet du navigateur charge **3 Ko** (`favicon-32.png`). `icon-512.png` pèse
+environ 650 Ko — la texture brodée se compresse mal en PNG — mais il n'est
+téléchargé qu'à l'installation de l'application, jamais par un simple visiteur.
 
 Les deux captures `capture-mobile.jpg` (390 × 844) et `capture-desktop.jpg`
 (1280 × 800) s'affichent dans la fenêtre d'installation de Chrome. Les refaire

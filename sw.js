@@ -11,7 +11,7 @@
  * prévoir en échange un vrai numéro de version sur chaque fichier.
  */
 
-const VERSION = 'ec-2026-10-17';
+const VERSION = 'ec-2026-10-17b';
 
 // Le strict nécessaire pour que la page s'affiche correctement hors ligne.
 // Les deux photos du haut de page en font partie : au tout premier chargement,
@@ -27,11 +27,9 @@ const COQUILLE = [
   './assets/js/photos.js',
   './assets/js/personnages.js',
   './assets/js/ateliers.js',
-  './assets/img/logo-square.webp',
-  './assets/img/icons/favicon-96.png',
-  './assets/img/icons/icon-192.png',
-  './assets/img/full/accueil-troupe-camp.webp',
-  './assets/img/full/intro-ecusson-association.webp'
+  './assets/img/ecusson-epee-chaudron.webp',
+  './assets/img/icons/favicon-32.png',
+  './assets/img/full/accueil-troupe-camp.webp'
 ];
 
 self.addEventListener('install', event => {
