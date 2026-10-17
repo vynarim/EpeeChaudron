@@ -70,7 +70,11 @@ Les devis ne vont jamais dans le dépôt : le script refuse d'écrire dedans.
      c'est un camp léger (2 tentes), monté le matin même si le déplacement
      est inclus, la veille sinon ; plusieurs jours, camp complet monté la
      veille. La journée type va de 10h à 18h ; au-delà, c'est exceptionnel
-     (défilé aux flambeaux). Une soirée s'écrit `soiree: { debut, fin,
+     (participer à un défilé que la fête organise). Un défilé, aux
+     flambeaux ou non, n'est jamais une animation de la troupe : elle n'en
+     fournit ni le matériel ni l'organisation, elle y participe quand
+     l'organisateur en monte un. Ne pas le proposer comme une prestation.
+     Une soirée s'écrit `soiree: { debut, fin,
      programme }` : un soir où l'on dort déjà sur place (samedi d'un
      week-end), elle ne coûte rien de plus ; **le dernier jour**, le camp ne
      se démonte pas : nuit sur place, hébergement et camion un jour de plus,
