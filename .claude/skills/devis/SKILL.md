@@ -1,6 +1,6 @@
 ---
 name: devis
-description: Fabrique le devis PDF d'une prestation de L'Épée et le Chaudron pour un organisateur (mairie, comité des fêtes, site patrimonial). Pose un questionnaire court — ou part du mail de l'organisateur collé dans la conversation — pour que le devis soit juste du premier coup ; dit ce que l'équipe présente permet de faire ou non ; inclut le déplacement sous 100 km et le chiffre au-delà, même offert. Outil de poste, jamais mis en ligne ; devis, tarifs et données privées restent hors du dépôt. Déclenche sur : « fais un devis », « nouveau devis », « devis pour la mairie de … », « on est sollicités par … », un mail d'organisateur collé avec une demande de prestation, « refais le devis de … », « qu'est-ce qu'on peut faire avec … », « combien on avait demandé à … », « liste des devis ».
+description: Fabrique le devis PDF d'une prestation de L'Épée et le Chaudron pour un organisateur (mairie, comité des fêtes, site patrimonial). Pose un questionnaire court — ou part du mail de l'organisateur collé dans la conversation — pour que le devis soit juste du premier coup ; dit ce que l'équipe présente permet de faire ou non ; inclut le déplacement sous 100 km et le facture au forfait au-delà, affiché même offert. Outil de poste, jamais mis en ligne ; devis, tarifs et données privées restent hors du dépôt. Déclenche sur : « fais un devis », « nouveau devis », « devis pour la mairie de … », « on est sollicités par … », un mail d'organisateur collé avec une demande de prestation, « refais le devis de … », « qu'est-ce qu'on peut faire avec … », « combien on avait demandé à … », « liste des devis ».
 ---
 
 # Devis
@@ -26,8 +26,11 @@ Les devis ne vont jamais dans le dépôt : le script refuse d'écrire dedans.
 
 1. **Questionnaire.** Suivre [`questionnaire.md`](questionnaire.md). Deux
    entrées possibles :
-   - un **mail** collé : en tirer tout ce qu'il dit, montrer ce qui a été
-     compris, puis ne poser que les questions restantes ;
+   - un **mail** collé, le cas le plus fréquent, parfois avec un cahier des
+     charges en PDF : lire les deux en entier, montrer ce qui a été compris,
+     puis ne poser que les questions restantes. Relever aussi ce que le
+     cahier des charges demande en plus du prix : plusieurs formules, note
+     d'intention, ventilation ;
    - des **éléments donnés en vrac** (dates, options, présents) : pareil,
      on complète ce qui manque.
    Prix, remise et déplacement offert se demandent toujours, même quand le
@@ -37,22 +40,68 @@ Les devis ne vont jamais dans le dépôt : le script refuse d'écrire dedans.
    possible sans d'autres membres, avant d'écrire la fiche.
 3. **Déplacement.** Distance aller depuis le siège (`deplacement.depart`),
    par recherche web avec la source. Jusqu'à `seuilKmInclus` km : inclus,
-   le devis l'écrit. Au-delà : estimation pour le camion
-   (`deplacement.camion` : location, carburant, péages aller-retour dans sa
-   classe), affichée même quand elle est offerte, pour montrer ce que coûte
-   la venue de la troupe. Les voitures des membres ne se facturent pas.
+   le devis l'écrit. Au-delà : un **forfait ferme**, jamais refacturé au
+   réel, calculé pour le camion (`deplacement.camion` : location, carburant,
+   péages aller-retour dans sa classe) et arrondi à la dizaine supérieure.
+   Un calcul trop bas est perdu pour l'association : soigner la distance et
+   les péages. Le forfait s'affiche même offert, pour montrer ce que coûte la
+   venue de la troupe. Les voitures des membres ne se facturent pas.
 4. **Récapitulatif**, validé par l'utilisateur avant toute génération.
 5. **Fiche.** `npm run devis -- nouveau "<Ville>" [<année>]`, puis la remplir.
-   `ateliers`, `options` : des `id` de `ateliers.js` ; `presents` : des noms
-   de `personnages.js`.
+   Le **socle** (`socle` de `association.json` : vie de camp, défilé,
+   cuisine, fruits et légumes, armes et armures, initiation à l'escrime,
+   enfants en lice) est toujours au devis, sans rien écrire ; seul
+   `evenement.defile: false` retire le défilé. `ateliers` ne contient que ce
+   qui s'ajoute au socle, à la demande de l'utilisateur ou de l'organisateur ;
+   `options`, les animations à supplément. Des `id` de `ateliers.js` ;
+   `presents` : des noms de `personnages.js`, ou les vrais prénoms du
+   glossaire `membres` de `association.json` (privé). Un prénom inconnu se
+   demande, puis s'ajoute au glossaire.
+   - **Plusieurs formules** quand l'organisateur hésite sur l'ampleur
+     (journée / journée et soirée / week-end) : une seule fiche, `formules`
+     = `[{ lettre, nom, debut, fin, ateliers, soiree, resume }]`. `ateliers`
+     au niveau de la fiche est commun à toutes ; chaque formule ajoute les
+     siens. Le PDF les chiffre côte à côte, l'organisateur coche la sienne.
+   - **Demande ouverte, première version** : `brouillon: true` (filigrane
+     « Projet · non contractuel », pas de signature, mention « sous réserve
+     des membres ») et les trois options affichées ; une option sans
+     animateur parmi les présents avertit au lieu de bloquer.
+   - **Formats** (`defauts.formats` de `association.json`) : une journée,
+     c'est un camp léger (2 tentes), monté le matin même si le déplacement
+     est inclus, la veille sinon ; plusieurs jours, camp complet monté la
+     veille. La journée type va de 10h à 18h ; au-delà, c'est exceptionnel
+     (défilé aux flambeaux). Une soirée s'écrit `soiree: { debut, fin,
+     programme }` : un soir où l'on dort déjà sur place (samedi d'un
+     week-end), elle ne coûte rien de plus ; **le dernier jour**, le camp ne
+     se démonte pas : nuit sur place, hébergement et camion un jour de plus,
+     démontage le lendemain. Le script la compte alors comme une journée
+     (`tarifs.soireeDernierJourEnJours`) et l'écrit. Ne jamais proposer une
+     soirée sans le dire à l'utilisateur ; une formule « journée + soirée »
+     demandée par une mairie coûte presque un week-end. Une soirée seule
+     (ni tente ni cuisine, animations en costume) n'a pas de tarif : le
+     fixer avec l'utilisateur.
+   - **Sol** : `accueil.sol` = `herbe`, `terre`, `goudron`, `paves` ou
+     `a-definir`. Hors herbe et terre, la clause des clous d'arpentage
+     (`conditionSolDur`) s'ajoute aux Conditions.
+   - **Hébergement** : `accueil.hebergement: { surPlace, aLoger }`. Les
+     repas restent inclus et n'ont jamais de ligne à eux.
+   - **Remise** : `{ libelle, pourcent }` (calculée par le script, une par
+     formule) ou `{ libelle, montant }`.
 6. **Générer.** `npm run devis -- "<chemin de la fiche>"`. Le script refuse
-   une fiche incomplète ou incohérente (déplacement non estimé, option sans
+   une fiche incomplète ou incohérente (distance non renseignée, option sans
    prix, validité dépassée, animation que personne parmi les présents
    n'anime) et calcule seul tous les montants : ne jamais en écrire un à la
    main dans la fiche.
-7. **Relire** le PDF avec `Read`. Deux pages ; sinon, alléger la liste des
-   animations plutôt que la typographie. Rendre le chemin du PDF et le
-   récapitulatif du script.
+7. **Relire** le PDF avec `Read`. Deux pages pour une prestation simple ;
+   trois pour un devis détaillé (plusieurs formules : le chiffrage, les
+   conditions et les signatures ouvrent la page 3). Au-delà, alléger la
+   liste des animations plutôt que la typographie. Rendre le chemin du PDF
+   et le récapitulatif du script.
+   **Note d'intention**, quand le cahier des charges en demande une : la
+   rédiger avec l'utilisateur dans `Note d'intention <Ville> <année>.md`, à
+   côté de la fiche (place dans la fête, concept, formules, implantation,
+   intervenants, besoins techniques, montage, sécurité, assurance et
+   références), puis `npm run devis -- note "<chemin du .md>"`.
 8. **Une fois signé** : le PDF signé se range à côté, sous un autre nom. Une
    fiche signée ne se régénère plus : nouveau chiffrage, nouvelle fiche.
 

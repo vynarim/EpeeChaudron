@@ -33,9 +33,11 @@ strong { color: var(--ink); }
   padding-bottom: 3mm;
   border-bottom: 1.2mm solid var(--gold);
 }
-.logo { width: 19mm; height: 19mm; border-radius: 1.5mm; }
+.logo { width: 19mm; height: 19mm; }
 .nom strong { display: block; font: 15pt/1.1 Georgia, "Times New Roman", serif; color: var(--blue-dark); }
-.nom span { color: var(--muted); font-size: 8.4pt; }
+.nom span { display: block; color: var(--muted); font-size: 8.4pt; }
+.nom .liens { margin-top: .6mm; }
+.nom a { color: var(--blue); text-decoration: none; }
 .entete address { font-style: normal; text-align: right; font-size: 8pt; line-height: 1.4; color: var(--muted); }
 
 .references {
@@ -58,7 +60,7 @@ h1 { margin: 0; font: 400 19pt/1.1 Georgia, "Times New Roman", serif; color: var
 .quand { margin: 1mm 0 4mm; color: var(--fire); font-weight: 700; }
 
 .bandeau { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; margin-bottom: 5mm; }
-.bandeau img { width: 100%; height: 30mm; object-fit: cover; border-radius: 2.5mm; }
+.bandeau img { width: 100%; height: 27mm; object-fit: cover; border-radius: 2.5mm; }
 
 /* --- Sections ---------------------------------------------------------- */
 
@@ -66,7 +68,7 @@ h2 {
   display: flex;
   align-items: center;
   gap: 2.5mm;
-  margin: 4mm 0 2mm;
+  margin: 3.4mm 0 1.8mm;
   font: 400 13pt/1.2 Georgia, "Times New Roman", serif;
   color: var(--blue-dark);
   break-after: avoid;
@@ -85,13 +87,13 @@ h2 span {
 .ateliers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.4mm 3.5mm;
+  gap: 1.8mm 3.5mm;
   margin: 3mm 0;
   padding: 0;
   list-style: none;
 }
-.atelier { display: grid; grid-template-columns: 14mm 1fr; gap: 2mm; align-items: start; break-inside: avoid; }
-.vignette { width: 14mm; height: 14mm; object-fit: cover; border-radius: 1.6mm; }
+.atelier { display: grid; grid-template-columns: 13mm 1fr; gap: 2mm; align-items: start; break-inside: avoid; }
+.vignette { width: 13mm; height: 13mm; object-fit: cover; border-radius: 1.6mm; }
 .vignette.vide { display: block; background: var(--paper); }
 .atelier strong { display: block; font-size: 8.8pt; line-height: 1.25; }
 .atelier span { display: block; font-size: 7.9pt; line-height: 1.3; color: var(--muted); }
@@ -134,8 +136,46 @@ tr.geste td { color: var(--fire); }
 tr.total td { background: var(--paper); font-weight: 700; color: var(--ink); border-bottom: .5mm solid var(--gold); }
 .note { font-size: 7.8pt; color: var(--muted); }
 
-.clauses { margin: 0; padding: 0; list-style: none; font-size: 7.8pt; line-height: 1.35; columns: 2; column-gap: 6mm; }
+.clauses { margin: 0; padding: 0; list-style: none; font-size: 7.5pt; line-height: 1.32; columns: 2; column-gap: 6mm; }
 .clauses li { margin-bottom: 1.2mm; break-inside: avoid; }
+
+/* --- Plusieurs formules ------------------------------------------------ */
+
+.pastille.formule { background: var(--paper); color: var(--blue) !important; white-space: nowrap; }
+.liste-formules { break-inside: avoid; display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 3mm; margin: 2mm 0 1mm; }
+.liste-formules > div { padding: 2mm 3mm; border-left: .8mm solid var(--gold); background: var(--paper); border-radius: 0 2mm 2mm 0; }
+.liste-formules p:last-child { margin: 0; font-size: 8.4pt; line-height: 1.35; }
+.puces ul { margin: .8mm 0 0; padding-left: 4mm; }
+.puces ul li { margin-bottom: .6mm; }
+.comparatif td:first-child { width: 46%; }
+.comparatif th { white-space: nowrap; }
+/* Trois pages : le chiffrage, les conditions et les signatures ensemble. */
+body.formules .chiffrage { break-before: page; }
+.choix { display: flex; gap: 5mm; font-weight: 700; color: var(--ink); }
+
+/* --- Note d'intention -------------------------------------------------- */
+
+.note-intention { font-size: 10pt; line-height: 1.5; }
+.note-intention h1 { margin: 6mm 0 2mm; }
+.note-intention h2 { margin-top: 5mm; padding-bottom: 1mm; border-bottom: .3mm solid var(--line); }
+.note-intention h3 { margin: 3mm 0 1mm; font-size: 10.5pt; color: var(--blue); }
+.note-intention .puces li { margin-bottom: 1.4mm; }
+
+/* --- Brouillon --------------------------------------------------------- */
+
+.filigrane {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font: 700 29pt/1 Georgia, "Times New Roman", serif;
+  color: rgba(194, 63, 22, .2);
+  white-space: nowrap;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 10;
+}
 
 .signatures { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 2.5mm; }
 .signatures > div { padding: 2.5mm 4mm; border: .3mm solid var(--line); border-radius: 2.5mm; }
